@@ -1,8 +1,11 @@
 import { getCurrentStudent } from '@/lib/mock-api';
+import { authHeaders } from '@/lib/auth-api';
+import { apiBase } from '@/lib/api-base';
 
 function headers(extra?: Record<string, string>) {
   const me = getCurrentStudent();
   return {
+    ...authHeaders(),
     'X-Student-Id': me.id || 's1',
     'X-Student-Batch': me.batch || '',
     'X-Student-Name': me.name || '',
@@ -12,7 +15,7 @@ function headers(extra?: Record<string, string>) {
 }
 
 async function notes<T>(path: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(`/api${path}`, {
+  const res = await fetch(`${apiBase()}${path}`, {
     ...options,
     headers: {
       ...headers(options?.body instanceof FormData ? undefined : options?.body ? { 'Content-Type': 'application/json' } : undefined),
@@ -80,7 +83,7 @@ export function deleteTeacherNote(id: string) {
 }
 
 export async function teacherNoteFileUrl(id: string) {
-  const res = await fetch(`/api/notes/teacher/${id}/file`, { headers: headers() });
+  const res = await fetch(`${apiBase()}/notes/teacher/${id}/file`, { headers: headers() });
   if (!res.ok) throw new Error('Could not open this file.');
   return URL.createObjectURL(await res.blob());
 }
@@ -94,7 +97,7 @@ export function studentNoteMeta(id: string) {
 }
 
 export async function studentNotePageUrl(id: string, page: number) {
-  const res = await fetch(`/api/notes/student/${id}/page/${page}`, { headers: headers() });
+  const res = await fetch(`${apiBase()}/notes/student/${id}/page/${page}`, { headers: headers() });
   if (!res.ok) {
     let detail = 'This page is locked.';
     try {

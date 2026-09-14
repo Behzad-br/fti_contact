@@ -1,5 +1,7 @@
 /** Production auth session + API helpers. */
 
+import { apiBase } from '@/lib/api-base';
+
 export type AuthRole = 'student' | 'teacher' | 'branch_admin' | 'super_admin';
 
 export type AuthUser = {
@@ -53,7 +55,7 @@ export function authHeaders(): Record<string, string> {
 }
 
 export async function apiLogin(username: string, password: string, role?: string) {
-  const res = await fetch('/api/auth/login', {
+  const res = await fetch(`${apiBase()}/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password, role }),
@@ -67,7 +69,7 @@ export async function apiLogin(username: string, password: string, role?: string
 }
 
 export async function apiMe() {
-  const res = await fetch('/api/auth/me', { headers: { ...authHeaders() } });
+  const res = await fetch(`${apiBase()}/auth/me`, { headers: { ...authHeaders() } });
   if (!res.ok) throw new Error('Session expired');
   const user = (await res.json()) as AuthUser;
   localStorage.setItem(USER_KEY, JSON.stringify(user));
@@ -75,7 +77,7 @@ export async function apiMe() {
 }
 
 export async function orgFetch<T>(path: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(`/api${path}`, {
+  const res = await fetch(`${apiBase()}${path}`, {
     ...options,
     headers: {
       ...authHeaders(),

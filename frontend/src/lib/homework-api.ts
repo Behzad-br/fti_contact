@@ -1,7 +1,11 @@
+import { authHeaders } from "@/lib/auth-api";
+import { apiBase } from "@/lib/api-base";
+
 async function hw<T>(path: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(`/api${path}`, {
+  const res = await fetch(`${apiBase()}${path}`, {
     ...options,
     headers: {
+      ...authHeaders(),
       "X-Student-Id": "local",
       "X-Admin-Token": localStorage.getItem("writing_admin_token") || "",
       ...(options?.body && !(options.body instanceof FormData) ? { "Content-Type": "application/json" } : {}),

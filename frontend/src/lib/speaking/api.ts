@@ -8,14 +8,13 @@ import {
   Health,
   Evaluation,
 } from "./types";
-
-const API_BASE = "/api";
+import { apiBase } from "@/lib/api-base";
 
 async function request<T>(
   path: string,
   options?: RequestInit
 ): Promise<T> {
-  const url = `${API_BASE}${path}`;
+  const url = `${apiBase()}${path}`;
   let res: Response;
 
   try {
@@ -27,7 +26,7 @@ async function request<T>(
     });
   } catch (networkErr: any) {
     throw new Error(
-      "Cannot connect to server. Make sure the backend is running on port 8000."
+      "Cannot connect to server. Make sure the backend is running."
     );
   }
 

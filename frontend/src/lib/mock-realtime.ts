@@ -1,11 +1,12 @@
 import { io, type Socket } from 'socket.io-client';
+import { socketOrigin } from '@/lib/api-base';
 
 let socket: Socket | null = null;
 let lastJoin: { role: 'student' | 'teacher'; assignmentId: string; studentId?: string } | null = null;
 
 export function mockSocket() {
   if (!socket) {
-    socket = io({ path: '/socket.io', transports: ['websocket', 'polling'], autoConnect: true });
+    socket = io(socketOrigin(), { path: '/socket.io', transports: ['websocket', 'polling'], autoConnect: true });
     socket.on('connect', () => {
       if (lastJoin) socket?.emit('join_assignment', lastJoin);
     });

@@ -36,7 +36,13 @@ class Settings(BaseSettings):
     MINIMAX_MODEL: str = "MiniMax-Text-01"
 
     def model_post_init(self, __context):
-        """Map provider-specific keys onto generic LLM settings."""
+        """Normalize DB URL and map provider-specific keys onto generic LLM settings."""
+        url = (self.DATABASE_URL or "").strip()
+        if not url or url.lower() in {"sqlite", "local"}:
+            self.DATABASE_URL = f"sqlite:///{_PROJECT_ROOT / 'data' / 'ielts_speaking.db'}"
+        else:
+            self.DATABASE_URL = url
+
         provider = (self.LLM_PROVIDER or "").strip().lower()
         wants_openai = provider == "openai" or bool(self.OPENAI_API_KEY.strip())
 
@@ -66,6 +72,7 @@ class Settings(BaseSettings):
     WHISPER_LANGUAGE: str = "en"
 
     # ── Database ──────────────────────────────────────────────────────────────
+    # Empty / omitted → local SQLite. Set postgresql://… for Neon / other free cloud DB.
     DATABASE_URL: str = f"sqlite:///{_PROJECT_ROOT / 'data' / 'ielts_speaking.db'}"
 
     # ── Question bank ─────────────────────────────────────────────────────────

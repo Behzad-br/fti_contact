@@ -7,14 +7,32 @@ from pathlib import Path
 
 from app.config import settings
 
-# Ensure data directory exists
-Path(settings.DATABASE_URL.replace("sqlite:///", "")).parent.mkdir(parents=True, exist_ok=True)
+_DATABASE_URL = (settings.DATABASE_URL or "").strip()
+_IS_SQLITE = _DATABASE_URL.startswith("sqlite:")
 
-engine = create_engine(
-    settings.DATABASE_URL,
-    connect_args={"check_same_thread": False},  # needed for SQLite + FastAPI
-    echo=False,
-)
+
+def _build_engine():
+    if _IS_SQLITE:
+        # Ensure local data directory exists for file-backed SQLite.
+        raw = _DATABASE_URL.replace("sqlite:///", "", 1)
+        if raw and not raw.startswith(":memory:"):
+            Path(raw).parent.mkdir(parents=True, exist_ok=True)
+        return create_engine(
+            _DATABASE_URL,
+            connect_args={"check_same_thread": False},
+            echo=False,
+        )
+    # Postgres / other remote engines (Neon, Supabase, Railway, …)
+    return create_engine(
+        _DATABASE_URL,
+        pool_pre_ping=True,
+        pool_size=5,
+        max_overflow=10,
+        echo=False,
+    )
+
+
+engine = _build_engine()
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
@@ -31,7 +49,7 @@ def get_db():
 
 
 def init_db():
-    """Create all tables and apply lightweight SQLite column migrations."""
+    """Create all tables and apply lightweight column migrations (SQLite/Postgres)."""
     from sqlalchemy import inspect, text
 
     from app.speaking import models as _  # noqa: F401
@@ -45,48 +63,46 @@ def init_db():
 
     Base.metadata.create_all(bind=engine)
 
+    # Additive column migrations — SQLAlchemy create_all won't alter existing tables.
     inspector = inspect(engine)
     tables = inspector.get_table_names()
-    if "test_sessions" in tables:
-        columns = {col["name"] for col in inspector.get_columns("test_sessions")}
-        if "practice_part" not in columns:
-            with engine.begin() as conn:
-                conn.execute(text("ALTER TABLE test_sessions ADD COLUMN practice_part INTEGER"))
-    if "reading_attempts" in tables:
-        reading_cols = {col["name"] for col in inspector.get_columns("reading_attempts")}
-        if "snapshot_json" not in reading_cols:
-            with engine.begin() as conn:
-                conn.execute(text("ALTER TABLE reading_attempts ADD COLUMN snapshot_json TEXT"))
-    if "writing_questions" in tables:
-        writing_cols = {col["name"] for col in inspector.get_columns("writing_questions")}
-        writing_alters = {
-            "book_id": "ALTER TABLE writing_questions ADD COLUMN book_id VARCHAR",
-            "book_title": "ALTER TABLE writing_questions ADD COLUMN book_title VARCHAR",
-            "test_number": "ALTER TABLE writing_questions ADD COLUMN test_number INTEGER",
-            "pack_test_id": "ALTER TABLE writing_questions ADD COLUMN pack_test_id VARCHAR",
-        }
+
+    def _add_column(table: str, column: str, ddl: str):
+        if table not in tables:
+            return
+        cols = {col["name"] for col in inspector.get_columns(table)}
+        if column in cols:
+            return
         with engine.begin() as conn:
-            for name, sql in writing_alters.items():
-                if name not in writing_cols:
-                    conn.execute(text(sql))
-    if "mock_attempts" in tables:
-        mock_cols = {col["name"] for col in inspector.get_columns("mock_attempts")}
-        mock_alters = {
-            "screen_share_active": "ALTER TABLE mock_attempts ADD COLUMN screen_share_active BOOLEAN DEFAULT 0",
-            "last_warning": "ALTER TABLE mock_attempts ADD COLUMN last_warning VARCHAR",
-            "connection_status": "ALTER TABLE mock_attempts ADD COLUMN connection_status VARCHAR",
-        }
-        with engine.begin() as conn:
-            for name, sql in mock_alters.items():
-                if name not in mock_cols:
-                    conn.execute(text(sql))
-    if "mock_assignments" in tables:
-        assign_cols = {col["name"] for col in inspector.get_columns("mock_assignments")}
-        assign_alters = {
-            "paper_source": "ALTER TABLE mock_assignments ADD COLUMN paper_source VARCHAR DEFAULT 'bank'",
-            "result_mode": "ALTER TABLE mock_assignments ADD COLUMN result_mode VARCHAR DEFAULT 'teacher'",
-        }
-        with engine.begin() as conn:
-            for name, sql in assign_alters.items():
-                if name not in assign_cols:
-                    conn.execute(text(sql))
+            conn.execute(text(ddl))
+
+    _add_column("test_sessions", "practice_part", "ALTER TABLE test_sessions ADD COLUMN practice_part INTEGER")
+    _add_column("reading_attempts", "snapshot_json", "ALTER TABLE reading_attempts ADD COLUMN snapshot_json TEXT")
+    _add_column("writing_questions", "book_id", "ALTER TABLE writing_questions ADD COLUMN book_id VARCHAR")
+    _add_column("writing_questions", "book_title", "ALTER TABLE writing_questions ADD COLUMN book_title VARCHAR")
+    _add_column("writing_questions", "test_number", "ALTER TABLE writing_questions ADD COLUMN test_number INTEGER")
+    _add_column("writing_questions", "pack_test_id", "ALTER TABLE writing_questions ADD COLUMN pack_test_id VARCHAR")
+    if _IS_SQLITE:
+        _add_column(
+            "mock_attempts",
+            "screen_share_active",
+            "ALTER TABLE mock_attempts ADD COLUMN screen_share_active BOOLEAN DEFAULT 0",
+        )
+    else:
+        _add_column(
+            "mock_attempts",
+            "screen_share_active",
+            "ALTER TABLE mock_attempts ADD COLUMN screen_share_active BOOLEAN DEFAULT FALSE",
+        )
+    _add_column("mock_attempts", "last_warning", "ALTER TABLE mock_attempts ADD COLUMN last_warning VARCHAR")
+    _add_column("mock_attempts", "connection_status", "ALTER TABLE mock_attempts ADD COLUMN connection_status VARCHAR")
+    _add_column(
+        "mock_assignments",
+        "paper_source",
+        "ALTER TABLE mock_assignments ADD COLUMN paper_source VARCHAR DEFAULT 'bank'",
+    )
+    _add_column(
+        "mock_assignments",
+        "result_mode",
+        "ALTER TABLE mock_assignments ADD COLUMN result_mode VARCHAR DEFAULT 'teacher'",
+    )

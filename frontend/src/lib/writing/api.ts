@@ -1,12 +1,11 @@
 import { authHeaders, getAuthUser } from "@/lib/auth-api";
+import { apiBase } from "@/lib/api-base";
 import {
   WritingAttempt,
   WritingMock,
   WritingProgress,
   WritingQuestion,
 } from "./types";
-
-const API_BASE = "/api";
 
 export function getStudentId(): string {
   if (typeof window === "undefined") return "";
@@ -31,9 +30,9 @@ async function request<T>(path: string, options?: RequestInit & { admin?: boolea
   }
   let res: Response;
   try {
-    res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+    res = await fetch(`${apiBase()}${path}`, { ...options, headers });
   } catch {
-    throw new Error("Cannot connect to server. Make sure the backend is running on port 8000.");
+    throw new Error("Cannot connect to server. Make sure the backend is running.");
   }
   if (!res.ok) {
     let detail = `HTTP ${res.status}`;

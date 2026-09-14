@@ -1,5 +1,6 @@
 import { getCurrentStudent, homeworkAliasesForStudent } from '@/lib/mock-api';
 import { authHeaders } from '@/lib/auth-api';
+import { apiBase } from '@/lib/api-base';
 
 function studentHeaders(): Record<string, string> {
   const student = getCurrentStudent();
@@ -13,7 +14,7 @@ function studentHeaders(): Record<string, string> {
 
 async function api<T>(path: string, options?: RequestInit): Promise<T> {
   const teacherId = localStorage.getItem('ielts-current-teacher-id') || '';
-  const res = await fetch(`/api${path}`, {
+  const res = await fetch(`${apiBase()}${path}`, {
     ...options,
     headers: {
       ...studentHeaders(),

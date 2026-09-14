@@ -1,4 +1,5 @@
 import { authHeaders, getAuthUser } from "@/lib/auth-api";
+import { apiBase, apiOrigin } from "@/lib/api-base";
 import {
   ReadingAttemptPayload,
   ReadingCatalog,
@@ -7,8 +8,6 @@ import {
   ReadingResult,
   ReadingTest,
 } from "./types";
-
-const API_BASE = "/api";
 
 export function getStudentId(): string {
   if (typeof window === "undefined") return "";
@@ -25,9 +24,9 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   };
   let res: Response;
   try {
-    res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+    res = await fetch(`${apiBase()}${path}`, { ...options, headers });
   } catch {
-    throw new Error("Cannot connect to server. Make sure the backend is running on port 8000.");
+    throw new Error("Cannot connect to server. Make sure the backend is running.");
   }
   if (!res.ok) {
     let detail = `HTTP ${res.status}`;
@@ -117,16 +116,22 @@ export async function readingProgress() {
 
 export function diagramUrl(asset?: string | null) {
   if (!asset) return "";
-  if (asset.startsWith("data:") || asset.startsWith("http://") || asset.startsWith("https://") || asset.startsWith("/")) {
+  if (asset.startsWith("data:") || asset.startsWith("http://") || asset.startsWith("https://")) {
     return asset;
+  }
+  if (asset.startsWith("/api/")) {
+    return `${apiOrigin()}${asset}`;
+  }
+  if (asset.startsWith("/")) {
+    return `${apiOrigin()}${asset}`;
   }
   if (asset.startsWith("pack:")) {
     const rest = asset.slice(5);
     const slash = rest.indexOf("/");
     const testId = slash === -1 ? rest : rest.slice(0, slash);
     const file = (slash === -1 ? rest : rest.slice(slash + 1)).split("/").pop() || rest;
-    return `${API_BASE}/reading/pack-images/${encodeURIComponent(testId)}/${encodeURIComponent(file)}`;
+    return `${apiBase()}/reading/pack-images/${encodeURIComponent(testId)}/${encodeURIComponent(file)}`;
   }
   const name = asset.split("/").pop() || asset;
-  return `${API_BASE}/reading/diagrams/${encodeURIComponent(name)}`;
+  return `${apiBase()}/reading/diagrams/${encodeURIComponent(name)}`;
 }
