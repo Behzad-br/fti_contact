@@ -1,3 +1,5 @@
+import { apiBase } from "@/lib/api-base";
+
 export type PracticeSource = "bank" | "ai";
 
 export type LiveSession =
@@ -143,8 +145,6 @@ export function resultForTest(module: string, testId: string, history: PracticeH
   }
   return readLocalPracticeResult(module, testId) || { label: "No result yet" };
 }
-
-import { apiBase } from "@/lib/api-base";
 
 async function api<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${apiBase()}${path}`, {
