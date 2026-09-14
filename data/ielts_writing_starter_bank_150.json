@@ -1,0 +1,4000 @@
+{
+  "dataset_name": "IELTS Writing Starter Bank 150",
+  "version": "1.0",
+  "created": "2026-08-19",
+  "copyright_note": "All task prompts and synthetic visual data in this file are original generated content. Official IELTS sources were used only to verify test structure, task types, timing, and word-count conventions.",
+  "counts": {
+    "academic_task_1": 50,
+    "academic_task_2": 50,
+    "general_training_task_1": 25,
+    "general_training_task_2": 25,
+    "total": 150
+  },
+  "questions": [
+    {
+      "id": "AWT1-0001",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "line_graph",
+      "topic": "renewable energy adoption",
+      "difficulty": "easy",
+      "prompt": "The line graph below shows renewable energy adoption in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Renewable Energy Adoption in selected locations",
+        "unit": "percentage",
+        "years": [
+          2000,
+          2010,
+          2020
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton"
+        ],
+        "series": {
+          "Northport": [
+            26,
+            35,
+            35
+          ],
+          "Lakeview": [
+            28,
+            37,
+            38
+          ],
+          "Riverton": [
+            37,
+            35,
+            31
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0002",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "bar_chart",
+      "topic": "daily public transport use",
+      "difficulty": "medium",
+      "prompt": "The bar chart below shows daily public transport use in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Daily Public Transport Use in selected locations",
+        "unit": "thousand passengers",
+        "years": [
+          2005,
+          2015,
+          2025
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton",
+          "Hillford"
+        ],
+        "series": {
+          "Northport": [
+            17,
+            18,
+            23
+          ],
+          "Lakeview": [
+            29,
+            26,
+            22
+          ],
+          "Riverton": [
+            34,
+            38,
+            36
+          ],
+          "Hillford": [
+            48,
+            60,
+            62
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0003",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "pie_chart",
+      "topic": "household expenditure",
+      "difficulty": "hard",
+      "prompt": "The two pie charts below compare how an average household distributed its monthly expenditure in 2015 and 2025. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Average household monthly expenditure",
+        "unit": "percentage",
+        "categories": [
+          "Housing",
+          "Transport",
+          "Food",
+          "Leisure",
+          "Other"
+        ],
+        "charts": [
+          {
+            "label": "2015",
+            "values": [
+              20,
+              10,
+              13,
+              19,
+              38
+            ]
+          },
+          {
+            "label": "2025",
+            "values": [
+              19,
+              27,
+              28,
+              19,
+              7
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "AWT1-0004",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "table",
+      "topic": "average weekly exercise",
+      "difficulty": "easy",
+      "prompt": "The table below shows average weekly exercise in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Average Weekly Exercise in selected locations",
+        "unit": "hours",
+        "years": [
+          2000,
+          2010,
+          2020
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton"
+        ],
+        "series": {
+          "Northport": [
+            33,
+            37,
+            37
+          ],
+          "Lakeview": [
+            35,
+            43,
+            41
+          ],
+          "Riverton": [
+            48,
+            51,
+            58
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0005",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "map",
+      "topic": "urban change",
+      "difficulty": "medium",
+      "prompt": "The maps below show how a public park changed between 2005 and 2025. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Changes to a public park",
+        "before_year": 2005,
+        "after_year": 2025,
+        "changes": [
+          "a small market area was replaced by a public square",
+          "a surface car park was converted into mixed-use buildings",
+          "a cycle path was added along the main road",
+          "a pedestrian bridge replaced an old road crossing"
+        ],
+        "rendering_note": "Render as paired schematic maps; do not use geographic basemap."
+      }
+    },
+    {
+      "id": "AWT1-0006",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "process",
+      "topic": "recycled paper production",
+      "difficulty": "hard",
+      "prompt": "The diagram below shows the process of recycled paper production. Summarise the information by selecting and reporting the main features.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Recycled Paper Production",
+        "stages": [
+          {
+            "step": 1,
+            "label": "collection"
+          },
+          {
+            "step": 2,
+            "label": "sorting"
+          },
+          {
+            "step": 3,
+            "label": "pulping"
+          },
+          {
+            "step": 4,
+            "label": "cleaning"
+          },
+          {
+            "step": 5,
+            "label": "pressing"
+          },
+          {
+            "step": 6,
+            "label": "drying"
+          }
+        ],
+        "rendering_note": "Render as a left-to-right or top-to-bottom flow diagram with arrows."
+      }
+    },
+    {
+      "id": "AWT1-0007",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "mixed_chart",
+      "topic": "commuting patterns",
+      "difficulty": "easy",
+      "prompt": "The bar chart below compares the number of commuters using three transport modes, while the line graph shows average commuting time over the same period. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Commuting patterns",
+        "years": [
+          2010,
+          2015,
+          2020,
+          2025
+        ],
+        "bar_chart": {
+          "unit": "thousand commuters",
+          "series": {
+            "Bus": [
+              50,
+              51,
+              15,
+              20
+            ],
+            "Rail": [
+              38,
+              29,
+              49,
+              15
+            ],
+            "Cycling": [
+              61,
+              60,
+              38,
+              50
+            ]
+          }
+        },
+        "line_graph": {
+          "unit": "minutes",
+          "series": {
+            "Average commuting time": [
+              42,
+              48,
+              41,
+              38
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "AWT1-0008",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "line_graph",
+      "topic": "electric vehicle ownership",
+      "difficulty": "medium",
+      "prompt": "The line graph below shows electric vehicle ownership in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Electric Vehicle Ownership in selected locations",
+        "unit": "thousand vehicles",
+        "years": [
+          2005,
+          2015,
+          2025
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton",
+          "Hillford"
+        ],
+        "series": {
+          "Northport": [
+            44,
+            45,
+            54
+          ],
+          "Lakeview": [
+            54,
+            60,
+            59
+          ],
+          "Riverton": [
+            57,
+            55,
+            52
+          ],
+          "Hillford": [
+            67,
+            67,
+            79
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0009",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "bar_chart",
+      "topic": "tourism spending",
+      "difficulty": "hard",
+      "prompt": "The bar chart below shows tourism spending in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Tourism Spending in selected locations",
+        "unit": "million dollars",
+        "years": [
+          2010,
+          2015,
+          2020,
+          2025
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton",
+          "Hillford",
+          "Westbridge"
+        ],
+        "series": {
+          "Northport": [
+            44,
+            46,
+            56,
+            63
+          ],
+          "Lakeview": [
+            43,
+            42,
+            41,
+            52
+          ],
+          "Riverton": [
+            49,
+            47,
+            53,
+            49
+          ],
+          "Hillford": [
+            60,
+            58,
+            65,
+            63
+          ],
+          "Westbridge": [
+            65,
+            64,
+            61,
+            59
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0010",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "pie_chart",
+      "topic": "household expenditure",
+      "difficulty": "easy",
+      "prompt": "The two pie charts below compare how an average household distributed its monthly expenditure in 2005 and 2025. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Average household monthly expenditure",
+        "unit": "percentage",
+        "categories": [
+          "Housing",
+          "Transport",
+          "Food",
+          "Leisure",
+          "Other"
+        ],
+        "charts": [
+          {
+            "label": "2005",
+            "values": [
+              18,
+              18,
+              27,
+              13,
+              24
+            ]
+          },
+          {
+            "label": "2025",
+            "values": [
+              12,
+              16,
+              19,
+              21,
+              32
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "AWT1-0011",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "table",
+      "topic": "commuting time",
+      "difficulty": "medium",
+      "prompt": "The table below shows commuting time in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Commuting Time in selected locations",
+        "unit": "minutes",
+        "years": [
+          2005,
+          2015,
+          2025
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton",
+          "Hillford"
+        ],
+        "series": {
+          "Northport": [
+            46,
+            53,
+            55
+          ],
+          "Lakeview": [
+            58,
+            64,
+            74
+          ],
+          "Riverton": [
+            63,
+            69,
+            65
+          ],
+          "Hillford": [
+            78,
+            88,
+            88
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0012",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "map",
+      "topic": "urban change",
+      "difficulty": "hard",
+      "prompt": "The maps below show how a university campus changed between 2005 and 2025. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Changes to a university campus",
+        "before_year": 2005,
+        "after_year": 2025,
+        "changes": [
+          "two residential blocks were added on the eastern side",
+          "a cycle path was added along the main road",
+          "a pedestrian bridge replaced an old road crossing",
+          "a surface car park was converted into mixed-use buildings"
+        ],
+        "rendering_note": "Render as paired schematic maps; do not use geographic basemap."
+      }
+    },
+    {
+      "id": "AWT1-0013",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "process",
+      "topic": "coffee bean processing",
+      "difficulty": "easy",
+      "prompt": "The diagram below shows the process of coffee bean processing. Summarise the information by selecting and reporting the main features.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Coffee Bean Processing",
+        "stages": [
+          {
+            "step": 1,
+            "label": "harvesting"
+          },
+          {
+            "step": 2,
+            "label": "washing"
+          },
+          {
+            "step": 3,
+            "label": "drying"
+          },
+          {
+            "step": 4,
+            "label": "roasting"
+          },
+          {
+            "step": 5,
+            "label": "grinding"
+          },
+          {
+            "step": 6,
+            "label": "packing"
+          }
+        ],
+        "rendering_note": "Render as a left-to-right or top-to-bottom flow diagram with arrows."
+      }
+    },
+    {
+      "id": "AWT1-0014",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "mixed_chart",
+      "topic": "commuting patterns",
+      "difficulty": "medium",
+      "prompt": "The bar chart below compares the number of commuters using three transport modes, while the line graph shows average commuting time over the same period. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Commuting patterns",
+        "years": [
+          2010,
+          2015,
+          2020,
+          2025
+        ],
+        "bar_chart": {
+          "unit": "thousand commuters",
+          "series": {
+            "Bus": [
+              44,
+              37,
+              53,
+              28
+            ],
+            "Rail": [
+              37,
+              49,
+              46,
+              28
+            ],
+            "Cycling": [
+              50,
+              34,
+              17,
+              61
+            ]
+          }
+        },
+        "line_graph": {
+          "unit": "minutes",
+          "series": {
+            "Average commuting time": [
+              24,
+              40,
+              53,
+              25
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "AWT1-0015",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "line_graph",
+      "topic": "mobile data use",
+      "difficulty": "hard",
+      "prompt": "The line graph below shows mobile data use in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Mobile Data Use in selected locations",
+        "unit": "GB per user",
+        "years": [
+          2010,
+          2015,
+          2020,
+          2025
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton",
+          "Hillford",
+          "Westbridge"
+        ],
+        "series": {
+          "Northport": [
+            18,
+            18,
+            24,
+            21
+          ],
+          "Lakeview": [
+            31,
+            40,
+            42,
+            46
+          ],
+          "Riverton": [
+            36,
+            43,
+            46,
+            52
+          ],
+          "Hillford": [
+            52,
+            56,
+            68,
+            65
+          ],
+          "Westbridge": [
+            51,
+            50,
+            51,
+            57
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0016",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "bar_chart",
+      "topic": "food waste",
+      "difficulty": "easy",
+      "prompt": "The bar chart below shows food waste in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Food Waste in selected locations",
+        "unit": "kilograms per household",
+        "years": [
+          2000,
+          2010,
+          2020
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton"
+        ],
+        "series": {
+          "Northport": [
+            22,
+            28,
+            33
+          ],
+          "Lakeview": [
+            30,
+            29,
+            25
+          ],
+          "Riverton": [
+            35,
+            32,
+            38
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0017",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "pie_chart",
+      "topic": "household expenditure",
+      "difficulty": "medium",
+      "prompt": "The two pie charts below compare how an average household distributed its monthly expenditure in 2010 and 2025. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Average household monthly expenditure",
+        "unit": "percentage",
+        "categories": [
+          "Housing",
+          "Transport",
+          "Food",
+          "Leisure",
+          "Other"
+        ],
+        "charts": [
+          {
+            "label": "2010",
+            "values": [
+              23,
+              14,
+              24,
+              25,
+              14
+            ]
+          },
+          {
+            "label": "2025",
+            "values": [
+              17,
+              16,
+              18,
+              29,
+              20
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "AWT1-0018",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "table",
+      "topic": "solar power generation",
+      "difficulty": "hard",
+      "prompt": "The table below shows solar power generation in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Solar Power Generation in selected locations",
+        "unit": "GWh",
+        "years": [
+          2010,
+          2015,
+          2020,
+          2025
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton",
+          "Hillford",
+          "Westbridge"
+        ],
+        "series": {
+          "Northport": [
+            37,
+            38,
+            44,
+            49
+          ],
+          "Lakeview": [
+            47,
+            47,
+            58,
+            64
+          ],
+          "Riverton": [
+            48,
+            52,
+            63,
+            75
+          ],
+          "Hillford": [
+            54,
+            58,
+            54,
+            65
+          ],
+          "Westbridge": [
+            65,
+            61,
+            70,
+            81
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0019",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "map",
+      "topic": "urban change",
+      "difficulty": "easy",
+      "prompt": "The maps below show how a town centre changed between 2005 and 2025. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Changes to a town centre",
+        "before_year": 2005,
+        "after_year": 2025,
+        "changes": [
+          "a vacant plot became a community garden",
+          "two residential blocks were added on the eastern side",
+          "a small market area was replaced by a public square",
+          "a surface car park was converted into mixed-use buildings"
+        ],
+        "rendering_note": "Render as paired schematic maps; do not use geographic basemap."
+      }
+    },
+    {
+      "id": "AWT1-0020",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "process",
+      "topic": "biogas production",
+      "difficulty": "medium",
+      "prompt": "The diagram below shows the process of biogas production. Summarise the information by selecting and reporting the main features.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Biogas Production",
+        "stages": [
+          {
+            "step": 1,
+            "label": "organic waste input"
+          },
+          {
+            "step": 2,
+            "label": "digestion"
+          },
+          {
+            "step": 3,
+            "label": "gas capture"
+          },
+          {
+            "step": 4,
+            "label": "cleaning"
+          },
+          {
+            "step": 5,
+            "label": "storage"
+          },
+          {
+            "step": 6,
+            "label": "use"
+          }
+        ],
+        "rendering_note": "Render as a left-to-right or top-to-bottom flow diagram with arrows."
+      }
+    },
+    {
+      "id": "AWT1-0021",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "mixed_chart",
+      "topic": "commuting patterns",
+      "difficulty": "hard",
+      "prompt": "The bar chart below compares the number of commuters using three transport modes, while the line graph shows average commuting time over the same period. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Commuting patterns",
+        "years": [
+          2010,
+          2015,
+          2020,
+          2025
+        ],
+        "bar_chart": {
+          "unit": "thousand commuters",
+          "series": {
+            "Bus": [
+              31,
+              22,
+              64,
+              17
+            ],
+            "Rail": [
+              30,
+              28,
+              62,
+              58
+            ],
+            "Cycling": [
+              17,
+              49,
+              17,
+              23
+            ]
+          }
+        },
+        "line_graph": {
+          "unit": "minutes",
+          "series": {
+            "Average commuting time": [
+              38,
+              23,
+              47,
+              36
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "AWT1-0022",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "line_graph",
+      "topic": "daily public transport use",
+      "difficulty": "easy",
+      "prompt": "The line graph below shows daily public transport use in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Daily Public Transport Use in selected locations",
+        "unit": "thousand passengers",
+        "years": [
+          2000,
+          2010,
+          2020
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton"
+        ],
+        "series": {
+          "Northport": [
+            41,
+            49,
+            49
+          ],
+          "Lakeview": [
+            57,
+            56,
+            55
+          ],
+          "Riverton": [
+            58,
+            64,
+            61
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0023",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "bar_chart",
+      "topic": "household recycling rates",
+      "difficulty": "medium",
+      "prompt": "The bar chart below shows household recycling rates in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Household Recycling Rates in selected locations",
+        "unit": "percentage",
+        "years": [
+          2005,
+          2015,
+          2025
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton",
+          "Hillford"
+        ],
+        "series": {
+          "Northport": [
+            42,
+            48,
+            50
+          ],
+          "Lakeview": [
+            56,
+            62,
+            71
+          ],
+          "Riverton": [
+            60,
+            71,
+            67
+          ],
+          "Hillford": [
+            64,
+            62,
+            59
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0024",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "pie_chart",
+      "topic": "household expenditure",
+      "difficulty": "hard",
+      "prompt": "The two pie charts below compare how an average household distributed its monthly expenditure in 2015 and 2025. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Average household monthly expenditure",
+        "unit": "percentage",
+        "categories": [
+          "Housing",
+          "Transport",
+          "Food",
+          "Leisure",
+          "Other"
+        ],
+        "charts": [
+          {
+            "label": "2015",
+            "values": [
+              10,
+              15,
+              24,
+              14,
+              37
+            ]
+          },
+          {
+            "label": "2025",
+            "values": [
+              15,
+              15,
+              29,
+              16,
+              25
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "AWT1-0025",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "table",
+      "topic": "online course enrolment",
+      "difficulty": "easy",
+      "prompt": "The table below shows online course enrolment in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Online Course Enrolment in selected locations",
+        "unit": "thousand students",
+        "years": [
+          2000,
+          2010,
+          2020
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton"
+        ],
+        "series": {
+          "Northport": [
+            21,
+            27,
+            25
+          ],
+          "Lakeview": [
+            34,
+            36,
+            34
+          ],
+          "Riverton": [
+            40,
+            51,
+            55
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0026",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "map",
+      "topic": "urban change",
+      "difficulty": "medium",
+      "prompt": "The maps below show how a riverside district changed between 2005 and 2025. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Changes to a riverside district",
+        "before_year": 2005,
+        "after_year": 2025,
+        "changes": [
+          "a cycle path was added along the main road",
+          "a surface car park was converted into mixed-use buildings",
+          "a pedestrian bridge replaced an old road crossing",
+          "a small market area was replaced by a public square"
+        ],
+        "rendering_note": "Render as paired schematic maps; do not use geographic basemap."
+      }
+    },
+    {
+      "id": "AWT1-0027",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "process",
+      "topic": "rainwater harvesting",
+      "difficulty": "hard",
+      "prompt": "The diagram below shows the process of rainwater harvesting. Summarise the information by selecting and reporting the main features.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Rainwater Harvesting",
+        "stages": [
+          {
+            "step": 1,
+            "label": "roof collection"
+          },
+          {
+            "step": 2,
+            "label": "filtering"
+          },
+          {
+            "step": 3,
+            "label": "storage"
+          },
+          {
+            "step": 4,
+            "label": "treatment"
+          },
+          {
+            "step": 5,
+            "label": "household supply"
+          }
+        ],
+        "rendering_note": "Render as a left-to-right or top-to-bottom flow diagram with arrows."
+      }
+    },
+    {
+      "id": "AWT1-0028",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "mixed_chart",
+      "topic": "commuting patterns",
+      "difficulty": "easy",
+      "prompt": "The bar chart below compares the number of commuters using three transport modes, while the line graph shows average commuting time over the same period. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Commuting patterns",
+        "years": [
+          2010,
+          2015,
+          2020,
+          2025
+        ],
+        "bar_chart": {
+          "unit": "thousand commuters",
+          "series": {
+            "Bus": [
+              50,
+              56,
+              38,
+              46
+            ],
+            "Rail": [
+              31,
+              17,
+              48,
+              48
+            ],
+            "Cycling": [
+              23,
+              26,
+              23,
+              39
+            ]
+          }
+        },
+        "line_graph": {
+          "unit": "minutes",
+          "series": {
+            "Average commuting time": [
+              51,
+              48,
+              54,
+              48
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "AWT1-0029",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "line_graph",
+      "topic": "tourism spending",
+      "difficulty": "medium",
+      "prompt": "The line graph below shows tourism spending in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Tourism Spending in selected locations",
+        "unit": "million dollars",
+        "years": [
+          2005,
+          2015,
+          2025
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton",
+          "Hillford"
+        ],
+        "series": {
+          "Northport": [
+            35,
+            34,
+            34
+          ],
+          "Lakeview": [
+            39,
+            50,
+            59
+          ],
+          "Riverton": [
+            51,
+            50,
+            61
+          ],
+          "Hillford": [
+            46,
+            52,
+            60
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0030",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "bar_chart",
+      "topic": "household internet access",
+      "difficulty": "hard",
+      "prompt": "The bar chart below shows household internet access in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Household Internet Access in selected locations",
+        "unit": "percentage",
+        "years": [
+          2010,
+          2015,
+          2020,
+          2025
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton",
+          "Hillford",
+          "Westbridge"
+        ],
+        "series": {
+          "Northport": [
+            39,
+            43,
+            47,
+            48
+          ],
+          "Lakeview": [
+            47,
+            58,
+            65,
+            65
+          ],
+          "Riverton": [
+            53,
+            49,
+            48,
+            45
+          ],
+          "Hillford": [
+            50,
+            62,
+            64,
+            76
+          ],
+          "Westbridge": [
+            62,
+            68,
+            66,
+            65
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0031",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "pie_chart",
+      "topic": "household expenditure",
+      "difficulty": "easy",
+      "prompt": "The two pie charts below compare how an average household distributed its monthly expenditure in 2005 and 2025. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Average household monthly expenditure",
+        "unit": "percentage",
+        "categories": [
+          "Housing",
+          "Transport",
+          "Food",
+          "Leisure",
+          "Other"
+        ],
+        "charts": [
+          {
+            "label": "2005",
+            "values": [
+              18,
+              29,
+              17,
+              25,
+              11
+            ]
+          },
+          {
+            "label": "2025",
+            "values": [
+              11,
+              14,
+              22,
+              14,
+              39
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "AWT1-0032",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "table",
+      "topic": "coffee consumption",
+      "difficulty": "medium",
+      "prompt": "The table below shows coffee consumption in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Coffee Consumption in selected locations",
+        "unit": "kilograms per person",
+        "years": [
+          2005,
+          2015,
+          2025
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton",
+          "Hillford"
+        ],
+        "series": {
+          "Northport": [
+            47,
+            47,
+            53
+          ],
+          "Lakeview": [
+            46,
+            58,
+            54
+          ],
+          "Riverton": [
+            48,
+            52,
+            58
+          ],
+          "Hillford": [
+            69,
+            81,
+            78
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0033",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "map",
+      "topic": "urban change",
+      "difficulty": "hard",
+      "prompt": "The maps below show how a coastal village changed between 2005 and 2025. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Changes to a coastal village",
+        "before_year": 2005,
+        "after_year": 2025,
+        "changes": [
+          "a vacant plot became a community garden",
+          "a pedestrian bridge replaced an old road crossing",
+          "a surface car park was converted into mixed-use buildings",
+          "a small market area was replaced by a public square"
+        ],
+        "rendering_note": "Render as paired schematic maps; do not use geographic basemap."
+      }
+    },
+    {
+      "id": "AWT1-0034",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "process",
+      "topic": "glass bottle recycling",
+      "difficulty": "easy",
+      "prompt": "The diagram below shows the process of glass bottle recycling. Summarise the information by selecting and reporting the main features.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Glass Bottle Recycling",
+        "stages": [
+          {
+            "step": 1,
+            "label": "collection"
+          },
+          {
+            "step": 2,
+            "label": "colour sorting"
+          },
+          {
+            "step": 3,
+            "label": "crushing"
+          },
+          {
+            "step": 4,
+            "label": "melting"
+          },
+          {
+            "step": 5,
+            "label": "moulding"
+          },
+          {
+            "step": 6,
+            "label": "distribution"
+          }
+        ],
+        "rendering_note": "Render as a left-to-right or top-to-bottom flow diagram with arrows."
+      }
+    },
+    {
+      "id": "AWT1-0035",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "mixed_chart",
+      "topic": "commuting patterns",
+      "difficulty": "medium",
+      "prompt": "The bar chart below compares the number of commuters using three transport modes, while the line graph shows average commuting time over the same period. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Commuting patterns",
+        "years": [
+          2010,
+          2015,
+          2020,
+          2025
+        ],
+        "bar_chart": {
+          "unit": "thousand commuters",
+          "series": {
+            "Bus": [
+              65,
+              53,
+              45,
+              31
+            ],
+            "Rail": [
+              15,
+              44,
+              60,
+              55
+            ],
+            "Cycling": [
+              42,
+              47,
+              22,
+              60
+            ]
+          }
+        },
+        "line_graph": {
+          "unit": "minutes",
+          "series": {
+            "Average commuting time": [
+              50,
+              37,
+              50,
+              39
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "AWT1-0036",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "line_graph",
+      "topic": "food waste",
+      "difficulty": "hard",
+      "prompt": "The line graph below shows food waste in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Food Waste in selected locations",
+        "unit": "kilograms per household",
+        "years": [
+          2010,
+          2015,
+          2020,
+          2025
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton",
+          "Hillford",
+          "Westbridge"
+        ],
+        "series": {
+          "Northport": [
+            12,
+            16,
+            21,
+            25
+          ],
+          "Lakeview": [
+            30,
+            28,
+            40,
+            38
+          ],
+          "Riverton": [
+            41,
+            44,
+            46,
+            49
+          ],
+          "Hillford": [
+            33,
+            37,
+            36,
+            45
+          ],
+          "Westbridge": [
+            41,
+            49,
+            51,
+            52
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0037",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "bar_chart",
+      "topic": "museum attendance",
+      "difficulty": "easy",
+      "prompt": "The bar chart below shows museum attendance in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Museum Attendance in selected locations",
+        "unit": "thousand visitors",
+        "years": [
+          2000,
+          2010,
+          2020
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton"
+        ],
+        "series": {
+          "Northport": [
+            24,
+            36,
+            40
+          ],
+          "Lakeview": [
+            32,
+            44,
+            50
+          ],
+          "Riverton": [
+            37,
+            43,
+            48
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0038",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "pie_chart",
+      "topic": "household expenditure",
+      "difficulty": "medium",
+      "prompt": "The two pie charts below compare how an average household distributed its monthly expenditure in 2010 and 2025. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Average household monthly expenditure",
+        "unit": "percentage",
+        "categories": [
+          "Housing",
+          "Transport",
+          "Food",
+          "Leisure",
+          "Other"
+        ],
+        "charts": [
+          {
+            "label": "2010",
+            "values": [
+              18,
+              30,
+              22,
+              25,
+              5
+            ]
+          },
+          {
+            "label": "2025",
+            "values": [
+              30,
+              20,
+              25,
+              14,
+              11
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "AWT1-0039",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "table",
+      "topic": "remote working",
+      "difficulty": "hard",
+      "prompt": "The table below shows remote working in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Remote Working in selected locations",
+        "unit": "percentage of employees",
+        "years": [
+          2010,
+          2015,
+          2020,
+          2025
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton",
+          "Hillford",
+          "Westbridge"
+        ],
+        "series": {
+          "Northport": [
+            31,
+            39,
+            43,
+            52
+          ],
+          "Lakeview": [
+            35,
+            44,
+            40,
+            41
+          ],
+          "Riverton": [
+            35,
+            40,
+            45,
+            46
+          ],
+          "Hillford": [
+            56,
+            54,
+            60,
+            67
+          ],
+          "Westbridge": [
+            57,
+            59,
+            55,
+            66
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0040",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "map",
+      "topic": "urban change",
+      "difficulty": "easy",
+      "prompt": "The maps below show how a public park changed between 2005 and 2025. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Changes to a public park",
+        "before_year": 2005,
+        "after_year": 2025,
+        "changes": [
+          "a pedestrian bridge replaced an old road crossing",
+          "a vacant plot became a community garden",
+          "a cycle path was added along the main road",
+          "a small market area was replaced by a public square"
+        ],
+        "rendering_note": "Render as paired schematic maps; do not use geographic basemap."
+      }
+    },
+    {
+      "id": "AWT1-0041",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "process",
+      "topic": "recycled paper production",
+      "difficulty": "medium",
+      "prompt": "The diagram below shows the process of recycled paper production. Summarise the information by selecting and reporting the main features.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Recycled Paper Production",
+        "stages": [
+          {
+            "step": 1,
+            "label": "collection"
+          },
+          {
+            "step": 2,
+            "label": "sorting"
+          },
+          {
+            "step": 3,
+            "label": "pulping"
+          },
+          {
+            "step": 4,
+            "label": "cleaning"
+          },
+          {
+            "step": 5,
+            "label": "pressing"
+          },
+          {
+            "step": 6,
+            "label": "drying"
+          }
+        ],
+        "rendering_note": "Render as a left-to-right or top-to-bottom flow diagram with arrows."
+      }
+    },
+    {
+      "id": "AWT1-0042",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "mixed_chart",
+      "topic": "commuting patterns",
+      "difficulty": "hard",
+      "prompt": "The bar chart below compares the number of commuters using three transport modes, while the line graph shows average commuting time over the same period. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Commuting patterns",
+        "years": [
+          2010,
+          2015,
+          2020,
+          2025
+        ],
+        "bar_chart": {
+          "unit": "thousand commuters",
+          "series": {
+            "Bus": [
+              18,
+              29,
+              42,
+              50
+            ],
+            "Rail": [
+              26,
+              19,
+              54,
+              35
+            ],
+            "Cycling": [
+              48,
+              19,
+              42,
+              65
+            ]
+          }
+        },
+        "line_graph": {
+          "unit": "minutes",
+          "series": {
+            "Average commuting time": [
+              22,
+              54,
+              47,
+              31
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "AWT1-0043",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "line_graph",
+      "topic": "household recycling rates",
+      "difficulty": "easy",
+      "prompt": "The line graph below shows household recycling rates in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Household Recycling Rates in selected locations",
+        "unit": "percentage",
+        "years": [
+          2000,
+          2010,
+          2020
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton"
+        ],
+        "series": {
+          "Northport": [
+            35,
+            41,
+            48
+          ],
+          "Lakeview": [
+            46,
+            53,
+            54
+          ],
+          "Riverton": [
+            50,
+            60,
+            72
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0044",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "bar_chart",
+      "topic": "average weekly exercise",
+      "difficulty": "medium",
+      "prompt": "The bar chart below shows average weekly exercise in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Average Weekly Exercise in selected locations",
+        "unit": "hours",
+        "years": [
+          2005,
+          2015,
+          2025
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton",
+          "Hillford"
+        ],
+        "series": {
+          "Northport": [
+            41,
+            38,
+            34
+          ],
+          "Lakeview": [
+            49,
+            60,
+            69
+          ],
+          "Riverton": [
+            54,
+            60,
+            68
+          ],
+          "Hillford": [
+            67,
+            76,
+            87
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0045",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "pie_chart",
+      "topic": "household expenditure",
+      "difficulty": "hard",
+      "prompt": "The two pie charts below compare how an average household distributed its monthly expenditure in 2015 and 2025. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Average household monthly expenditure",
+        "unit": "percentage",
+        "categories": [
+          "Housing",
+          "Transport",
+          "Food",
+          "Leisure",
+          "Other"
+        ],
+        "charts": [
+          {
+            "label": "2015",
+            "values": [
+              25,
+              21,
+              26,
+              11,
+              17
+            ]
+          },
+          {
+            "label": "2025",
+            "values": [
+              15,
+              19,
+              19,
+              22,
+              25
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "AWT1-0046",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "table",
+      "topic": "water consumption",
+      "difficulty": "easy",
+      "prompt": "The table below shows water consumption in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Water Consumption in selected locations",
+        "unit": "litres per person",
+        "years": [
+          2000,
+          2010,
+          2020
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton"
+        ],
+        "series": {
+          "Northport": [
+            49,
+            47,
+            50
+          ],
+          "Lakeview": [
+            53,
+            55,
+            58
+          ],
+          "Riverton": [
+            63,
+            74,
+            84
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT1-0047",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "map",
+      "topic": "urban change",
+      "difficulty": "medium",
+      "prompt": "The maps below show how a university campus changed between 2005 and 2025. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Changes to a university campus",
+        "before_year": 2005,
+        "after_year": 2025,
+        "changes": [
+          "two residential blocks were added on the eastern side",
+          "a small market area was replaced by a public square",
+          "a vacant plot became a community garden",
+          "a pedestrian bridge replaced an old road crossing"
+        ],
+        "rendering_note": "Render as paired schematic maps; do not use geographic basemap."
+      }
+    },
+    {
+      "id": "AWT1-0048",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "process",
+      "topic": "coffee bean processing",
+      "difficulty": "hard",
+      "prompt": "The diagram below shows the process of coffee bean processing. Summarise the information by selecting and reporting the main features.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Coffee Bean Processing",
+        "stages": [
+          {
+            "step": 1,
+            "label": "harvesting"
+          },
+          {
+            "step": 2,
+            "label": "washing"
+          },
+          {
+            "step": 3,
+            "label": "drying"
+          },
+          {
+            "step": 4,
+            "label": "roasting"
+          },
+          {
+            "step": 5,
+            "label": "grinding"
+          },
+          {
+            "step": 6,
+            "label": "packing"
+          }
+        ],
+        "rendering_note": "Render as a left-to-right or top-to-bottom flow diagram with arrows."
+      }
+    },
+    {
+      "id": "AWT1-0049",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "mixed_chart",
+      "topic": "commuting patterns",
+      "difficulty": "easy",
+      "prompt": "The bar chart below compares the number of commuters using three transport modes, while the line graph shows average commuting time over the same period. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Commuting patterns",
+        "years": [
+          2010,
+          2015,
+          2020,
+          2025
+        ],
+        "bar_chart": {
+          "unit": "thousand commuters",
+          "series": {
+            "Bus": [
+              27,
+              24,
+              18,
+              34
+            ],
+            "Rail": [
+              31,
+              18,
+              18,
+              38
+            ],
+            "Cycling": [
+              55,
+              40,
+              28,
+              51
+            ]
+          }
+        },
+        "line_graph": {
+          "unit": "minutes",
+          "series": {
+            "Average commuting time": [
+              29,
+              52,
+              34,
+              38
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "AWT1-0050",
+      "test_type": "academic",
+      "task": 1,
+      "question_type": "line_graph",
+      "topic": "household internet access",
+      "difficulty": "medium",
+      "prompt": "The line graph below shows household internet access in selected locations over several years. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "visual_data": {
+        "title": "Household Internet Access in selected locations",
+        "unit": "percentage",
+        "years": [
+          2005,
+          2015,
+          2025
+        ],
+        "categories": [
+          "Northport",
+          "Lakeview",
+          "Riverton",
+          "Hillford"
+        ],
+        "series": {
+          "Northport": [
+            21,
+            32,
+            37
+          ],
+          "Lakeview": [
+            31,
+            38,
+            34
+          ],
+          "Riverton": [
+            45,
+            46,
+            47
+          ],
+          "Hillford": [
+            45,
+            43,
+            46
+          ]
+        }
+      }
+    },
+    {
+      "id": "AWT2-0001",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "agree_disagree",
+      "topic": "education",
+      "difficulty": "medium",
+      "prompt": "Some people believe that governments should give greater priority to education than to other areas of public policy. To what extent do you agree or disagree?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "education",
+        "agree_disagree"
+      ]
+    },
+    {
+      "id": "AWT2-0002",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "discuss_both_views",
+      "topic": "technology",
+      "difficulty": "hard",
+      "prompt": "Some people think decisions about technology should mainly be made by experts, while others believe the general public should have a greater say. Discuss both views and give your own opinion.",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "technology",
+        "discuss_both_views"
+      ]
+    },
+    {
+      "id": "AWT2-0003",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "advantages_disadvantages",
+      "topic": "environment",
+      "difficulty": "easy",
+      "prompt": "Changes in environment are making daily life more convenient for many people. Do the advantages of this development outweigh the disadvantages?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "environment",
+        "advantages_disadvantages"
+      ]
+    },
+    {
+      "id": "AWT2-0004",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "problem_solution",
+      "topic": "work",
+      "difficulty": "medium",
+      "prompt": "In many countries, problems connected with work are becoming more difficult to manage. What are the main causes of these problems, and what measures could be taken to address them?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "work",
+        "problem_solution"
+      ]
+    },
+    {
+      "id": "AWT2-0005",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "two_part",
+      "topic": "transport",
+      "difficulty": "hard",
+      "prompt": "People are paying increasing attention to transport. Why has this issue become more important in recent years? What effects could this trend have on individuals and society?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "transport",
+        "two_part"
+      ]
+    },
+    {
+      "id": "AWT2-0006",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "agree_disagree",
+      "topic": "health policy",
+      "difficulty": "easy",
+      "prompt": "Some people believe that governments should give greater priority to health policy than to other areas of public policy. To what extent do you agree or disagree?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "health policy",
+        "agree_disagree"
+      ]
+    },
+    {
+      "id": "AWT2-0007",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "discuss_both_views",
+      "topic": "cities",
+      "difficulty": "medium",
+      "prompt": "Some people think decisions about cities should mainly be made by experts, while others believe the general public should have a greater say. Discuss both views and give your own opinion.",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "cities",
+        "discuss_both_views"
+      ]
+    },
+    {
+      "id": "AWT2-0008",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "advantages_disadvantages",
+      "topic": "media",
+      "difficulty": "hard",
+      "prompt": "Changes in media are making daily life more convenient for many people. Do the advantages of this development outweigh the disadvantages?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "media",
+        "advantages_disadvantages"
+      ]
+    },
+    {
+      "id": "AWT2-0009",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "problem_solution",
+      "topic": "culture",
+      "difficulty": "easy",
+      "prompt": "In many countries, problems connected with culture are becoming more difficult to manage. What are the main causes of these problems, and what measures could be taken to address them?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "culture",
+        "problem_solution"
+      ]
+    },
+    {
+      "id": "AWT2-0010",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "two_part",
+      "topic": "public spending",
+      "difficulty": "medium",
+      "prompt": "People are paying increasing attention to public spending. Why has this issue become more important in recent years? What effects could this trend have on individuals and society?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "public spending",
+        "two_part"
+      ]
+    },
+    {
+      "id": "AWT2-0011",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "agree_disagree",
+      "topic": "education",
+      "difficulty": "hard",
+      "prompt": "Some people believe that governments should give greater priority to education than to other areas of public policy. To what extent do you agree or disagree?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "education",
+        "agree_disagree"
+      ]
+    },
+    {
+      "id": "AWT2-0012",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "discuss_both_views",
+      "topic": "technology",
+      "difficulty": "easy",
+      "prompt": "Some people think decisions about technology should mainly be made by experts, while others believe the general public should have a greater say. Discuss both views and give your own opinion.",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "technology",
+        "discuss_both_views"
+      ]
+    },
+    {
+      "id": "AWT2-0013",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "advantages_disadvantages",
+      "topic": "environment",
+      "difficulty": "medium",
+      "prompt": "Changes in environment are making daily life more convenient for many people. Do the advantages of this development outweigh the disadvantages?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "environment",
+        "advantages_disadvantages"
+      ]
+    },
+    {
+      "id": "AWT2-0014",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "problem_solution",
+      "topic": "work",
+      "difficulty": "hard",
+      "prompt": "In many countries, problems connected with work are becoming more difficult to manage. What are the main causes of these problems, and what measures could be taken to address them?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "work",
+        "problem_solution"
+      ]
+    },
+    {
+      "id": "AWT2-0015",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "two_part",
+      "topic": "transport",
+      "difficulty": "easy",
+      "prompt": "People are paying increasing attention to transport. Why has this issue become more important in recent years? What effects could this trend have on individuals and society?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "transport",
+        "two_part"
+      ]
+    },
+    {
+      "id": "AWT2-0016",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "agree_disagree",
+      "topic": "health policy",
+      "difficulty": "medium",
+      "prompt": "Some people believe that governments should give greater priority to health policy than to other areas of public policy. To what extent do you agree or disagree?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "health policy",
+        "agree_disagree"
+      ]
+    },
+    {
+      "id": "AWT2-0017",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "discuss_both_views",
+      "topic": "cities",
+      "difficulty": "hard",
+      "prompt": "Some people think decisions about cities should mainly be made by experts, while others believe the general public should have a greater say. Discuss both views and give your own opinion.",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "cities",
+        "discuss_both_views"
+      ]
+    },
+    {
+      "id": "AWT2-0018",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "advantages_disadvantages",
+      "topic": "media",
+      "difficulty": "easy",
+      "prompt": "Changes in media are making daily life more convenient for many people. Do the advantages of this development outweigh the disadvantages?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "media",
+        "advantages_disadvantages"
+      ]
+    },
+    {
+      "id": "AWT2-0019",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "problem_solution",
+      "topic": "culture",
+      "difficulty": "medium",
+      "prompt": "In many countries, problems connected with culture are becoming more difficult to manage. What are the main causes of these problems, and what measures could be taken to address them?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "culture",
+        "problem_solution"
+      ]
+    },
+    {
+      "id": "AWT2-0020",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "two_part",
+      "topic": "public spending",
+      "difficulty": "hard",
+      "prompt": "People are paying increasing attention to public spending. Why has this issue become more important in recent years? What effects could this trend have on individuals and society?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "public spending",
+        "two_part"
+      ]
+    },
+    {
+      "id": "AWT2-0021",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "agree_disagree",
+      "topic": "education",
+      "difficulty": "easy",
+      "prompt": "Some people believe that governments should give greater priority to education than to other areas of public policy. To what extent do you agree or disagree?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "education",
+        "agree_disagree"
+      ]
+    },
+    {
+      "id": "AWT2-0022",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "discuss_both_views",
+      "topic": "technology",
+      "difficulty": "medium",
+      "prompt": "Some people think decisions about technology should mainly be made by experts, while others believe the general public should have a greater say. Discuss both views and give your own opinion.",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "technology",
+        "discuss_both_views"
+      ]
+    },
+    {
+      "id": "AWT2-0023",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "advantages_disadvantages",
+      "topic": "environment",
+      "difficulty": "hard",
+      "prompt": "Changes in environment are making daily life more convenient for many people. Do the advantages of this development outweigh the disadvantages?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "environment",
+        "advantages_disadvantages"
+      ]
+    },
+    {
+      "id": "AWT2-0024",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "problem_solution",
+      "topic": "work",
+      "difficulty": "easy",
+      "prompt": "In many countries, problems connected with work are becoming more difficult to manage. What are the main causes of these problems, and what measures could be taken to address them?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "work",
+        "problem_solution"
+      ]
+    },
+    {
+      "id": "AWT2-0025",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "two_part",
+      "topic": "transport",
+      "difficulty": "medium",
+      "prompt": "People are paying increasing attention to transport. Why has this issue become more important in recent years? What effects could this trend have on individuals and society?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "transport",
+        "two_part"
+      ]
+    },
+    {
+      "id": "AWT2-0026",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "agree_disagree",
+      "topic": "health policy",
+      "difficulty": "hard",
+      "prompt": "Some people believe that governments should give greater priority to health policy than to other areas of public policy. To what extent do you agree or disagree?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "health policy",
+        "agree_disagree"
+      ]
+    },
+    {
+      "id": "AWT2-0027",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "discuss_both_views",
+      "topic": "cities",
+      "difficulty": "easy",
+      "prompt": "Some people think decisions about cities should mainly be made by experts, while others believe the general public should have a greater say. Discuss both views and give your own opinion.",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "cities",
+        "discuss_both_views"
+      ]
+    },
+    {
+      "id": "AWT2-0028",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "advantages_disadvantages",
+      "topic": "media",
+      "difficulty": "medium",
+      "prompt": "Changes in media are making daily life more convenient for many people. Do the advantages of this development outweigh the disadvantages?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "media",
+        "advantages_disadvantages"
+      ]
+    },
+    {
+      "id": "AWT2-0029",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "problem_solution",
+      "topic": "culture",
+      "difficulty": "hard",
+      "prompt": "In many countries, problems connected with culture are becoming more difficult to manage. What are the main causes of these problems, and what measures could be taken to address them?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "culture",
+        "problem_solution"
+      ]
+    },
+    {
+      "id": "AWT2-0030",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "two_part",
+      "topic": "public spending",
+      "difficulty": "easy",
+      "prompt": "People are paying increasing attention to public spending. Why has this issue become more important in recent years? What effects could this trend have on individuals and society?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "public spending",
+        "two_part"
+      ]
+    },
+    {
+      "id": "AWT2-0031",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "agree_disagree",
+      "topic": "education",
+      "difficulty": "medium",
+      "prompt": "Some people believe that governments should give greater priority to education than to other areas of public policy. To what extent do you agree or disagree?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "education",
+        "agree_disagree"
+      ]
+    },
+    {
+      "id": "AWT2-0032",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "discuss_both_views",
+      "topic": "technology",
+      "difficulty": "hard",
+      "prompt": "Some people think decisions about technology should mainly be made by experts, while others believe the general public should have a greater say. Discuss both views and give your own opinion.",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "technology",
+        "discuss_both_views"
+      ]
+    },
+    {
+      "id": "AWT2-0033",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "advantages_disadvantages",
+      "topic": "environment",
+      "difficulty": "easy",
+      "prompt": "Changes in environment are making daily life more convenient for many people. Do the advantages of this development outweigh the disadvantages?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "environment",
+        "advantages_disadvantages"
+      ]
+    },
+    {
+      "id": "AWT2-0034",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "problem_solution",
+      "topic": "work",
+      "difficulty": "medium",
+      "prompt": "In many countries, problems connected with work are becoming more difficult to manage. What are the main causes of these problems, and what measures could be taken to address them?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "work",
+        "problem_solution"
+      ]
+    },
+    {
+      "id": "AWT2-0035",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "two_part",
+      "topic": "transport",
+      "difficulty": "hard",
+      "prompt": "People are paying increasing attention to transport. Why has this issue become more important in recent years? What effects could this trend have on individuals and society?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "transport",
+        "two_part"
+      ]
+    },
+    {
+      "id": "AWT2-0036",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "agree_disagree",
+      "topic": "health policy",
+      "difficulty": "easy",
+      "prompt": "Some people believe that governments should give greater priority to health policy than to other areas of public policy. To what extent do you agree or disagree?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "health policy",
+        "agree_disagree"
+      ]
+    },
+    {
+      "id": "AWT2-0037",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "discuss_both_views",
+      "topic": "cities",
+      "difficulty": "medium",
+      "prompt": "Some people think decisions about cities should mainly be made by experts, while others believe the general public should have a greater say. Discuss both views and give your own opinion.",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "cities",
+        "discuss_both_views"
+      ]
+    },
+    {
+      "id": "AWT2-0038",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "advantages_disadvantages",
+      "topic": "media",
+      "difficulty": "hard",
+      "prompt": "Changes in media are making daily life more convenient for many people. Do the advantages of this development outweigh the disadvantages?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "media",
+        "advantages_disadvantages"
+      ]
+    },
+    {
+      "id": "AWT2-0039",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "problem_solution",
+      "topic": "culture",
+      "difficulty": "easy",
+      "prompt": "In many countries, problems connected with culture are becoming more difficult to manage. What are the main causes of these problems, and what measures could be taken to address them?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "culture",
+        "problem_solution"
+      ]
+    },
+    {
+      "id": "AWT2-0040",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "two_part",
+      "topic": "public spending",
+      "difficulty": "medium",
+      "prompt": "People are paying increasing attention to public spending. Why has this issue become more important in recent years? What effects could this trend have on individuals and society?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "public spending",
+        "two_part"
+      ]
+    },
+    {
+      "id": "AWT2-0041",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "agree_disagree",
+      "topic": "education",
+      "difficulty": "hard",
+      "prompt": "Some people believe that governments should give greater priority to education than to other areas of public policy. To what extent do you agree or disagree?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "education",
+        "agree_disagree"
+      ]
+    },
+    {
+      "id": "AWT2-0042",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "discuss_both_views",
+      "topic": "technology",
+      "difficulty": "easy",
+      "prompt": "Some people think decisions about technology should mainly be made by experts, while others believe the general public should have a greater say. Discuss both views and give your own opinion.",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "technology",
+        "discuss_both_views"
+      ]
+    },
+    {
+      "id": "AWT2-0043",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "advantages_disadvantages",
+      "topic": "environment",
+      "difficulty": "medium",
+      "prompt": "Changes in environment are making daily life more convenient for many people. Do the advantages of this development outweigh the disadvantages?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "environment",
+        "advantages_disadvantages"
+      ]
+    },
+    {
+      "id": "AWT2-0044",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "problem_solution",
+      "topic": "work",
+      "difficulty": "hard",
+      "prompt": "In many countries, problems connected with work are becoming more difficult to manage. What are the main causes of these problems, and what measures could be taken to address them?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "work",
+        "problem_solution"
+      ]
+    },
+    {
+      "id": "AWT2-0045",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "two_part",
+      "topic": "transport",
+      "difficulty": "easy",
+      "prompt": "People are paying increasing attention to transport. Why has this issue become more important in recent years? What effects could this trend have on individuals and society?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "transport",
+        "two_part"
+      ]
+    },
+    {
+      "id": "AWT2-0046",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "agree_disagree",
+      "topic": "health policy",
+      "difficulty": "medium",
+      "prompt": "Some people believe that governments should give greater priority to health policy than to other areas of public policy. To what extent do you agree or disagree?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "health policy",
+        "agree_disagree"
+      ]
+    },
+    {
+      "id": "AWT2-0047",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "discuss_both_views",
+      "topic": "cities",
+      "difficulty": "hard",
+      "prompt": "Some people think decisions about cities should mainly be made by experts, while others believe the general public should have a greater say. Discuss both views and give your own opinion.",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "cities",
+        "discuss_both_views"
+      ]
+    },
+    {
+      "id": "AWT2-0048",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "advantages_disadvantages",
+      "topic": "media",
+      "difficulty": "easy",
+      "prompt": "Changes in media are making daily life more convenient for many people. Do the advantages of this development outweigh the disadvantages?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "media",
+        "advantages_disadvantages"
+      ]
+    },
+    {
+      "id": "AWT2-0049",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "problem_solution",
+      "topic": "culture",
+      "difficulty": "medium",
+      "prompt": "In many countries, problems connected with culture are becoming more difficult to manage. What are the main causes of these problems, and what measures could be taken to address them?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "culture",
+        "problem_solution"
+      ]
+    },
+    {
+      "id": "AWT2-0050",
+      "test_type": "academic",
+      "task": 2,
+      "question_type": "two_part",
+      "topic": "public spending",
+      "difficulty": "hard",
+      "prompt": "People are paying increasing attention to public spending. Why has this issue become more important in recent years? What effects could this trend have on individuals and society?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "planning_tags": [
+        "public spending",
+        "two_part"
+      ]
+    },
+    {
+      "id": "GWT1-0001",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "formal_letter",
+      "topic": "a streetlight outside your home has been broken for several weeks",
+      "difficulty": "easy",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your local council because a streetlight outside your home has been broken for several weeks.\n\nIn your letter:\n- explain where the problem is\n- describe how it affects local residents\n- ask what action will be taken\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "formal",
+      "recipient": "local council",
+      "bullet_points": [
+        "explain where the problem is",
+        "describe how it affects local residents",
+        "ask what action will be taken"
+      ]
+    },
+    {
+      "id": "GWT1-0002",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "formal_letter",
+      "topic": "you left an important item in your hotel room after checking out",
+      "difficulty": "medium",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your hotel manager because you left an important item in your hotel room after checking out.\n\nIn your letter:\n- describe the item\n- explain when and where you last saw it\n- say how you would like it returned\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "formal",
+      "recipient": "hotel manager",
+      "bullet_points": [
+        "describe the item",
+        "explain when and where you last saw it",
+        "say how you would like it returned"
+      ]
+    },
+    {
+      "id": "GWT1-0003",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "formal_letter",
+      "topic": "a course you registered for has changed its timetable",
+      "difficulty": "hard",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your training provider because a course you registered for has changed its timetable.\n\nIn your letter:\n- explain why the new timetable is difficult\n- describe your preferred alternative\n- ask what options are available\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "formal",
+      "recipient": "training provider",
+      "bullet_points": [
+        "explain why the new timetable is difficult",
+        "describe your preferred alternative",
+        "ask what options are available"
+      ]
+    },
+    {
+      "id": "GWT1-0004",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "formal_letter",
+      "topic": "a regular bus service in your area has become unreliable",
+      "difficulty": "easy",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your public transport company because a regular bus service in your area has become unreliable.\n\nIn your letter:\n- describe the route you use\n- explain the problems you have experienced\n- suggest an improvement\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "formal",
+      "recipient": "public transport company",
+      "bullet_points": [
+        "describe the route you use",
+        "explain the problems you have experienced",
+        "suggest an improvement"
+      ]
+    },
+    {
+      "id": "GWT1-0005",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "formal_letter",
+      "topic": "several repairs are needed in the apartment you rent",
+      "difficulty": "medium",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your landlord because several repairs are needed in the apartment you rent.\n\nIn your letter:\n- describe the repairs\n- explain how they are affecting you\n- request a suitable time for the work\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "formal",
+      "recipient": "landlord",
+      "bullet_points": [
+        "describe the repairs",
+        "explain how they are affecting you",
+        "request a suitable time for the work"
+      ]
+    },
+    {
+      "id": "GWT1-0006",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "semi_formal_letter",
+      "topic": "you are planning a small gathering that may create some noise",
+      "difficulty": "hard",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your neighbour because you are planning a small gathering that may create some noise.\n\nIn your letter:\n- explain the reason for the gathering\n- say when it will take place\n- offer a way to reduce inconvenience\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "semi_formal",
+      "recipient": "neighbour",
+      "bullet_points": [
+        "explain the reason for the gathering",
+        "say when it will take place",
+        "offer a way to reduce inconvenience"
+      ]
+    },
+    {
+      "id": "GWT1-0007",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "semi_formal_letter",
+      "topic": "you need to exchange one of your work shifts next month",
+      "difficulty": "easy",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your colleague because you need to exchange one of your work shifts next month.\n\nIn your letter:\n- explain which shift you need to change\n- give the reason\n- suggest how you can return the favour\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "semi_formal",
+      "recipient": "colleague",
+      "bullet_points": [
+        "explain which shift you need to change",
+        "give the reason",
+        "suggest how you can return the favour"
+      ]
+    },
+    {
+      "id": "GWT1-0008",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "semi_formal_letter",
+      "topic": "you missed an important class because of an unexpected problem",
+      "difficulty": "medium",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your course tutor because you missed an important class because of an unexpected problem.\n\nIn your letter:\n- explain why you were absent\n- ask what material you missed\n- request advice on catching up\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "semi_formal",
+      "recipient": "course tutor",
+      "bullet_points": [
+        "explain why you were absent",
+        "ask what material you missed",
+        "request advice on catching up"
+      ]
+    },
+    {
+      "id": "GWT1-0009",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "semi_formal_letter",
+      "topic": "you want to suggest a new activity for a community club",
+      "difficulty": "hard",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your club organiser because you want to suggest a new activity for a community club.\n\nIn your letter:\n- describe the activity\n- explain why members may enjoy it\n- offer to help organise it\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "semi_formal",
+      "recipient": "club organiser",
+      "bullet_points": [
+        "describe the activity",
+        "explain why members may enjoy it",
+        "offer to help organise it"
+      ]
+    },
+    {
+      "id": "GWT1-0010",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "semi_formal_letter",
+      "topic": "you would like them to provide a reference for a job application",
+      "difficulty": "easy",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your former supervisor because you would like them to provide a reference for a job application.\n\nIn your letter:\n- remind them of your previous role\n- describe the job you are applying for\n- ask whether they can provide a reference\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "semi_formal",
+      "recipient": "former supervisor",
+      "bullet_points": [
+        "remind them of your previous role",
+        "describe the job you are applying for",
+        "ask whether they can provide a reference"
+      ]
+    },
+    {
+      "id": "GWT1-0011",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "informal_letter",
+      "topic": "you recently moved to a new neighbourhood and want your friend to visit",
+      "difficulty": "medium",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your friend because you recently moved to a new neighbourhood and want your friend to visit.\n\nIn your letter:\n- describe your new area\n- say what you can do together\n- suggest a date for the visit\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "informal",
+      "recipient": "friend",
+      "bullet_points": [
+        "describe your new area",
+        "say what you can do together",
+        "suggest a date for the visit"
+      ]
+    },
+    {
+      "id": "GWT1-0012",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "informal_letter",
+      "topic": "you borrowed something from them and accidentally damaged it",
+      "difficulty": "hard",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your friend because you borrowed something from them and accidentally damaged it.\n\nIn your letter:\n- explain what happened\n- apologise\n- say how you will replace or repair it\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "informal",
+      "recipient": "friend",
+      "bullet_points": [
+        "explain what happened",
+        "apologise",
+        "say how you will replace or repair it"
+      ]
+    },
+    {
+      "id": "GWT1-0013",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "informal_letter",
+      "topic": "you cannot attend a family event you had planned to join",
+      "difficulty": "easy",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your relative because you cannot attend a family event you had planned to join.\n\nIn your letter:\n- explain why you cannot come\n- say how you feel about missing it\n- suggest another time to meet\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "informal",
+      "recipient": "relative",
+      "bullet_points": [
+        "explain why you cannot come",
+        "say how you feel about missing it",
+        "suggest another time to meet"
+      ]
+    },
+    {
+      "id": "GWT1-0014",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "informal_letter",
+      "topic": "you have discovered a useful place for studying or working",
+      "difficulty": "medium",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your friend because you have discovered a useful place for studying or working.\n\nIn your letter:\n- describe the place\n- explain why you like it\n- invite your friend to go there\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "informal",
+      "recipient": "friend",
+      "bullet_points": [
+        "describe the place",
+        "explain why you like it",
+        "invite your friend to go there"
+      ]
+    },
+    {
+      "id": "GWT1-0015",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "formal_letter",
+      "topic": "a streetlight outside your home has been broken for several weeks",
+      "difficulty": "hard",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your local council because a streetlight outside your home has been broken for several weeks. The situation occurs during a holiday week.\n\nIn your letter:\n- explain where the problem is\n- describe how it affects local residents\n- ask what action will be taken\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "formal",
+      "recipient": "local council",
+      "bullet_points": [
+        "explain where the problem is",
+        "describe how it affects local residents",
+        "ask what action will be taken"
+      ]
+    },
+    {
+      "id": "GWT1-0016",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "formal_letter",
+      "topic": "you left an important item in your hotel room after checking out",
+      "difficulty": "easy",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your hotel manager because you left an important item in your hotel room after checking out. The situation occurs during a busy work period.\n\nIn your letter:\n- describe the item\n- explain when and where you last saw it\n- say how you would like it returned\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "formal",
+      "recipient": "hotel manager",
+      "bullet_points": [
+        "describe the item",
+        "explain when and where you last saw it",
+        "say how you would like it returned"
+      ]
+    },
+    {
+      "id": "GWT1-0017",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "formal_letter",
+      "topic": "a course you registered for has changed its timetable",
+      "difficulty": "medium",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your training provider because a course you registered for has changed its timetable. The situation occurs during your exam preparation.\n\nIn your letter:\n- explain why the new timetable is difficult\n- describe your preferred alternative\n- ask what options are available\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "formal",
+      "recipient": "training provider",
+      "bullet_points": [
+        "explain why the new timetable is difficult",
+        "describe your preferred alternative",
+        "ask what options are available"
+      ]
+    },
+    {
+      "id": "GWT1-0018",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "formal_letter",
+      "topic": "a regular bus service in your area has become unreliable",
+      "difficulty": "hard",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your public transport company because a regular bus service in your area has become unreliable. The situation occurs during a holiday week.\n\nIn your letter:\n- describe the route you use\n- explain the problems you have experienced\n- suggest an improvement\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "formal",
+      "recipient": "public transport company",
+      "bullet_points": [
+        "describe the route you use",
+        "explain the problems you have experienced",
+        "suggest an improvement"
+      ]
+    },
+    {
+      "id": "GWT1-0019",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "formal_letter",
+      "topic": "several repairs are needed in the apartment you rent",
+      "difficulty": "easy",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your landlord because several repairs are needed in the apartment you rent. The situation occurs during a busy work period.\n\nIn your letter:\n- describe the repairs\n- explain how they are affecting you\n- request a suitable time for the work\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "formal",
+      "recipient": "landlord",
+      "bullet_points": [
+        "describe the repairs",
+        "explain how they are affecting you",
+        "request a suitable time for the work"
+      ]
+    },
+    {
+      "id": "GWT1-0020",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "semi_formal_letter",
+      "topic": "you are planning a small gathering that may create some noise",
+      "difficulty": "medium",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your neighbour because you are planning a small gathering that may create some noise. The situation occurs during your exam preparation.\n\nIn your letter:\n- explain the reason for the gathering\n- say when it will take place\n- offer a way to reduce inconvenience\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "semi_formal",
+      "recipient": "neighbour",
+      "bullet_points": [
+        "explain the reason for the gathering",
+        "say when it will take place",
+        "offer a way to reduce inconvenience"
+      ]
+    },
+    {
+      "id": "GWT1-0021",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "semi_formal_letter",
+      "topic": "you need to exchange one of your work shifts next month",
+      "difficulty": "hard",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your colleague because you need to exchange one of your work shifts next month. The situation occurs during a holiday week.\n\nIn your letter:\n- explain which shift you need to change\n- give the reason\n- suggest how you can return the favour\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "semi_formal",
+      "recipient": "colleague",
+      "bullet_points": [
+        "explain which shift you need to change",
+        "give the reason",
+        "suggest how you can return the favour"
+      ]
+    },
+    {
+      "id": "GWT1-0022",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "semi_formal_letter",
+      "topic": "you missed an important class because of an unexpected problem",
+      "difficulty": "easy",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your course tutor because you missed an important class because of an unexpected problem. The situation occurs during a busy work period.\n\nIn your letter:\n- explain why you were absent\n- ask what material you missed\n- request advice on catching up\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "semi_formal",
+      "recipient": "course tutor",
+      "bullet_points": [
+        "explain why you were absent",
+        "ask what material you missed",
+        "request advice on catching up"
+      ]
+    },
+    {
+      "id": "GWT1-0023",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "semi_formal_letter",
+      "topic": "you want to suggest a new activity for a community club",
+      "difficulty": "medium",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your club organiser because you want to suggest a new activity for a community club. The situation occurs during your exam preparation.\n\nIn your letter:\n- describe the activity\n- explain why members may enjoy it\n- offer to help organise it\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "semi_formal",
+      "recipient": "club organiser",
+      "bullet_points": [
+        "describe the activity",
+        "explain why members may enjoy it",
+        "offer to help organise it"
+      ]
+    },
+    {
+      "id": "GWT1-0024",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "semi_formal_letter",
+      "topic": "you would like them to provide a reference for a job application",
+      "difficulty": "hard",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your former supervisor because you would like them to provide a reference for a job application. The situation occurs during a holiday week.\n\nIn your letter:\n- remind them of your previous role\n- describe the job you are applying for\n- ask whether they can provide a reference\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "semi_formal",
+      "recipient": "former supervisor",
+      "bullet_points": [
+        "remind them of your previous role",
+        "describe the job you are applying for",
+        "ask whether they can provide a reference"
+      ]
+    },
+    {
+      "id": "GWT1-0025",
+      "test_type": "general_training",
+      "task": 1,
+      "question_type": "informal_letter",
+      "topic": "you recently moved to a new neighbourhood and want your friend to visit",
+      "difficulty": "easy",
+      "prompt": "You should spend about 20 minutes on this task.\n\nYou need to write to your friend because you recently moved to a new neighbourhood and want your friend to visit. The situation occurs during a busy work period.\n\nIn your letter:\n- describe your new area\n- say what you can do together\n- suggest a date for the visit\n\nWrite at least 150 words. You do not need to write any addresses.",
+      "minimum_words": 150,
+      "recommended_minutes": 20,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required",
+      "letter_tone": "informal",
+      "recipient": "friend",
+      "bullet_points": [
+        "describe your new area",
+        "say what you can do together",
+        "suggest a date for the visit"
+      ]
+    },
+    {
+      "id": "GWT2-0001",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "agree_disagree",
+      "topic": "shopping habits",
+      "difficulty": "hard",
+      "prompt": "Some people think that changes in shopping habits have improved everyday life, while others disagree. To what extent do you agree or disagree?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0002",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "discuss_both_views",
+      "topic": "community facilities",
+      "difficulty": "easy",
+      "prompt": "Some people think local communities should spend more money on community facilities, while others believe the money should be used for other priorities. Discuss both views and give your own opinion.",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0003",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "advantages_disadvantages",
+      "topic": "family time",
+      "difficulty": "medium",
+      "prompt": "More people are changing the way they deal with family time. Do the advantages of this trend outweigh the disadvantages?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0004",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "problem_solution",
+      "topic": "local transport",
+      "difficulty": "hard",
+      "prompt": "In many places, problems related to local transport are becoming more noticeable. What problems can this cause, and what could be done to improve the situation?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0005",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "two_part",
+      "topic": "work-life balance",
+      "difficulty": "easy",
+      "prompt": "People's attitudes towards work-life balance have changed considerably in recent years. Why has this happened? Is this generally a positive or negative development?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0006",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "agree_disagree",
+      "topic": "public parks",
+      "difficulty": "medium",
+      "prompt": "Some people think that changes in public parks have improved everyday life, while others disagree. To what extent do you agree or disagree?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0007",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "discuss_both_views",
+      "topic": "online services",
+      "difficulty": "hard",
+      "prompt": "Some people think local communities should spend more money on online services, while others believe the money should be used for other priorities. Discuss both views and give your own opinion.",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0008",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "advantages_disadvantages",
+      "topic": "school activities",
+      "difficulty": "easy",
+      "prompt": "More people are changing the way they deal with school activities. Do the advantages of this trend outweigh the disadvantages?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0009",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "problem_solution",
+      "topic": "tourism in small towns",
+      "difficulty": "medium",
+      "prompt": "In many places, problems related to tourism in small towns are becoming more noticeable. What problems can this cause, and what could be done to improve the situation?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0010",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "two_part",
+      "topic": "volunteering",
+      "difficulty": "hard",
+      "prompt": "People's attitudes towards volunteering have changed considerably in recent years. Why has this happened? Is this generally a positive or negative development?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0011",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "agree_disagree",
+      "topic": "shopping habits",
+      "difficulty": "easy",
+      "prompt": "Some people think that changes in shopping habits have improved everyday life, while others disagree. To what extent do you agree or disagree?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0012",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "discuss_both_views",
+      "topic": "community facilities",
+      "difficulty": "medium",
+      "prompt": "Some people think local communities should spend more money on community facilities, while others believe the money should be used for other priorities. Discuss both views and give your own opinion.",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0013",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "advantages_disadvantages",
+      "topic": "family time",
+      "difficulty": "hard",
+      "prompt": "More people are changing the way they deal with family time. Do the advantages of this trend outweigh the disadvantages?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0014",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "problem_solution",
+      "topic": "local transport",
+      "difficulty": "easy",
+      "prompt": "In many places, problems related to local transport are becoming more noticeable. What problems can this cause, and what could be done to improve the situation?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0015",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "two_part",
+      "topic": "work-life balance",
+      "difficulty": "medium",
+      "prompt": "People's attitudes towards work-life balance have changed considerably in recent years. Why has this happened? Is this generally a positive or negative development?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0016",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "agree_disagree",
+      "topic": "public parks",
+      "difficulty": "hard",
+      "prompt": "Some people think that changes in public parks have improved everyday life, while others disagree. To what extent do you agree or disagree?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0017",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "discuss_both_views",
+      "topic": "online services",
+      "difficulty": "easy",
+      "prompt": "Some people think local communities should spend more money on online services, while others believe the money should be used for other priorities. Discuss both views and give your own opinion.",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0018",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "advantages_disadvantages",
+      "topic": "school activities",
+      "difficulty": "medium",
+      "prompt": "More people are changing the way they deal with school activities. Do the advantages of this trend outweigh the disadvantages?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0019",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "problem_solution",
+      "topic": "tourism in small towns",
+      "difficulty": "hard",
+      "prompt": "In many places, problems related to tourism in small towns are becoming more noticeable. What problems can this cause, and what could be done to improve the situation?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0020",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "two_part",
+      "topic": "volunteering",
+      "difficulty": "easy",
+      "prompt": "People's attitudes towards volunteering have changed considerably in recent years. Why has this happened? Is this generally a positive or negative development?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0021",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "agree_disagree",
+      "topic": "shopping habits",
+      "difficulty": "medium",
+      "prompt": "Some people think that changes in shopping habits have improved everyday life, while others disagree. To what extent do you agree or disagree?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0022",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "discuss_both_views",
+      "topic": "community facilities",
+      "difficulty": "hard",
+      "prompt": "Some people think local communities should spend more money on community facilities, while others believe the money should be used for other priorities. Discuss both views and give your own opinion.",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0023",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "advantages_disadvantages",
+      "topic": "family time",
+      "difficulty": "easy",
+      "prompt": "More people are changing the way they deal with family time. Do the advantages of this trend outweigh the disadvantages?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0024",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "problem_solution",
+      "topic": "local transport",
+      "difficulty": "medium",
+      "prompt": "In many places, problems related to local transport are becoming more noticeable. What problems can this cause, and what could be done to improve the situation?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    },
+    {
+      "id": "GWT2-0025",
+      "test_type": "general_training",
+      "task": 2,
+      "question_type": "two_part",
+      "topic": "work-life balance",
+      "difficulty": "hard",
+      "prompt": "People's attitudes towards work-life balance have changed considerably in recent years. Why has this happened? Is this generally a positive or negative development?",
+      "minimum_words": 250,
+      "recommended_minutes": 40,
+      "source_type": "original_generated",
+      "publication_status": "draft_review_required"
+    }
+  ]
+}

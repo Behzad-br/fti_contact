@@ -1,0 +1,56 @@
+node_modules/
+frontend/dist/
+frontend/dist-ssr/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+build/
+dist/
+downloads/
+*.egg-info/
+*.egg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Large content packs / runtime data (keep out of git)
+data/listening-packs/
+data/writing-packs/
+data/reading-packs/
+data/listening_audio/
+data/listening_maps/
+data/writing_images/
+data/reading_diagrams/
+data/mock_images/
+data/notes/
+data/imports/
+data/tmp/
+data/*.db
+data/*.db-*
+*.db
+
+# Local personal files at repo root
+/WhatsApp*
+/*.jpeg
+
+# API Keys - Never commit real keys
+# (Placeholder values are in the code, replace with your own)

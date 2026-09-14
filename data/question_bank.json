@@ -1,0 +1,677 @@
+[
+  {
+    "id": "test-001",
+    "title": "IELTS Speaking Mock Test 1 — Childhood & Memories",
+    "part1": [
+      "Where did you grow up?",
+      "Did you enjoy your childhood? Why?",
+      "What games did you play as a child?",
+      "Do you keep in touch with friends from your childhood?",
+      "How is your hometown different now compared to when you were young?"
+    ],
+    "part2": {
+      "topic": "Describe a memorable experience from your childhood.",
+      "bullets": [
+        "what the experience was",
+        "who was involved",
+        "why it was memorable",
+        "and explain how it has influenced who you are today"
+      ]
+    },
+    "part3": [
+      "How important is childhood for a person's development?",
+      "Do you think children today have a better or worse childhood than previous generations?",
+      "How has technology changed the way children spend their free time?",
+      "What role should parents play in shaping their children's experiences?",
+      "Should schools teach children about their cultural heritage? Why or why not?"
+    ]
+  },
+  {
+    "id": "test-002",
+    "title": "IELTS Speaking Mock Test 2 — Technology & Daily Life",
+    "part1": [
+      "How often do you use a smartphone in a typical day?",
+      "What apps do you use most frequently?",
+      "Do you prefer reading physical books or e-books?",
+      "Has technology made your daily life easier or more complicated?",
+      "Do you think people spend too much time on social media?"
+    ],
+    "part2": {
+      "topic": "Describe a piece of technology that has changed your life.",
+      "bullets": [
+        "what the technology is",
+        "when you first started using it",
+        "how you use it in your daily life",
+        "and explain why it has been so important to you"
+      ]
+    },
+    "part3": [
+      "How has the internet transformed the way people communicate?",
+      "Do you think artificial intelligence will replace human jobs in the future?",
+      "What are the main dangers of excessive technology use for young people?",
+      "Should governments regulate social media platforms? Why or why not?",
+      "How can technology help address global environmental problems?"
+    ]
+  },
+  {
+    "id": "test-003",
+    "title": "IELTS Speaking Mock Test 3 — Travel & Places",
+    "part1": [
+      "Do you enjoy travelling? Why or why not?",
+      "What was the last place you visited?",
+      "Do you prefer travelling alone or with others?",
+      "What kind of accommodation do you prefer when you travel?",
+      "Is there a place you have always wanted to visit?"
+    ],
+    "part2": {
+      "topic": "Describe a country or city you would like to visit in the future.",
+      "bullets": [
+        "where it is",
+        "why you want to visit it",
+        "what you would do or see there",
+        "and explain why you have not been there yet"
+      ]
+    },
+    "part3": [
+      "How has international travel changed people's understanding of other cultures?",
+      "Do you think tourism has more positive or negative effects on local communities?",
+      "Should governments invest more in public transport to encourage domestic tourism?",
+      "How has online booking changed the travel industry?",
+      "What responsibilities do tourists have when visiting other countries?"
+    ]
+  },
+  {
+    "id": "test-004",
+    "title": "IELTS Speaking Mock Test 4 — Work & Career",
+    "part1": [
+      "Do you work or are you a student?",
+      "What kind of work would you like to do in the future?",
+      "Do you prefer working indoors or outdoors? Why?",
+      "Is it important to you to have a job you enjoy?",
+      "How many hours a week do you think is a reasonable amount to work?"
+    ],
+    "part2": {
+      "topic": "Describe a job you think you would be good at.",
+      "bullets": [
+        "what the job is",
+        "what skills or qualities it requires",
+        "why you think you would be good at it",
+        "and explain whether you would enjoy doing this job every day"
+      ]
+    },
+    "part3": [
+      "How important is job satisfaction compared to a high salary?",
+      "Do you think the traditional 9-to-5 working day is still relevant today?",
+      "How has remote working affected people's work-life balance?",
+      "Should companies prioritise hiring local workers over foreign workers? Why?",
+      "What skills do you think will be most valued in the workplace in 20 years?"
+    ]
+  },
+  {
+    "id": "test-005",
+    "title": "IELTS Speaking Mock Test 5 — Health & Lifestyle",
+    "part1": [
+      "Do you exercise regularly? What do you do?",
+      "How important is healthy eating to you?",
+      "Do you get enough sleep? Why or why not?",
+      "Have you ever tried a new sport or physical activity?",
+      "What do you do to relax after a stressful day?"
+    ],
+    "part2": {
+      "topic": "Describe a healthy habit you have developed.",
+      "bullets": [
+        "what the habit is",
+        "when and why you started it",
+        "how it has affected your life",
+        "and explain whether you would recommend it to others"
+      ]
+    },
+    "part3": [
+      "Why do you think many people find it difficult to maintain a healthy lifestyle?",
+      "Should governments do more to encourage healthy eating? If so, how?",
+      "How has modern life made it harder for people to be physically active?",
+      "Do you think health education in schools is effective?",
+      "Should employers be responsible for the health and wellbeing of their employees?"
+    ]
+  },
+  {
+    "id": "test-006",
+    "title": "IELTS Speaking Mock Test 6 — Education & Learning",
+    "part1": [
+      "What subject did you enjoy most at school? Why?",
+      "How do you prefer to learn new things — by reading, watching, or doing?",
+      "Do you think the education system in your country is good?",
+      "Did you have a favourite teacher? What made them special?",
+      "Do you still study or learn new things in your spare time?"
+    ],
+    "part2": {
+      "topic": "Describe a course or class you have taken that you found particularly useful.",
+      "bullets": [
+        "what the course was about",
+        "where and when you took it",
+        "what you learned from it",
+        "and explain why it has been useful in your life"
+      ]
+    },
+    "part3": [
+      "How important is university education in today's society?",
+      "Do you think traditional classroom learning will eventually be replaced by online learning?",
+      "Should education be free for everyone? What are the advantages and disadvantages?",
+      "How can countries improve the quality of their education systems?",
+      "Do you think intelligence is more important than hard work for academic success?"
+    ]
+  },
+  {
+    "id": "test-007",
+    "title": "IELTS Speaking Mock Test 7 — Environment & Nature",
+    "part1": [
+      "How often do you spend time in nature?",
+      "Do you think people in your city care about the environment?",
+      "Do you try to reduce the amount of waste you produce?",
+      "Have you ever participated in any environmental activity?",
+      "What is your favourite type of natural environment — mountains, forest, beach, or something else?"
+    ],
+    "part2": {
+      "topic": "Describe a natural place you have visited and found beautiful.",
+      "bullets": [
+        "where it was",
+        "when and how you got there",
+        "what made it special or beautiful",
+        "and explain how you felt while you were there"
+      ]
+    },
+    "part3": [
+      "How serious is the problem of climate change in your country?",
+      "What can individuals do to help protect the environment in everyday life?",
+      "Do you think businesses have enough responsibility for protecting the environment?",
+      "Should governments impose heavy taxes on companies that pollute? Why?",
+      "How can technology help solve environmental problems?"
+    ]
+  },
+  {
+    "id": "test-008",
+    "title": "IELTS Speaking Mock Test 8 — Arts & Culture",
+    "part1": [
+      "Do you enjoy visiting museums or art galleries?",
+      "What type of music do you like to listen to?",
+      "Have you ever been to a concert or live performance?",
+      "Do you have any creative hobbies, such as painting, writing, or playing music?",
+      "Is there a film or book that has had a strong impact on you?"
+    ],
+    "part2": {
+      "topic": "Describe a work of art, a book, or a film that impressed you greatly.",
+      "bullets": [
+        "what it was",
+        "when you first encountered it",
+        "what it was about or what it depicted",
+        "and explain why it left such a strong impression on you"
+      ]
+    },
+    "part3": [
+      "How important are the arts in a society?",
+      "Do you think governments should fund the arts? Why or why not?",
+      "How has the internet changed the way people consume and create art?",
+      "Is it important for children to learn about traditional arts and culture?",
+      "Do you think popular culture has a positive or negative influence on society?"
+    ]
+  },
+  {
+    "id": "test-009",
+    "title": "IELTS Speaking Mock Test 9 — Food & Traditions",
+    "part1": [
+      "What is your favourite food? Why do you like it?",
+      "Do you enjoy cooking? What do you like to cook?",
+      "How often do you eat out at restaurants?",
+      "Is food an important part of celebrations in your culture?",
+      "Have you ever tried food from another country that you really enjoyed?"
+    ],
+    "part2": {
+      "topic": "Describe a traditional dish from your country or culture.",
+      "bullets": [
+        "what the dish is and what it is made of",
+        "on what occasions it is typically eaten",
+        "how it is prepared",
+        "and explain why it is important or special to you"
+      ]
+    },
+    "part3": [
+      "How important is food to cultural identity?",
+      "Do you think globalisation has had a positive or negative effect on traditional cuisines?",
+      "Should schools teach children about nutrition and healthy eating habits?",
+      "How has the fast food industry changed people's eating habits?",
+      "Do you think people today are more or less adventurous about trying new foods than in the past?"
+    ]
+  },
+  {
+    "id": "test-010",
+    "title": "IELTS Speaking Mock Test 10 — Friendship & Relationships",
+    "part1": [
+      "How do you usually make new friends?",
+      "Do you prefer having a few close friends or many acquaintances?",
+      "How do you stay in touch with friends who live far away?",
+      "Have you ever made a friend through the internet or social media?",
+      "What do you value most in a friendship?"
+    ],
+    "part2": {
+      "topic": "Describe a friend who has had a positive influence on your life.",
+      "bullets": [
+        "who this person is",
+        "how and when you met",
+        "in what ways they have influenced you",
+        "and explain why you value this friendship so much"
+      ]
+    },
+    "part3": [
+      "How have social media platforms changed the nature of friendship?",
+      "Do you think it is harder to make genuine friends as an adult compared to when you were a child?",
+      "How important is it to have friends from different cultural backgrounds?",
+      "Can people who have never met in person be true friends? Why or why not?",
+      "What are the qualities that make someone a good friend?"
+    ]
+  },
+  {
+    "id": "speaking-01",
+    "title": "Speaking Practice Test 01",
+    "part1": [
+      "What kind of home do you live in?",
+      "What do you like most about your neighbourhood?",
+      "Has the area changed recently?",
+      "Would you like to stay there in the future?",
+      "What is the busiest part of your day?"
+    ],
+    "part2": {
+      "topic": "Describe a public place in your town that you enjoy visiting",
+      "bullets": [
+        "where it is",
+        "what it looks like",
+        "what you do there",
+        "why you enjoy visiting it"
+      ]
+    },
+    "part3": [
+      "Why are public spaces important in cities?",
+      "How can public spaces serve different age groups?",
+      "Who should pay for maintaining public places?",
+      "Can a public place be too popular?",
+      "How might public spaces change in future?"
+    ]
+  },
+  {
+    "id": "speaking-02",
+    "title": "Speaking Practice Test 02",
+    "part1": [
+      "What are you studying at present?",
+      "Which part do you find most interesting?",
+      "Do you prefer studying alone or with others?",
+      "What skill would you like to learn next?",
+      "How often do you read books?"
+    ],
+    "part2": {
+      "topic": "Describe a skill you learned from another person",
+      "bullets": [
+        "what the skill was",
+        "who taught you",
+        "how you learned it",
+        "why it has been useful"
+      ]
+    },
+    "part3": [
+      "Which skills are best learned from other people?",
+      "How has online learning changed skill development?",
+      "Should employers train workers continuously?",
+      "Why do adults stop learning new skills?",
+      "How can schools encourage independent learning?"
+    ]
+  },
+  {
+    "id": "speaking-03",
+    "title": "Speaking Practice Test 03",
+    "part1": [
+      "What type of work do you do?",
+      "What is the most challenging part?",
+      "Do you work better in the morning or afternoon?",
+      "Would you like to change careers?",
+      "How do you usually travel?"
+    ],
+    "part2": {
+      "topic": "Describe a journey that took longer than expected",
+      "bullets": [
+        "where you were going",
+        "how you travelled",
+        "what caused the delay",
+        "how you felt about it"
+      ]
+    },
+    "part3": [
+      "Why do transport delays cause stress?",
+      "Should cities discourage private cars?",
+      "How can long journeys be made productive?",
+      "Will remote work reduce commuting?",
+      "Who should improve public transport?"
+    ]
+  },
+  {
+    "id": "speaking-04",
+    "title": "Speaking Practice Test 04",
+    "part1": [
+      "What food do you eat regularly?",
+      "Do you enjoy cooking?",
+      "Who taught you to cook?",
+      "Have your eating habits changed?",
+      "Do you visit local markets?"
+    ],
+    "part2": {
+      "topic": "Describe a meal you enjoyed with other people",
+      "bullets": [
+        "where it took place",
+        "who was there",
+        "what you ate",
+        "why you remember it"
+      ]
+    },
+    "part3": [
+      "Why are shared meals important?",
+      "How have family meals changed?",
+      "Should schools teach cooking?",
+      "Why do people eat restaurant food?",
+      "How does food express culture?"
+    ]
+  },
+  {
+    "id": "speaking-05",
+    "title": "Speaking Practice Test 05",
+    "part1": [
+      "What weather do you enjoy most?",
+      "Does weather affect your plans?",
+      "What is the hottest season in your area?",
+      "Would you like to live in a different climate?",
+      "What outdoor activities are common?"
+    ],
+    "part2": {
+      "topic": "Describe a time when weather changed your plans",
+      "bullets": [
+        "what you planned",
+        "what the weather was like",
+        "what you did instead",
+        "how you felt"
+      ]
+    },
+    "part3": [
+      "How should cities prepare for extreme weather?",
+      "Does technology improve weather planning?",
+      "Who is most affected by climate events?",
+      "Should employers adapt to severe weather?",
+      "Why do people ignore forecasts?"
+    ]
+  },
+  {
+    "id": "speaking-06",
+    "title": "Speaking Practice Test 06",
+    "part1": [
+      "How often do you meet friends?",
+      "What do you usually do together?",
+      "Is it easy to make friends in your area?",
+      "Have your friendships changed over time?",
+      "How often do you send messages?"
+    ],
+    "part2": {
+      "topic": "Describe a friend who has influenced you",
+      "bullets": [
+        "who the person is",
+        "how you met",
+        "what quality they have",
+        "how they influenced you"
+      ]
+    },
+    "part3": [
+      "Why do some friendships last a long time?",
+      "Has technology improved friendship?",
+      "Is it harder for adults to make friends?",
+      "Should friends always give honest advice?",
+      "How do friendships affect wellbeing?"
+    ]
+  },
+  {
+    "id": "speaking-07",
+    "title": "Speaking Practice Test 07",
+    "part1": [
+      "What music do you listen to?",
+      "When do you usually listen?",
+      "Did you learn an instrument?",
+      "Is live music popular in your town?",
+      "What events take place locally?"
+    ],
+    "part2": {
+      "topic": "Describe a live event you attended",
+      "bullets": [
+        "what the event was",
+        "where it happened",
+        "who you went with",
+        "why it was memorable"
+      ]
+    },
+    "part3": [
+      "Why do communities hold public events?",
+      "Should governments fund cultural events?",
+      "How do events affect local businesses?",
+      "Are large events environmentally responsible?",
+      "Why do people value live performance?"
+    ]
+  },
+  {
+    "id": "speaking-08",
+    "title": "Speaking Practice Test 08",
+    "part1": [
+      "How often do you shop online?",
+      "What do you prefer buying in a shop?",
+      "Have your shopping habits changed?",
+      "Do you compare prices?",
+      "Are clothes important to you?"
+    ],
+    "part2": {
+      "topic": "Describe something useful you bought after careful research",
+      "bullets": [
+        "what it was",
+        "why you needed it",
+        "how you researched it",
+        "whether it met your expectations"
+      ]
+    },
+    "part3": [
+      "Why do consumers research expensive products?",
+      "How reliable are online reviews?",
+      "Should advertising be more tightly regulated?",
+      "Why do people replace products quickly?",
+      "How can repair become more attractive?"
+    ]
+  },
+  {
+    "id": "speaking-09",
+    "title": "Speaking Practice Test 09",
+    "part1": [
+      "What exercise do you do?",
+      "Where do people exercise locally?",
+      "Did you play sport at school?",
+      "What makes exercise difficult?",
+      "Where do you get health information?"
+    ],
+    "part2": {
+      "topic": "Describe an activity that helps you stay healthy",
+      "bullets": [
+        "what it is",
+        "when you do it",
+        "who you do it with",
+        "why it benefits you"
+      ]
+    },
+    "part3": [
+      "Who is responsible for public health?",
+      "How can workplaces support healthy behaviour?",
+      "Why is prevention difficult to fund?",
+      "Should unhealthy products cost more?",
+      "How can cities encourage exercise?"
+    ]
+  },
+  {
+    "id": "speaking-10",
+    "title": "Speaking Practice Test 10",
+    "part1": [
+      "Which device do you use most?",
+      "What task does technology make easier?",
+      "Is there technology you avoid?",
+      "How has technology changed your studies or work?",
+      "How often do you take photographs?"
+    ],
+    "part2": {
+      "topic": "Describe a piece of technology you found difficult at first",
+      "bullets": [
+        "what it was",
+        "why you used it",
+        "what was difficult",
+        "how you learned to use it"
+      ]
+    },
+    "part3": [
+      "Why do people resist new technology?",
+      "Should digital skills be compulsory at school?",
+      "How can technology exclude some groups?",
+      "Who should protect personal data?",
+      "Will automation improve most jobs?"
+    ]
+  },
+  {
+    "id": "speaking-11",
+    "title": "Speaking Practice Test 11",
+    "part1": [
+      "Do you enjoy long journeys?",
+      "What was your most recent trip?",
+      "Do you plan trips carefully?",
+      "Where would you like to travel?",
+      "Do you use digital maps?"
+    ],
+    "part2": {
+      "topic": "Describe a place you would like to visit for a short holiday",
+      "bullets": [
+        "where it is",
+        "how you learned about it",
+        "what you would do there",
+        "why it appeals to you"
+      ]
+    },
+    "part3": [
+      "What makes a destination attractive?",
+      "How can tourism benefit residents?",
+      "Should visitor numbers be limited?",
+      "Why do people seek unfamiliar places?",
+      "How will travel change in future?"
+    ]
+  },
+  {
+    "id": "speaking-12",
+    "title": "Speaking Practice Test 12",
+    "part1": [
+      "Do you keep plants at home?",
+      "What plants grow in your area?",
+      "Did you help with gardening as a child?",
+      "Should cities have more trees?",
+      "How often do you visit parks?"
+    ],
+    "part2": {
+      "topic": "Describe a garden or natural area you remember",
+      "bullets": [
+        "where it was",
+        "what you saw there",
+        "who you were with",
+        "why you remember it"
+      ]
+    },
+    "part3": [
+      "Why do cities need natural areas?",
+      "Should private land contribute to biodiversity?",
+      "How can children learn about nature?",
+      "Why are some conservation projects controversial?",
+      "Can small green spaces make a difference?"
+    ]
+  },
+  {
+    "id": "speaking-13",
+    "title": "Speaking Practice Test 13",
+    "part1": [
+      "Which languages do you speak?",
+      "When do you use English?",
+      "What is difficult about learning a language?",
+      "Would you like to learn another language?",
+      "Does your name have a meaning?"
+    ],
+    "part2": {
+      "topic": "Describe a useful conversation you had in another language",
+      "bullets": [
+        "where it happened",
+        "who you spoke with",
+        "what you discussed",
+        "why it was useful"
+      ]
+    },
+    "part3": [
+      "Why do some languages become less widely spoken?",
+      "Should governments protect minority languages?",
+      "How does language influence identity?",
+      "Will translation technology reduce language learning?",
+      "What makes language teaching effective?"
+    ]
+  },
+  {
+    "id": "speaking-14",
+    "title": "Speaking Practice Test 14",
+    "part1": [
+      "How often do you follow the news?",
+      "Which news topics interest you?",
+      "Do you prefer reading or watching news?",
+      "Has your news source changed?",
+      "How much television do you watch?"
+    ],
+    "part2": {
+      "topic": "Describe a news story that interested you",
+      "bullets": [
+        "what it was about",
+        "where you found it",
+        "why it caught your attention",
+        "whether it changed your view"
+      ]
+    },
+    "part3": [
+      "How should people judge whether news is reliable?",
+      "Why does false information spread?",
+      "Should social platforms act as publishers?",
+      "Does constant news access increase anxiety?",
+      "Why are local news services declining?"
+    ]
+  },
+  {
+    "id": "speaking-15",
+    "title": "Speaking Practice Test 15",
+    "part1": [
+      "What celebrations are important to you?",
+      "How do families celebrate together?",
+      "Do you enjoy organising celebrations?",
+      "Have celebrations become more expensive?",
+      "When do people give gifts?"
+    ],
+    "part2": {
+      "topic": "Describe a celebration you helped organise",
+      "bullets": [
+        "what it celebrated",
+        "what you arranged",
+        "who helped you",
+        "how successful it was"
+      ]
+    },
+    "part3": [
+      "Why do celebrations change over time?",
+      "Do commercial influences harm celebrations?",
+      "Should workplaces recognise diverse festivals?",
+      "Why do communities need shared traditions?",
+      "Can new celebrations become traditional?"
+    ]
+  }
+]

@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background)); --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border)); --color-input: hsl(var(--input)); --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card)); --color-card-foreground: hsl(var(--card-foreground)); --color-card-border: hsl(var(--card-border));
+  --color-primary: hsl(var(--primary)); --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary)); --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted)); --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent)); --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive)); --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-sidebar: hsl(var(--sidebar)); --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --font-sans: var(--app-font-sans); --font-mono: var(--app-font-mono); --radius-md: var(--radius);
+}
+
+:root {
+  --background: 0 0% 98%;
+  --foreground: 222 20% 18%;
+  --border: 0 0% 88%;
+  --input: 0 0% 88%;
+  --ring: 24 95% 53%;
+  
+  --card: 0 0% 100%;
+  --card-foreground: 222 20% 18%;
+  --card-border: 0 0% 90%;
+  
+  --primary: 24 95% 53%;
+  --primary-foreground: 0 0% 100%;
+  
+  --secondary: 24 30% 95%;
+  --secondary-foreground: 24 80% 40%;
+  
+  --muted: 0 0% 94%;
+  --muted-foreground: 0 0% 45%;
+  
+  --accent: 35 90% 50%;
+  --accent-foreground: 0 0% 100%;
+  
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  
+  --sidebar: 222 22% 10%;
+  --sidebar-foreground: 0 0% 98%;
+  
+  --radius: .7rem; --app-font-sans: 'DM Sans', sans-serif; --app-font-mono: 'DM Mono', monospace;
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, .04);
+}
+.dark {
+  --background: 20 10% 10%; --foreground: 0 0% 95%; --card: 20 10% 14%; --card-foreground: 0 0% 95%;
+  --border: 20 10% 20%; --input: 20 10% 20%; --muted: 20 10% 16%; --muted-foreground: 20 10% 60%;
+  --secondary: 20 10% 18%; --secondary-foreground: 0 0% 95%; --sidebar: 20 10% 12%;
+  --primary: 24 95% 53%;
+}
+@layer base {
+  * { @apply border-border; }
+  body { @apply font-sans antialiased bg-background text-foreground; margin: 0; }
+  button, a, input, textarea, select { outline-color: hsl(var(--ring)); }
+}
+@layer utilities {
+  .font-display { font-family: 'Space Grotesk', sans-serif; }
+  .font-mono-ui { font-family: 'DM Mono', monospace; }
+  .soft-shadow { box-shadow: var(--shadow-soft); }
+  .text-balance { text-wrap: balance; }
+}
+
+* { scrollbar-width: thin; scrollbar-color: hsl(var(--border)) transparent; }
+.app-shell { min-height: 100dvh; background: hsl(var(--background)); }
+.sidebar { background: hsl(var(--sidebar)); color: hsl(var(--sidebar-foreground)); }
+.nav-link { color: hsl(var(--sidebar-foreground) / .68); transition: background .18s ease, color .18s ease, transform .18s ease; }
+.nav-link:hover { background: hsl(var(--sidebar-foreground) / .09); color: hsl(var(--sidebar-foreground)); transform: translateX(2px); }
+.nav-link.active { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); box-shadow: inset 3px 0 hsl(var(--accent)); }
+.card { background: hsl(var(--card)); border: 1px solid hsl(var(--card-border)); border-radius: var(--radius); box-shadow: var(--shadow-soft); }
+.eyebrow { color: hsl(var(--primary)); letter-spacing: .13em; text-transform: uppercase; font-size: .68rem; font-weight: 700; }
+.btn-primary { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 7px 18px hsl(var(--primary) / .22); }
+.btn-quiet { background: hsl(var(--secondary)); color: hsl(var(--secondary-foreground)); transition: background .18s ease, transform .18s ease; }
+.btn-quiet:hover { background: hsl(var(--border)); transform: translateY(-1px); }
+.metric-number { font-family: 'Space Grotesk', sans-serif; letter-spacing: -.05em; }
+.fade-up { animation: fadeUp .5s ease both; }
+.fade-up-2 { animation: fadeUp .5s .08s ease both; }
+.fade-up-3 { animation: fadeUp .5s .16s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.landing-grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 0.6px, transparent 0.6px);
+  background-size: 3px 3px;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+}
+.landing-grain-hero {
+  opacity: 0.16;
+}
+.hero-tech-grid {
+  background-image:
+    linear-gradient(rgba(251, 191, 36, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(251, 191, 36, 0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.hero-accent-shimmer {
+  background-image: linear-gradient(90deg, #fde68a 0%, #fdba74 28%, #fff7ed 50%, #fdba74 72%, #fde68a 100%);
+  background-size: 200% auto;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero-lms-shimmer {
+  background-image: linear-gradient(105deg, #fff7ed 0%, #fdba74 22%, #fbbf24 45%, #ffffff 55%, #fb923c 78%, #fde68a 100%);
+  background-size: 220% auto;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 28px rgba(251, 191, 36, 0.18);
+  filter: drop-shadow(0 1px 10px rgba(232, 119, 34, 0.25));
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-grain-hero { animation: none; }
+}
+
+/* Landing / login: stacked on phones, split on desktop. Extra viewport space
+   stays at the bottom so the cream campus panel does not grow a blank gap. */
+.auth-split {
+  display: grid;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100dvh;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  overflow-x: hidden;
+}
+@media (min-width: 1024px) {
+  .auth-split {
+    height: 100dvh;
+    max-height: 100dvh;
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    align-content: stretch;
+  }
+  .auth-split-login {
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  }
+}
+
+/* Compact banner on phones/tablets — never a full first viewport. */
+.hero-stage {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: 13.25rem;
+  min-height: 13.25rem;
+  max-height: 13.25rem;
+}
+@media (min-width: 640px) {
+  .hero-stage {
+    height: 16rem;
+    min-height: 16rem;
+    max-height: 16rem;
+  }
+}
+@media (min-width: 1024px) {
+  .hero-stage {
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+  }
+}
+@media (max-width: 1023px) {
+  .hero-mesh,
+  .hero-ring-a,
+  .hero-scan { display: none; }
+}
+
+.campus-card {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.campus-card img {
+  transition: transform 0.55s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .campus-card:hover img {
+    transform: scale(1.08);
+  }
+}
+.progress-track { background: hsl(var(--muted)); height: 7px; border-radius: 8px; overflow: hidden; }
+.progress-fill { background: hsl(var(--accent)); height: 100%; border-radius: 8px; }
+.data-row { border-bottom: 1px solid hsl(var(--border)); transition: background .16s ease; }
+.data-row:hover { background: hsl(var(--muted) / .55); }
+.note-secure, .note-secure * {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+@media print {
+  .note-secure, .note-secure * { display: none !important; }
+}
+@media (max-width: 767px) {
+  .mobile-scroll { overflow-x: auto; }
+  .mobile-scroll > * { min-width: 680px; }
+}

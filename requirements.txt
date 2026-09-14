@@ -1,0 +1,20 @@
+# Backend dependencies for IELTS Speaking Coach Web App
+fastapi==0.111.0
+uvicorn[standard]==0.30.1
+python-multipart==0.0.9
+pydantic==2.7.4
+pydantic-settings==2.3.4
+sqlalchemy==2.0.31
+aiofiles==23.2.1
+httpx==0.27.0
+
+# Whisper (already installed globally)
+openai-whisper==20231117
+
+# Audio processing
+numpy>=1.24.0
+
+# Testing
+pytest==8.2.2
+pytest-asyncio==0.23.7
+httpx==0.27.0
