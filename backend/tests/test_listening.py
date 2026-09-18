@@ -179,71 +179,45 @@ def test_ai_payload_hides_script_and_keys():
     assert "Advisor:" not in str(safe)
 
 
-def test_ai_part_start_and_ai_review(client, monkeypatch):
+def test_ai_part_start_disabled_for_listening(client, monkeypatch):
+    """Listening AI generate is Speaking-only for now; AI review helpers still work offline."""
     import asyncio
 
     from app.listening.services.generate import ai_review_short_answers
 
     wrapped = _wrap_ai_part()
 
-    async def fake_generate(**kwargs):
-        return wrapped
-
     async def fake_chat_json(*args, **kwargs):
         qid = wrapped["questions"][0]["id"]
         return {"verdicts": [{"question_id": qid, "correct": True, "reason": "same date"}]}
 
-    monkeypatch.setattr("app.listening.controllers.listening.generate_ai_listening", fake_generate)
     monkeypatch.setattr("app.listening.services.generate.minimax_client.chat_json", fake_chat_json)
 
     first = wrapped["questions"][0]
     assert not is_correct(first, "14th May")
-
     graded = grade_attempt(wrapped, {first["id"]: "14th May"}, bank.thresholds())
     reviewed = asyncio.run(ai_review_short_answers(wrapped, graded))
     assert reviewed["details"][0]["correct"] is True
     assert reviewed["details"][0]["ai_accepted"] is True
     assert reviewed["graded_by"] == "ai"
 
-    headers = {"X-Student-Id": "listening-ai"}
     start = client.post(
         "/api/listening/attempts",
         json={"test_id": "ai", "mode": "ai_part", "timed": False},
-        headers=headers,
+        headers={"X-Student-Id": "listening-ai"},
     )
-    assert start.status_code == 200, start.text
-    body = start.json()
-    assert body["test"]["generated_by_ai"] is True
-    assert not (_walk_keys(body["test"]) & (QUESTION_HIDDEN | PART_HIDDEN))
-    assert body["policy"]["plays_allowed"] == 99
-
-    responses = {q["id"]: q["answer"] for q in wrapped["questions"]}
-    responses[first["id"]] = "14th May"
-    result = client.post(
-        f"/api/listening/attempts/{body['attempt_id']}/submit",
-        json={"responses": responses},
-        headers=headers,
-    )
-    assert result.status_code == 200, result.text
-    payload = result.json()
-    assert payload["generated_by_ai"] is True
-    assert payload["graded_by"] == "ai"
-    assert payload["correct"] == 8
+    assert start.status_code == 400
+    assert "Speaking" in start.json()["detail"]
 
 
-def test_ai_full_mock_uses_one_play_policy(client, monkeypatch):
-    async def fake_generate(**kwargs):
-        return _wrap_ai_part("full01")
-
-    monkeypatch.setattr("app.listening.controllers.listening.generate_ai_listening", fake_generate)
+def test_ai_full_mock_disabled_for_listening(client):
     start = client.post(
         "/api/listening/attempts",
         json={"test_id": "ai", "mode": "ai_full_mock", "timed": True},
         headers={"X-Student-Id": "listening-ai-mock"},
     )
-    assert start.status_code == 200, start.text
-    assert start.json()["policy"]["plays_allowed"] == 1
-    assert start.json()["policy"]["seeking_allowed"] is False
+    assert start.status_code == 400
+    assert "Speaking" in start.json()["detail"]
 
 
 def test_practice_full_mock_allows_seeking(client):

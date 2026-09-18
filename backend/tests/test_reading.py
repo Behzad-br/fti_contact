@@ -208,44 +208,12 @@ def test_normalize_generated_passage():
     assert not (_walk_keys(safe) & SERVER_ONLY_FIELDS)
 
 
-def test_ai_passage_start_hides_keys(client, monkeypatch):
-    from app.reading.services.generate import normalize_generated
-
-    async def fake_generate(**kwargs):
-        part = normalize_generated(
-            _ai_raw(),
-            test_type="academic",
-            passage_index=1,
-            start_number=1,
-            count=8,
-            token="live01",
-        )
-        return {
-            "id": "ai-passage-live01",
-            "title": "Fresh AI Academic — Harbour Timber Trial",
-            "test_type": "academic",
-            "duration_minutes": 20,
-            "generated_by_ai": True,
-            "instructions": [],
-            "passages": [part["passage"]],
-            "questions": part["questions"],
-        }
-
-    monkeypatch.setattr("app.reading.controllers.reading.generate_ai_test", fake_generate)
+def test_ai_passage_start_disabled_for_reading(client):
+    """Product rule: AI generate is Speaking-only for now."""
     start = client.post(
         "/api/reading/attempts",
         json={"test_id": "academic", "mode": "ai_passage", "timed": False},
         headers={"X-Student-Id": "reading-ai"},
     )
-    assert start.status_code == 200, start.text
-    body = start.json()
-    assert body["test"]["generated_by_ai"] is True
-    assert not (_walk_keys(body["test"]) & SERVER_ONLY_FIELDS)
-    submit = client.post(
-        f"/api/reading/attempts/{body['attempt_id']}/submit",
-        json={"responses": {str(i): "B" for i in range(1, 9)}},
-        headers={"X-Student-Id": "reading-ai"},
-    )
-    assert submit.status_code == 200
-    assert submit.json()["correct"] == 8
-    assert submit.json()["generated_by_ai"] is True
+    assert start.status_code == 400
+    assert "Speaking" in start.json()["detail"]

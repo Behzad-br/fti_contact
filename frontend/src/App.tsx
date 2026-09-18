@@ -3,11 +3,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { Link, Route, Switch, Router as WouterRouter, useLocation } from 'wouter';
-import { AreaChart, Area, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { Archive, ArrowLeft, ArrowUpRight, BarChart3, BookOpen, BrainCircuit, BriefcaseBusiness, CalendarDays, Check, CheckCircle2, CheckCheck, ChevronDown, ClipboardCheck, Clock3, Eye, EyeOff, FileText, GraduationCap, Headphones, Image, Info, LayoutGrid, Library, LockKeyhole, LogOut, MapPin, Menu, Monitor, MoreHorizontal, NotebookPen, Paperclip, PencilLine, Plus, Save, Send, Settings, ShieldCheck, Sparkles, Target, Trash2, Users, X } from 'lucide-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Avatar, Badge, Button, Countdown, Crumb, EmptyState, ProgressBar, SearchInput, SectionTitle, StatCard, StatusBadge, Toast } from '@/components/ui-kit';
-import { assignments, branchPhoto, getCurrentBranchAdmin, getCurrentBranchAdminUser, getCurrentStudent, getCurrentSuperAdmin, getCurrentTeacher, getDraft, getPublishedReview, getReviewDraft, getRole, getStudentAccount, getWritingDraft, getWritingSession, listBranches, listStudentAccounts, listTeacherRoster, publishReview, reviewEssay, saveDraft, saveMockEntity, saveReviewDraft, saveWritingDraft, setCurrentBranchAdmin, setCurrentStudent, setCurrentTeacher, setPublishedReview, setRole, startWritingSession, student, students, subscribeSuperAdminSession, subscribeTeacherSession, submitHomework, submitPractice, trendData, updateStudentAccount, type Assignment, type AssignmentStatus, type ReviewDraft, type Role } from '@/lib/mock-api';
+import { assignments, branchPhoto, getCurrentBranchAdmin, getCurrentBranchAdminUser, getCurrentStudent, getCurrentSuperAdmin, getCurrentTeacher, getDraft, getPublishedReview, getReviewDraft, getRole, getStudentAccount, getWritingDraft, getWritingSession, listBranches, listStudentAccounts, listTeacherRoster, publishReview, reviewEssay, saveDraft, saveMockEntity, saveReviewDraft, saveWritingDraft, setCurrentBranchAdmin, setCurrentStudent, setCurrentTeacher, setPublishedReview, setRole, startWritingSession, student, students, subscribeSuperAdminSession, subscribeTeacherSession, submitHomework, submitPractice, updateStudentAccount, type Assignment, type AssignmentStatus, type ReviewDraft, type Role } from '@/lib/mock-api';
 import { apiLogin, clearAuthSession } from '@/lib/auth-api';
 import { hydrateOrgFromBackend } from '@/lib/hydrate-org';
 import HomeworkComposer from '@/teacher/HomeworkComposer';
@@ -18,6 +17,7 @@ import HomeworkDo from '@/student/HomeworkDo';
 import PendingHomeworkPanel from '@/student/PendingHomeworkPanel';
 import PracticeSetup from '@/student/PracticeSetup';
 import IeltsTestsHub from '@/student/IeltsTestsHub';
+import { studentHomework } from '@/lib/homework-api';
 import AuthHero from '@/components/AuthHero';
 import { Logo } from '@/components/brand';
 import TeacherStudentsList from '@/teacher/TeacherStudentsList';
@@ -32,6 +32,7 @@ import MockExamsHub from '@/student/mocks/MockExamsHub';
 import MockBriefing from '@/student/mocks/MockBriefing';
 import MockRoom from '@/student/mocks/MockRoom';
 import AssignMock from '@/teacher/mocks/AssignMock';
+import { studentMockInbox } from '@/lib/mocks-api';
 import { AssignedMocksPage, LiveMonitoringPage, MockLibraryPage, MockResultsPage } from '@/teacher/mocks/MockExamsPages';
 import {
   AddBatchPage, AddBranchPage, AddPracticePaperPage, AddStudentPage, AddTeacherPage, EditTeacherPage,
@@ -182,7 +183,7 @@ function Shell({ role, children }: {role:Role; children:ReactNode}) {
       </div>
     </aside>
     {mobileOpen && <button aria-label="Close navigation overlay" className="fixed inset-0 z-30 bg-slate-900/30 md:hidden" onClick={()=>setMobileOpen(false)}/>}
-     <main className="min-w-0 flex-1 md:ml-[252px]"><header className="sticky top-0 z-20 flex h-[70px] items-center justify-between border-b border-border bg-background/95 px-5 backdrop-blur md:px-8"><div className="flex items-center gap-3"><button className="rounded-lg p-2 hover:bg-muted md:hidden" onClick={()=>setMobileOpen(true)} aria-label="Open menu"><Menu size={20}/></button><div className="md:hidden"><Logo/></div>{role === 'student' && <div className="hidden items-center gap-2 text-xs text-muted-foreground md:flex"><span>June 12, 2025</span><span className="h-1 w-1 rounded-full bg-amber-400"/><span>{roleName}</span></div>}</div><div className="flex items-center gap-3">{role==='student' && <NotificationBell/>}<Avatar initials={headerInitials} size="sm" tone={role === 'student' ? 'amber' : 'teal'}/><button type="button" onClick={()=>{ if(role==='branch-admin') setLocation('/branch-admin/settings'); if(role==='teacher') setLocation('/teacher/settings'); if(role==='admin') setLocation('/admin/settings'); }} className="hidden text-left text-xs sm:block"><div className="font-semibold" data-testid="header-user-name">{headerName}</div><div className="text-muted-foreground">{roleName}</div></button></div></header><div className="mx-auto max-w-[1480px] p-5 md:p-8">{children}</div></main>
+     <main className="min-w-0 flex-1 md:ml-[252px]"><header className="sticky top-0 z-20 flex h-[70px] items-center justify-between border-b border-border bg-background/95 px-5 backdrop-blur md:px-8"><div className="flex items-center gap-3"><button className="rounded-lg p-2 hover:bg-muted md:hidden" onClick={()=>setMobileOpen(true)} aria-label="Open menu"><Menu size={20}/></button><div className="md:hidden"><Logo/></div>{role === 'student' && <div className="hidden items-center gap-2 text-xs text-muted-foreground md:flex"><span>{new Date().toLocaleDateString()}</span><span className="h-1 w-1 rounded-full bg-amber-400"/><span>{roleName}</span></div>}</div><div className="flex items-center gap-3">{role==='student' && <NotificationBell/>}<Avatar initials={headerInitials} size="sm" tone={role === 'student' ? 'amber' : 'teal'}/><button type="button" onClick={()=>{ if(role==='branch-admin') setLocation('/branch-admin/settings'); if(role==='teacher') setLocation('/teacher/settings'); if(role==='admin') setLocation('/admin/settings'); }} className="hidden text-left text-xs sm:block"><div className="font-semibold" data-testid="header-user-name">{headerName}</div><div className="text-muted-foreground">{roleName}</div></button></div></header><div className="mx-auto max-w-[1480px] p-5 md:p-8">{children}</div></main>
   </div>;
 }
 
@@ -446,67 +447,49 @@ function Login() {
 
 function StudentDashboard() {
   const [, setLocation] = useLocation();
-  const openHomework = assignments.filter((a) => a.status !== 'Completed').length;
+  const me = getCurrentStudent();
+  const firstName = (me.name || 'Student').split(' ')[0];
+  const today = new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+  const [openHomework, setOpenHomework] = useState(0);
+  const [openMocks, setOpenMocks] = useState(0);
+
+  useEffect(() => {
+    studentHomework()
+      .then((d) => setOpenHomework((d.assignments || []).filter((a) => a.status !== 'Completed').length))
+      .catch(() => setOpenHomework(0));
+    studentMockInbox()
+      .then((d) =>
+        setOpenMocks(
+          (d.items || []).filter((row) => ['available', 'upcoming', 'in_progress'].includes(row.inbox_status || '')).length,
+        ),
+      )
+      .catch(() => setOpenMocks(0));
+  }, []);
+
   return (
     <>
       <SectionTitle
-        eyebrow="Thursday · June 12, 2025"
-        title={`Good morning, ${student.name.split(' ')[0]}.`}
-        description="A small, focused session today keeps your target band in sight."
+        eyebrow={today}
+        title={`Good morning, ${firstName}.`}
+        description="Practice, finish homework, and sit mocks assigned by your teacher."
         action={<Button onClick={() => setLocation('/student/practice')}><PencilLine size={16} />Start practice</Button>}
       />
-      <div className="mb-7 flex flex-wrap items-center gap-3 text-xs">
-        <Badge tone="teal">{student.track}</Badge>
-        <span className="text-muted-foreground">{student.batch}</span>
-        <span className="text-border">|</span>
-        <span className="text-muted-foreground">Target band <strong className="text-foreground">7.0</strong></span>
-      </div>
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4 fade-up">
-        <StatCard label="Current band" value="6.5" detail="+0.5 since February" icon={<Target size={17} />} />
-        <StatCard label="Open homework" value={String(openHomework)} detail="Assigned by your teacher" icon={<ClipboardCheck size={17} />} accent="amber" />
-        <StatCard label="Practice streak" value="6 days" detail="Keep it going" icon={<Sparkles size={17} />} accent="amber" />
-        <StatCard label="Target band" value="7.0" detail="0.5 to go" icon={<BarChart3 size={17} />} accent="blue" />
-      </div>
-      <div className="mt-6 grid gap-6 xl:grid-cols-[1.35fr_.65fr]">
-        <div className="card p-6 fade-up-2">
-          <div className="mb-5 flex items-center justify-between">
-            <div>
-              <div className="eyebrow">Your trajectory</div>
-              <h2 className="font-display mt-1 text-lg font-bold">Band trend</h2>
-            </div>
-            <Badge tone="green">+0.5 overall</Badge>
-          </div>
-          <div className="h-[230px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={trendData}>
-                <defs>
-                  <linearGradient id="bandFill" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="0%" stopColor="#e2a24b" stopOpacity=".35" />
-                    <stop offset="100%" stopColor="#e2a24b" stopOpacity="0" />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e6e0d4" />
-                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: '#8b8b85' }} />
-                <YAxis domain={[5, 7]} ticks={[5, 5.5, 6, 6.5, 7]} axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: '#8b8b85' }} />
-                <Tooltip contentStyle={{ borderRadius: 10, border: '1px solid #e6e0d4', fontSize: 12 }} />
-                <Area type="monotone" dataKey="band" stroke="#e2a24b" strokeWidth={3} fill="url(#bandFill)" dot={{ fill: '#e2a24b', r: 4, strokeWidth: 2, stroke: '#fff' }} />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
+      {(me.batch || me.track) && (
+        <div className="mb-7 flex flex-wrap items-center gap-3 text-xs">
+          {me.track && <Badge tone="teal">{me.track}</Badge>}
+          {me.batch && <span className="text-muted-foreground">{me.batch}</span>}
         </div>
-        <div className="card overflow-hidden fade-up-3">
-          <div className="border-b border-border p-6">
-            <div className="eyebrow">Latest result</div>
-            <div className="mt-3 flex items-end justify-between">
-              <div className="metric-number text-5xl font-bold">6.5</div>
-              <Badge tone="green">Teacher-reviewed</Badge>
-            </div>
-            <p className="mt-2 text-xs text-muted-foreground">Technology in the workplace · Jun 9</p>
-          </div>
-          <div className="p-6">
-            <Link href="/student/results" className="flex items-center justify-between text-xs font-bold text-primary">View detailed result <ArrowUpRight size={15} /></Link>
-          </div>
-        </div>
+      )}
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 fade-up">
+        <button type="button" className="text-left" onClick={() => setLocation('/student/homework')}>
+          <StatCard label="Open homework" value={String(openHomework)} detail="Assigned by your teacher" icon={<ClipboardCheck size={17} />} accent="amber" />
+        </button>
+        <button type="button" className="text-left" onClick={() => setLocation('/student/mocks')}>
+          <StatCard label="Open mocks" value={String(openMocks)} detail="Teacher mock inbox" icon={<Monitor size={17} />} accent="blue" />
+        </button>
+        <button type="button" className="text-left" onClick={() => setLocation('/student/practice')}>
+          <StatCard label="IELTS Practice" value="Go" detail="Reading · Listening · Writing · Speaking" icon={<PencilLine size={17} />} />
+        </button>
       </div>
       <div className="mt-6">
         <div className="card p-6">
