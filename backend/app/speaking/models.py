@@ -19,6 +19,7 @@ class TestSession(Base):
     mode = Column(String, nullable=False)          # "stored" | "fresh"
     test_id = Column(String, nullable=True)        # e.g. "test-001" for stored tests
     title = Column(String, nullable=True)          # Human-readable title
+    student_id = Column(String, nullable=True, index=True)  # owner — required for new sessions
     practice_part = Column(Integer, nullable=True) # 1/2/3 for single-part practice; None = full mock
     status = Column(String, default="in_progress") # "in_progress" | "completed" | "error"
     estimated_band = Column(Float, nullable=True)

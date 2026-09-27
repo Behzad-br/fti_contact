@@ -6,6 +6,7 @@ function writeEntities(kind: string, rows: Record<string, string>[]) {
 }
 
 export async function hydrateOrgFromBackend(user: AuthUser) {
+  if (!user || !user.role) return;
   try {
     if (user.role === 'super_admin' || user.role === 'branch_admin' || user.role === 'teacher') {
       const users = await orgFetch<{ users: AuthUser[] }>('/org/users');

@@ -2,9 +2,10 @@ node_modules/
 frontend/dist/
 frontend/dist-ssr/
 
-# Environment variables
+# Environment / secrets
 .env
 .env.local
+.env.production
 .env.*.local
 
 # Python
@@ -12,13 +13,23 @@ __pycache__/
 *.py[cod]
 *$py.class
 .Python
+.venv/
+venv/
+env/
+backend/.venv/
+.pytest_cache/
+backend/.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+*.egg
 build/
 dist/
 downloads/
-*.egg-info/
-*.egg
 
-# IDE
+# IDE / agent tooling (local only — not part of the product)
+.cursor/
+.claude/
 .vscode/
 .idea/
 *.swp
@@ -29,8 +40,15 @@ downloads/
 .DS_Store
 Thumbs.db
 
-# Logs
+# Logs / temp
 *.log
+*.tmp
+*.temp
+
+# Personal / misc dumps at repo root
+/WhatsApp*
+/*.jpeg
+/*.jpg
 
 # Large content packs / runtime data (keep out of git)
 data/listening-packs/
@@ -44,13 +62,7 @@ data/mock_images/
 data/notes/
 data/imports/
 data/tmp/
+data/homework_audio/
 data/*.db
 data/*.db-*
 *.db
-
-# Local personal files at repo root
-/WhatsApp*
-/*.jpeg
-
-# API Keys - Never commit real keys
-# (Placeholder values are in the code, replace with your own)

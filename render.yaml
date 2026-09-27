@@ -1,3 +1,12 @@
+# Staging / cloud preview (GitHub → Render).
+# Production remains HestiaCP (see DEPLOYMENT.md).
+#
+# After first deploy:
+# 1. Copy the Render service URL (https://….onrender.com)
+# 2. Set Vercel env VITE_API_URL to that URL (no trailing slash)
+# 3. Set Render CORS_ORIGINS + FRONTEND_URL to your Vercel URL
+# 4. Set AUTH_BOOTSTRAP_PASSWORD (and optionally DATABASE_URL for MySQL)
+
 services:
   - type: web
     name: fti-ielts-api
@@ -10,6 +19,10 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: "3.11.9"
+      - key: ENV
+        value: production
+      - key: NODE_ENV
+        value: production
       - key: DATABASE_URL
         sync: false
       - key: JWT_SECRET
@@ -22,13 +35,17 @@ services:
         value: gpt-4o-mini
       - key: CORS_ORIGINS
         sync: false
+      - key: FRONTEND_URL
+        sync: false
       - key: AUTH_BOOTSTRAP_USERNAME
         value: admin
       - key: AUTH_BOOTSTRAP_PASSWORD
         sync: false
+      - key: AUTH_BOOTSTRAP_EMAIL
+        value: admin@staging.local
       - key: AUTH_LEGACY_HEADERS
         value: "false"
       - key: ENABLE_LIVE_MOCK_MONITORING
-        value: "true"
+        value: "false"
       - key: WHISPER_MODEL
         value: tiny

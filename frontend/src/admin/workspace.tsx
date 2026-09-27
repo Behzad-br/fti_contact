@@ -492,15 +492,18 @@ function CampusImageField({
   );
 }
 
-function validateAdmins(admins: AdminDraft[], exceptBranchId?: string): string | null {
+function validateAdmins(admins: AdminDraft[], exceptBranchId?: string, opts?: { requirePassword?: boolean }): string | null {
   if (!admins.length) return 'Add at least one branch admin.';
+  const requirePassword = opts?.requirePassword !== false;
   const seen = new Set<string>();
   for (let i = 0; i < admins.length; i++) {
     const a = admins[i];
     if (!a.name.trim()) return `Admin ${i + 1}: enter a full name.`;
     if (a.username.trim().length < 3) return `Admin ${i + 1}: username must be at least 3 characters.`;
-    if (a.password.length < 6) return `Admin ${i + 1}: password must be at least 6 characters.`;
-    if (a.password !== a.confirm) return `Admin ${i + 1}: passwords do not match.`;
+    if (requirePassword || a.password || a.confirm) {
+      if (a.password.length < 6) return `Admin ${i + 1}: password must be at least 6 characters.`;
+      if (a.password !== a.confirm) return `Admin ${i + 1}: passwords do not match.`;
+    }
     const key = a.username.trim().toLowerCase();
     if (seen.has(key)) return `Username @${a.username.trim()} is used twice on this campus.`;
     seen.add(key);
@@ -514,6 +517,7 @@ function validateAdmins(admins: AdminDraft[], exceptBranchId?: string): string |
 export function AddBranchPage() {
   const [, setLocation] = useLocation();
   const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
   const [imageError, setImageError] = useState('');
   const [admins, setAdmins] = useState<AdminDraft[]>([blankAdmin()]);
@@ -528,23 +532,26 @@ export function AddBranchPage() {
       setImageError(err instanceof Error ? err.message : 'Could not use that image.');
     }
   };
-  const submit = (e: FormEvent<HTMLFormElement>) => {
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.currentTarget).entries()) as Record<string, string>;
-    const problem = validateAdmins(admins);
+    const problem = validateAdmins(admins, undefined, { requirePassword: true });
     if (problem) { setError(problem); return; }
+    setBusy(true);
+    setError('');
     try {
-      addBranch({
+      await addBranch({
         name: data.name,
         city: data.city,
         imageUrl: imageUrl || undefined,
         admins: admins.map((a) => ({ name: a.name.trim(), username: a.username.trim(), password: a.password })),
       });
+      setLocation('/admin/branches');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not create this campus.');
-      return;
+    } finally {
+      setBusy(false);
     }
-    setLocation('/admin/branches');
   };
   return (
     <>
@@ -565,7 +572,7 @@ export function AddBranchPage() {
             <div className="eyebrow">Branch admin logins</div>
             <Button type="button" variant="quiet" onClick={() => setAdmins((rows) => [...rows, blankAdmin()])}><Plus size={15} />Add another admin</Button>
           </div>
-          <p className="mb-4 text-xs text-muted-foreground">All admins on this campus have equal access to teachers, students, and batches.</p>
+          <p className="mb-4 text-xs text-muted-foreground">All admins on this campus have equal access to teachers, students, and batches. Credentials are saved to the live database (password hashed).</p>
           {admins.map((admin, index) => (
             <div key={index} className="mb-4 rounded-xl border border-border p-4 last:mb-0">
               <div className="mb-3 flex items-center justify-between">
@@ -582,7 +589,7 @@ export function AddBranchPage() {
           ))}
         </div>
         {error && <p className="text-sm text-red-700">{error}</p>}
-        <Button type="submit">Create branch</Button>
+        <Button type="submit" disabled={busy}>{busy ? 'Creating…' : 'Create branch'}</Button>
       </form>
     </>
   );
@@ -597,6 +604,7 @@ export function BranchDetailPage({ branchId }: { branchId: string }) {
   const existing = getBranch(branchId);
   const [toast, setToast] = useState('');
   const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
   const [name, setName] = useState(existing?.name || '');
   const [city, setCity] = useState(existing?.city || '');
   const [imageUrl, setImageUrl] = useState(existing?.imageUrl || '');
@@ -605,8 +613,8 @@ export function BranchDetailPage({ branchId }: { branchId: string }) {
     (existing?.admins?.length ? existing.admins : existing ? [{ name: existing.admin, username: existing.adminUsername, password: existing.adminPassword }] : [blankAdmin()]).map((a) => ({
       name: a.name,
       username: a.username,
-      password: a.password,
-      confirm: a.password,
+      password: '',
+      confirm: '',
     }))
   );
   const updateAdmin = (index: number, patch: Partial<AdminDraft>) => {
@@ -630,23 +638,26 @@ export function BranchDetailPage({ branchId }: { branchId: string }) {
     );
   }
 
-  const save = (e: FormEvent) => {
+  const save = async (e: FormEvent) => {
     e.preventDefault();
-    const problem = validateAdmins(admins, branchId);
+    const problem = validateAdmins(admins, branchId, { requirePassword: false });
     if (problem) { setError(problem); return; }
+    setBusy(true);
+    setError('');
     try {
-      updateBranch(branchId, {
+      await updateBranch(branchId, {
         name: name.trim(),
         city: city.trim(),
         imageUrl: imageUrl.trim(),
         admins: admins.map((a) => ({ name: a.name.trim(), username: a.username.trim(), password: a.password })),
       });
+      setToast('Campus saved. Branch admin logins are live in the database.');
+      setAdmins((rows) => rows.map((a) => ({ ...a, password: '', confirm: '' })));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not save this campus.');
-      return;
+    } finally {
+      setBusy(false);
     }
-    setError('');
-    setToast('Campus saved. Every listed admin can sign in with equal rights.');
   };
 
   return (
@@ -698,14 +709,14 @@ export function BranchDetailPage({ branchId }: { branchId: string }) {
                   <div className="grid gap-3 sm:grid-cols-2">
                     <label className="block text-sm font-semibold">Full name<input value={admin.name} onChange={(e) => updateAdmin(index, { name: e.target.value })} required className="mt-2 h-11 w-full rounded-lg border border-input px-3 text-sm" /></label>
                     <label className="block text-sm font-semibold">Username<input value={admin.username} onChange={(e) => updateAdmin(index, { username: e.target.value })} required className="mt-2 h-11 w-full rounded-lg border border-input px-3 text-sm" /></label>
-                    <label className="block text-sm font-semibold">Password<input type="password" value={admin.password} onChange={(e) => updateAdmin(index, { password: e.target.value })} required minLength={6} className="mt-2 h-11 w-full rounded-lg border border-input px-3 text-sm" /></label>
-                    <label className="block text-sm font-semibold">Confirm password<input type="password" value={admin.confirm} onChange={(e) => updateAdmin(index, { confirm: e.target.value })} required minLength={6} className="mt-2 h-11 w-full rounded-lg border border-input px-3 text-sm" /></label>
+                    <label className="block text-sm font-semibold">New password <span className="font-normal text-muted-foreground">(optional)</span><input type="password" value={admin.password} onChange={(e) => updateAdmin(index, { password: e.target.value })} minLength={6} placeholder="Leave blank to keep" className="mt-2 h-11 w-full rounded-lg border border-input px-3 text-sm" /></label>
+                    <label className="block text-sm font-semibold">Confirm new password<input type="password" value={admin.confirm} onChange={(e) => updateAdmin(index, { confirm: e.target.value })} minLength={6} className="mt-2 h-11 w-full rounded-lg border border-input px-3 text-sm" /></label>
                   </div>
                 </div>
               ))}
             </div>
             {error && <p className="text-sm text-red-700">{error}</p>}
-            <Button type="submit">Save campus &amp; admins</Button>
+            <Button type="submit" disabled={busy}>{busy ? 'Saving…' : 'Save campus & admins'}</Button>
           </form>
         </div>
       </div>
@@ -715,29 +726,45 @@ export function BranchDetailPage({ branchId }: { branchId: string }) {
 }
 
 export function BranchAdminSettingsPage() {
-  const campus = getCurrentBranchAdmin() || listBranches()[0];
+  const campus = getCurrentBranchAdmin();
   const current = getCurrentBranchAdminUser();
   const [toast, setToast] = useState('');
   const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
   const [name, setName] = useState(current?.name || '');
   const [username, setUsername] = useState(current?.username || '');
-  const [password, setPassword] = useState(current?.password || '');
-  const [confirmPassword, setConfirmPassword] = useState(current?.password || '');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const save = (e: FormEvent) => {
+  const save = async (e: FormEvent) => {
     e.preventDefault();
     if (!name.trim()) { setError('Enter your name.'); return; }
     if (username.trim().length < 3) { setError('Username must be at least 3 characters.'); return; }
-    if (password.length < 6) { setError('Password must be at least 6 characters.'); return; }
-    if (password !== confirmPassword) { setError('Passwords do not match.'); return; }
+    if (password || confirmPassword) {
+      if (password.length < 6) { setError('Password must be at least 6 characters.'); return; }
+      if (password !== confirmPassword) { setError('Passwords do not match.'); return; }
+    }
     if (isAdminUsernameTaken(username, { branchId: campus?.id, username: current?.username })) {
       setError('This username is already used by another branch admin.');
       return;
     }
-    const saved = updateCurrentBranchAdminAccount({ name: name.trim(), username: username.trim(), password });
-    if (!saved) { setError('Could not save your account.'); return; }
+    setBusy(true);
     setError('');
-    setToast('Your name and password are saved. Use these details next time you sign in.');
+    try {
+      const saved = await updateCurrentBranchAdminAccount({
+        name: name.trim(),
+        username: username.trim(),
+        password: password || undefined,
+      });
+      if (!saved) { setError('Could not save your account.'); return; }
+      setPassword('');
+      setConfirmPassword('');
+      setToast('Account updated in the live database. Use these details next time you sign in.');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not save your account.');
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -745,7 +772,7 @@ export function BranchAdminSettingsPage() {
       <SectionTitle
         eyebrow={campus?.name || 'Branch Admin'}
         title="Your account"
-        description="Update your display name, username, or password. This only changes your own login — not other admins on this campus."
+        description="Update your display name, username, or password. Changes are saved to the live database."
       />
       <form onSubmit={save} className="card max-w-xl space-y-4 p-6">
         <label className="block text-sm font-semibold">Full name
@@ -755,15 +782,14 @@ export function BranchAdminSettingsPage() {
           <input value={username} onChange={(e) => setUsername(e.target.value)} required className="mt-2 h-11 w-full rounded-lg border border-input px-3 text-sm" />
           <span className="mt-1 block text-xs font-normal text-muted-foreground">You sign in with this username.</span>
         </label>
-        <label className="block text-sm font-semibold">Password
-          <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} className="mt-2 h-11 w-full rounded-lg border border-input px-3 text-sm" />
-          <span className="mt-1 block text-xs font-normal text-muted-foreground">Shown so you can review or change it. At least 6 characters.</span>
+        <label className="block text-sm font-semibold">New password <span className="font-normal text-muted-foreground">(optional)</span>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} minLength={6} placeholder="Leave blank to keep current password" className="mt-2 h-11 w-full rounded-lg border border-input px-3 text-sm" />
         </label>
-        <label className="block text-sm font-semibold">Confirm password
-          <input type="text" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required minLength={6} className="mt-2 h-11 w-full rounded-lg border border-input px-3 text-sm" />
+        <label className="block text-sm font-semibold">Confirm new password
+          <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} minLength={6} className="mt-2 h-11 w-full rounded-lg border border-input px-3 text-sm" />
         </label>
         {error && <p className="text-sm text-red-700">{error}</p>}
-        <Button type="submit">Save my account</Button>
+        <Button type="submit" disabled={busy}>{busy ? 'Saving…' : 'Save my account'}</Button>
       </form>
       {toast && <Toast message={toast} onClose={() => setToast('')} />}
     </>
@@ -772,10 +798,18 @@ export function BranchAdminSettingsPage() {
 
 export function BranchAdminDashboard() {
   const [, setLocation] = useLocation();
-  const campus = getCurrentBranchAdmin() || listBranches()[0];
+  const campus = getCurrentBranchAdmin();
   const adminUser = getCurrentBranchAdminUser();
-  const faculty = campusTeachers(campus?.id);
-  const batches = campusBatches(campus?.id);
+  if (!campus) {
+    return (
+      <div className="card p-8 text-center">
+        <h2 className="font-display text-xl font-bold">Campus not loaded</h2>
+        <p className="mt-2 text-sm text-muted-foreground">Sign out and sign in again as branch admin.</p>
+      </div>
+    );
+  }
+  const faculty = campusTeachers(campus.id);
+  const batches = campusBatches(campus.id);
   return (
     <>
       <SectionTitle
@@ -833,7 +867,7 @@ export function BranchAdminTablePage({ page }: { page: string }) {
   const [, setLocation] = useLocation();
   const [query, setQuery] = useState('');
   const [toast, setToast] = useState('');
-  const campus = getCurrentBranchAdmin() || listBranches()[0];
+  const campus = getCurrentBranchAdmin();
   const faculty = campusTeachers(campus?.id);
   if (page === 'reports') return <Reports />;
   const titles: Record<string, [string, string]> = {
@@ -953,7 +987,7 @@ export function BranchAdminTablePage({ page }: { page: string }) {
 }
 
 export function AddTeacherPage() {
-  const campus = getCurrentBranchAdmin() || listBranches()[0];
+  const campus = getCurrentBranchAdmin();
   return (
     <FormPage
       kind="teacher"
@@ -1136,7 +1170,7 @@ export function EditTeacherPage({ teacherId }: { teacherId: string }) {
 }
 export function AddStudentPage() {
   const [, setLocation] = useLocation();
-  const campus = getCurrentBranchAdmin() || listBranches()[0];
+  const campus = getCurrentBranchAdmin();
   const batchOptions = campusBatches(campus?.id);
   const [batch, setBatch] = useState(batchOptions[0]?.name || '');
   const [error, setError] = useState('');
@@ -1197,7 +1231,7 @@ export function AddStudentPage() {
 }
 export function AddBatchPage() {
   const [, setLocation] = useLocation();
-  const campus = getCurrentBranchAdmin() || listBranches()[0];
+  const campus = getCurrentBranchAdmin();
   const teachers = campusTeachers(campus?.id);
   const [teacherId, setTeacherId] = useState(teachers[0]?.id || '');
   const [subjects, setSubjects] = useState<string[]>(['Writing']);
@@ -1283,7 +1317,7 @@ export function AddBatchPage() {
 
 export function BranchBatchDetailPage({ batchId }: { batchId: string }) {
   const [, setLocation] = useLocation();
-  const campus = getCurrentBranchAdmin() || listBranches()[0];
+  const campus = getCurrentBranchAdmin();
   const name = decodeURIComponent(batchId);
   const batch = listCampusBatches(campus?.id).find((b) => b.name === name || b.id === name);
   const rows = networkStudents(campus?.id).filter((s) => s.batch === (batch?.name || name));
@@ -1366,7 +1400,7 @@ export function BranchBatchDetailPage({ batchId }: { batchId: string }) {
 
 export function BranchStudentDetailPage({ studentId }: { studentId: string }) {
   const [, setLocation] = useLocation();
-  const campus = getCurrentBranchAdmin() || listBranches()[0];
+  const campus = getCurrentBranchAdmin();
   const listed = networkStudents(campus?.id).find((row) => row.id === studentId);
   const account = listed ? getStudentAccount(listed.id) : undefined;
   const seed = students.find((row) => row.id === studentId);

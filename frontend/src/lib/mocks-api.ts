@@ -7,8 +7,8 @@ function studentHeaders(): Record<string, string> {
   const aliases = homeworkAliasesForStudent(student);
   return {
     ...authHeaders(),
-    'X-Student-Id': student.id || '',
-    'X-Student-Aliases': aliases.join(','),
+    ...(student.id ? { 'X-Student-Id': student.id } : {}),
+    ...(aliases.length ? { 'X-Student-Aliases': aliases.join(',') } : {}),
   };
 }
 

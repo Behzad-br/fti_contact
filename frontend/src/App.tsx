@@ -2,13 +2,13 @@ import { type FormEvent, type ReactNode, useEffect, useMemo, useState } from 're
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { Link, Route, Switch, Router as WouterRouter, useLocation } from 'wouter';
+import { Link, Redirect, Route, Switch, Router as WouterRouter, useLocation } from 'wouter';
 import { Archive, ArrowLeft, ArrowUpRight, BarChart3, BookOpen, BrainCircuit, BriefcaseBusiness, CalendarDays, Check, CheckCircle2, CheckCheck, ChevronDown, ClipboardCheck, Clock3, Eye, EyeOff, FileText, GraduationCap, Headphones, Image, Info, LayoutGrid, Library, LockKeyhole, LogOut, MapPin, Menu, Monitor, MoreHorizontal, NotebookPen, Paperclip, PencilLine, Plus, Save, Send, Settings, ShieldCheck, Sparkles, Target, Trash2, Users, X } from 'lucide-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Avatar, Badge, Button, Countdown, Crumb, EmptyState, ProgressBar, SearchInput, SectionTitle, StatCard, StatusBadge, Toast } from '@/components/ui-kit';
-import { assignments, branchPhoto, getCurrentBranchAdmin, getCurrentBranchAdminUser, getCurrentStudent, getCurrentSuperAdmin, getCurrentTeacher, getDraft, getPublishedReview, getReviewDraft, getRole, getStudentAccount, getWritingDraft, getWritingSession, listBranches, listStudentAccounts, listTeacherRoster, publishReview, reviewEssay, saveDraft, saveMockEntity, saveReviewDraft, saveWritingDraft, setCurrentBranchAdmin, setCurrentStudent, setCurrentTeacher, setPublishedReview, setRole, startWritingSession, student, students, subscribeSuperAdminSession, subscribeTeacherSession, submitHomework, submitPractice, updateStudentAccount, type Assignment, type AssignmentStatus, type ReviewDraft, type Role } from '@/lib/mock-api';
-import { apiLogin, clearAuthSession } from '@/lib/auth-api';
+import { apiLogin, clearAuthSession, getAccessToken } from '@/lib/auth-api';
 import { hydrateOrgFromBackend } from '@/lib/hydrate-org';
+import { assignments, branchPhoto, getCurrentBranchAdmin, getCurrentBranchAdminUser, getCurrentStudent, getCurrentSuperAdmin, getCurrentTeacher, getDraft, getPublishedReview, getReviewDraft, getRole, getStudentAccount, getWritingDraft, getWritingSession, listBranches, listStudentAccounts, listTeacherRoster, publishReview, reviewEssay, saveDraft, saveMockEntity, saveReviewDraft, saveWritingDraft, setCurrentBranchAdmin, setCurrentStudent, setCurrentTeacher, setPublishedReview, setRole, startWritingSession, student, students, subscribeSuperAdminSession, subscribeTeacherSession, submitHomework, submitPractice, updateCurrentSuperAdminAccount, updateStudentAccount, type Assignment, type AssignmentStatus, type ReviewDraft, type Role } from '@/lib/mock-api';
 import HomeworkComposer from '@/teacher/HomeworkComposer';
 import HomeworkTeacherList from '@/teacher/HomeworkTeacherList';
 import ReviewQueueLive from '@/teacher/ReviewQueueLive';
@@ -210,9 +210,6 @@ function BranchSelection() {
             <h2 className="font-display text-[1.45rem] font-bold tracking-tight text-slate-900 sm:text-[2.15rem]">
               Choose your campus.
             </h2>
-            <p className="mt-1.5 max-w-lg text-[13px] leading-5 text-slate-500 sm:mt-2 sm:text-sm sm:leading-6">
-              Six FTI centres across Pakistan. Pick yours to open the student, teacher or admin workspace.
-            </p>
           </div>
           <div className="grid min-w-0 grid-cols-2 content-start gap-2.5 sm:gap-3 lg:min-h-0 lg:flex-1 lg:grid-rows-3 lg:content-stretch lg:gap-3.5">
             {branches.map((branch, index) => (
@@ -280,8 +277,10 @@ function SuperAdminLogin() {
     setError('');
     setLoading(true);
     try {
-      const { user } = await apiLogin(username, password, 'super_admin');
+      const { access_token, user } = await apiLogin(username, password, 'super_admin');
+      if (!access_token || !user) throw new Error('Invalid authentication response.');
       if (user.role !== 'super_admin') throw new Error('Not a super admin account.');
+      updateCurrentSuperAdminAccount({ fullName: user.full_name || user.name || user.username });
       await hydrateOrgFromBackend(user);
       setRole('admin');
       setLocation('/admin/dashboard');
@@ -348,8 +347,10 @@ function BranchAdminLogin() {
     setError('');
     setLoading(true);
     try {
-      const { user } = await apiLogin(username, password, 'branch_admin');
+      const { access_token, user } = await apiLogin(username, password, 'branch_admin');
+      if (!access_token || !user) throw new Error('Invalid authentication response.');
       if (user.role !== 'branch_admin') throw new Error('Not a branch admin account.');
+      if (!(user.branch_id || user.branchId)) throw new Error('This branch admin account is missing a campus assignment.');
       await hydrateOrgFromBackend(user);
       setCurrentBranchAdmin(user.branch_id || user.branchId || '', user.username);
       setRole('branch-admin');
@@ -417,7 +418,8 @@ function Login() {
     setLoading(true);
     try {
       const hint = role === 'teacher' ? 'teacher' : 'student';
-      const { user } = await apiLogin(email, password, hint);
+      const { access_token, user } = await apiLogin(email, password, hint);
+      if (!access_token || !user) throw new Error('Invalid authentication response.');
       await hydrateOrgFromBackend(user);
       if (user.role === 'teacher') {
         setCurrentTeacher(user.id);
@@ -723,7 +725,14 @@ function ReviewQueue(){ return <ReviewQueueLive/>; }
 function TeacherCreateHomeworkPage() { return <HomeworkComposer/>; }
 function NotFound(){ return <div className="flex min-h-[70dvh] flex-col items-center justify-center text-center"><div className="eyebrow">404 · Not in the syllabus</div><h1 className="mt-3 font-display text-4xl font-bold">This page took a wrong turn.</h1><Link href="/student/dashboard" className="btn-primary mt-6 rounded-lg px-5 py-3 text-sm font-bold">Back to workspace</Link></div>; }
 function RoutedErrorBoundary({children}:{children:ReactNode}){const [location]=useLocation();return <ErrorBoundary resetKey={location}>{children}</ErrorBoundary>;}
-function AppRouter(){ const [location]=useLocation(); const role:Role=location.startsWith('/admin')?'admin':location.startsWith('/branch-admin')?'branch-admin':location.startsWith('/teacher')?'teacher':'student'; const page = location.split('/').filter(Boolean).at(-1); 
+function AppRouter(){ const [location]=useLocation();
+  const isPublic = location==='/' || location==='/login' || location==='/super-admin-login' || location==='/branch-admin-login';
+  if (!isPublic && !getAccessToken()) {
+    if (location.startsWith('/admin')) return <Redirect href="/super-admin-login" />;
+    if (location.startsWith('/branch-admin')) return <Redirect href="/branch-admin-login" />;
+    return <Redirect href="/login" />;
+  }
+  const role:Role=location.startsWith('/admin')?'admin':location.startsWith('/branch-admin')?'branch-admin':location.startsWith('/teacher')?'teacher':'student'; const page = location.split('/').filter(Boolean).at(-1); 
   if(location==='/') return <BranchSelection/>;
   if(location==='/login') return <Login/>; 
   if(location==='/super-admin-login') return <SuperAdminLogin/>;

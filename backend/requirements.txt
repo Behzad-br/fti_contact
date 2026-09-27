@@ -1,4 +1,9 @@
-# Backend dependencies for IELTS Speaking Coach Web App
+# Production dependencies — install on the VPS with:
+#   python3 -m venv .venv && source .venv/bin/activate
+#   pip install -r requirements.txt
+#
+# Python: 3.10 or 3.11 recommended (3.10+ required).
+
 fastapi==0.111.0
 uvicorn[standard]==0.30.1
 python-multipart==0.0.9
@@ -9,21 +14,20 @@ aiofiles==23.2.1
 httpx==0.27.0
 beautifulsoup4==4.13.5
 
-# Whisper (already installed globally)
+# Local speech transcription (needs ffmpeg on the OS)
 openai-whisper==20231117
 
-# Audio processing
+# Audio / documents
 numpy>=1.24.0
 pypdfium2==4.30.0
 pillow>=10.0.0
 
+# Realtime mocks
 python-socketio==5.11.4
 livekit-api==1.0.7
 PyJWT==2.9.0
 
+# Databases — MySQL/MariaDB is primary for Hestia; Postgres driver optional for legacy Neon
+PyMySQL==1.1.1
+cryptography>=42.0.0
 psycopg2-binary==2.9.9
-
-# Testing
-pytest==8.2.2
-pytest-asyncio==0.23.7
-httpx==0.27.0

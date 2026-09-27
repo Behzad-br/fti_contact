@@ -7,7 +7,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
-from fastapi import APIRouter, Depends, File, Header, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, Header, HTTPException, Request, UploadFile
 from sqlalchemy.orm import Session
 
 from app.auth.deps import get_optional_user, resolve_student_id as get_student_id
@@ -36,7 +36,7 @@ def _resolve_manual_writing_image(payload: dict) -> Optional[str]:
     text = str(raw)
     if text.startswith("/api/mocks/images/"):
         name = Path(text).name
-        candidate = Path(settings.READING_DIAGRAM_DIR).parent / "mock_images" / name
+        candidate = Path(settings.MOCK_IMAGE_DIR) / name
         return str(candidate) if candidate.is_file() else None
     path = Path(text)
     return str(path) if path.is_file() else None
@@ -241,22 +241,50 @@ async def teacher_preview(body: dict, db: Session = Depends(get_db), _: str = De
 
 
 @router.post("/homework/teacher/upload-audio")
-async def upload_audio(file: UploadFile = File(...), _: str = Depends(require_teacher)):
-    dest_dir = Path(settings.LISTENING_AUDIO_DIR).parent / "homework_audio"
+async def upload_audio(
+    request: Request,
+    file: UploadFile = File(...),
+    _: str = Depends(require_teacher),
+):
+    from app.security_hardening import client_ip, rate_limit_or_429, upload_limiter
+
+    rate_limit_or_429(upload_limiter, f"upload:{client_ip(request)}")
+    dest_dir = Path(settings.HOMEWORK_AUDIO_DIR)
     dest_dir.mkdir(parents=True, exist_ok=True)
-    name = f"{uuid.uuid4().hex[:10]}_{file.filename or 'audio.mp3'}"
+    original = Path(file.filename or "audio.mp3").name
+    ext = original.rsplit(".", 1)[-1].lower() if "." in original else "mp3"
+    if ext not in {"mp3", "wav", "ogg", "m4a", "webm", "mpeg", "mp4"}:
+        raise HTTPException(400, "Unsupported audio type.")
+    name = f"{uuid.uuid4().hex[:10]}_{original}"
     path = dest_dir / name
-    path.write_bytes(await file.read())
+    data = await file.read()
+    if len(data) > settings.MAX_UPLOAD_SIZE_MB * 1024 * 1024:
+        raise HTTPException(413, f"File too large. Max {settings.MAX_UPLOAD_SIZE_MB}MB.")
+    if not data:
+        raise HTTPException(400, "Empty file.")
+    path.write_bytes(data)
     return {"filename": name, "url": f"/api/homework/audio/{name}"}
 
 
 @router.get("/homework/audio/{filename}")
-async def homework_audio(filename: str):
+async def homework_audio(
+    filename: str,
+    user: User | None = Depends(get_optional_user),
+):
     from fastapi.responses import FileResponse
 
-    path = Path(settings.LISTENING_AUDIO_DIR).parent / "homework_audio" / Path(filename).name
-    if not path.exists():
+    if user is None and not settings.AUTH_LEGACY_HEADERS:
+        raise HTTPException(401, "Authentication required.")
+    safe = Path(filename).name
+    if safe != filename or ".." in filename:
+        raise HTTPException(400, "Invalid filename.")
+    path = Path(settings.HOMEWORK_AUDIO_DIR) / safe
+    if not path.exists() or not path.is_file():
         raise HTTPException(404, "Audio not found.")
+    try:
+        path.resolve().relative_to(Path(settings.HOMEWORK_AUDIO_DIR).resolve())
+    except ValueError:
+        raise HTTPException(400, "Invalid filename.")
     return FileResponse(path)
 
 

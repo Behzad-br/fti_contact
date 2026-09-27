@@ -1,0 +1,10 @@
+{
+  "name": "itles-backend",
+  "private": true,
+  "description": "Optional npm script wrappers only — the API is Python/FastAPI. No Node runtime dependencies.",
+  "scripts": {
+    "start": "python -m uvicorn app.main:asgi_app --host 127.0.0.1 --port 5000 --proxy-headers --forwarded-allow-ips 127.0.0.1",
+    "migrate": "python -m app.cli.migrate",
+    "build": "python -c \"print('No compile step. Activate .venv then: npm run migrate && npm start (or pm2 start ecosystem.config.cjs)')\""
+  }
+}

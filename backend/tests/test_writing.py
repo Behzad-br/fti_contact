@@ -270,7 +270,10 @@ def test_filter_and_attempt_autosave_submit_permissions(client, db):
     assert stored.submitted_text.startswith("The bar chart")
 
 
-def test_teacher_override_and_progress(client, db):
+def test_teacher_override_and_progress(client, db, monkeypatch):
+    from app.config import settings
+
+    monkeypatch.setattr(settings, "WRITING_ADMIN_TOKEN", "secret-token")
     q = _seed_question(db, public_id="T2-1", task_number=2, question_type="agree_disagree", minimum_words=250)
     start = client.post(f"/api/writing/questions/{q.public_id}/start").json()
     with patch("app.writing.services.writing_ai.writing_chat_json", new=AsyncMock(return_value={
@@ -288,6 +291,7 @@ def test_teacher_override_and_progress(client, db):
         )
     review = client.post(
         f"/api/writing/admin/submissions/{start['id']}/review",
+        headers={"X-Admin-Token": "secret-token"},
         json={"teacher_band": 6.5, "teacher_comments": "Clearer position needed.", "publish": True},
     )
     assert review.status_code == 200
@@ -343,6 +347,14 @@ def test_admin_cannot_be_spoofed_when_token_set(client, db, monkeypatch):
     assert denied.status_code == 403
     ok = client.get("/api/writing/admin/questions", headers={"X-Admin-Token": "secret-token"})
     assert ok.status_code == 200
+
+
+def test_admin_requires_jwt_when_token_unset(client, monkeypatch):
+    from app.config import settings
+
+    monkeypatch.setattr(settings, "WRITING_ADMIN_TOKEN", "")
+    denied = client.get("/api/writing/admin/questions")
+    assert denied.status_code == 403
 
 
 def test_generation_visual_roundtrip():

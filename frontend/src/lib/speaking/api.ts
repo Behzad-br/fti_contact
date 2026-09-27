@@ -9,6 +9,7 @@ import {
   Evaluation,
 } from "./types";
 import { apiBase } from "@/lib/api-base";
+import { authHeaders } from "@/lib/auth-api";
 
 async function request<T>(
   path: string,
@@ -21,10 +22,11 @@ async function request<T>(
     res = await fetch(url, {
       ...options,
       headers: {
+        ...authHeaders(),
         ...(options?.headers || {}),
       },
     });
-  } catch (networkErr: any) {
+  } catch {
     throw new Error(
       "Cannot connect to server. Make sure the backend is running."
     );

@@ -6,9 +6,11 @@ from pathlib import Path
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 from sqlalchemy.orm import Session
 
+from app.auth.deps import resolve_student_id as get_student_id
 from app.config import settings
 from app.database import get_db
 from app.speaking.models import Evaluation, Question, TestSession
+from app.speaking.ownership import assert_session_owner
 from app.speaking.schemas import AnswerSubmitResponse, EvaluationSchema, NextStepSchema
 from app.speaking.services import speaking_session
 from app.speaking.services.evaluation import evaluate_session
@@ -30,12 +32,14 @@ async def submit_answer(
     question_id: str = Form(...),
     audio: UploadFile = File(...),
     db: Session = Depends(get_db),
+    student_id: str = Depends(get_student_id),
 ):
     logger.info("Received submit_answer for session %s question %s", session_id, question_id)
 
     session = db.query(TestSession).filter_by(id=session_id).first()
     if not session:
         raise HTTPException(status_code=404, detail="Session not found.")
+    assert_session_owner(session, student_id)
     if session.status != "in_progress":
         raise HTTPException(status_code=400, detail="Session is not in progress.")
 
@@ -56,10 +60,10 @@ async def submit_answer(
     try:
         transcription = await transcribe_audio(audio_bytes, filename)
     except RuntimeError as exc:
-        raise HTTPException(status_code=500, detail=str(exc))
+        raise HTTPException(status_code=500, detail="Transcription service unavailable.") from exc
     except Exception as exc:
         logger.error("Transcription failed: %s", exc, exc_info=True)
-        raise HTTPException(status_code=500, detail=f"Could not transcribe audio: {exc}")
+        raise HTTPException(status_code=500, detail="Could not transcribe audio.") from exc
 
     transcript = transcription["transcript"]
     duration = transcription["duration"]
@@ -130,10 +134,15 @@ async def submit_answer(
 
 
 @router.post("/answers/finalize/{session_id}", response_model=EvaluationSchema)
-async def finalize_session(session_id: str, db: Session = Depends(get_db)):
+async def finalize_session(
+    session_id: str,
+    db: Session = Depends(get_db),
+    student_id: str = Depends(get_student_id),
+):
     session = db.query(TestSession).filter_by(id=session_id).first()
     if not session:
         raise HTTPException(status_code=404, detail="Session not found.")
+    assert_session_owner(session, student_id)
 
     existing = db.query(Evaluation).filter_by(session_id=session_id).first()
     if existing:
@@ -149,7 +158,7 @@ async def finalize_session(session_id: str, db: Session = Depends(get_db)):
     try:
         result = await evaluate_session(qa_pairs)
     except RuntimeError as exc:
-        raise HTTPException(status_code=503, detail=str(exc))
+        raise HTTPException(status_code=503, detail="Evaluation service unavailable.") from exc
 
     eval_row = Evaluation(session_id=session_id)
     eval_row.fluency_coherence = result.get("fluency_coherence")

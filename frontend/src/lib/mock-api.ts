@@ -772,32 +772,118 @@ export function getBranch(id: string): CampusBranch | undefined {
   return loadBranches().find((b) => b.id === id);
 }
 
-export function addBranch(input: { name: string; city: string; admins: BranchAdminAccount[]; imageUrl?: string }): CampusBranch {
-  const rows = loadBranches();
-  const admins = asAdmins({ admins: input.admins });
-  const imageUrl = (input.imageUrl || '').trim();
-  const saved: CampusBranch = {
-    id: slugBranchId(input.name),
-    name: input.name.trim(),
-    city: input.city.trim(),
-    students: 0,
-    teachers: 0,
-    avg: 0,
-    ...(imageUrl ? { imageUrl } : {}),
+function normalizeCampusFromApi(raw: Record<string, unknown>): CampusBranch {
+  const admins = asAdmins({
+    admins: (raw.admins as BranchAdminAccount[] | undefined) || [],
+    admin: String(raw.admin || ''),
+    adminUsername: String(raw.adminUsername || ''),
+    adminPassword: '',
+  }).map((a) => ({ ...a, password: '' }));
+  return {
+    id: String(raw.id || ''),
+    name: String(raw.name || ''),
+    city: String(raw.city || ''),
+    students: Number(raw.students || 0),
+    teachers: Number(raw.teachers || 0),
+    avg: Number(raw.avg || 0),
+    imageUrl: String(raw.imageUrl || '') || undefined,
     ...syncPrimary(admins),
   };
-  writeBranches([saved, ...rows]);
+}
+
+function writeCampusLocal(saved: CampusBranch, mode: 'create' | 'update') {
+  const rows = loadBranches();
+  if (mode === 'create') {
+    writeBranches([saved, ...rows.filter((b) => b.id !== saved.id)]);
+    return;
+  }
+  const index = rows.findIndex((b) => b.id === saved.id);
+  if (index < 0) writeBranches([saved, ...rows]);
+  else {
+    rows[index] = saved;
+    writeBranches(rows);
+  }
+}
+
+export async function addBranch(input: {
+  name: string;
+  city: string;
+  admins: BranchAdminAccount[];
+  imageUrl?: string;
+}): Promise<CampusBranch> {
+  const admins = asAdmins({ admins: input.admins });
+  if (!admins.length) throw new Error('At least one branch admin is required.');
+  for (const admin of admins) {
+    if (admin.password.length < 6) {
+      throw new Error(`Password for @${admin.username} must be at least 6 characters.`);
+    }
+  }
+
+  const { orgFetch, getAccessToken } = await import('@/lib/auth-api');
+  if (!getAccessToken()) {
+    throw new Error('Sign in as Super Admin before creating a branch.');
+  }
+
+  const created = await orgFetch<Record<string, unknown>>('/org/branches', {
+    method: 'POST',
+    body: JSON.stringify({
+      name: input.name.trim(),
+      city: input.city.trim(),
+      image_url: (input.imageUrl || '').trim(),
+      admins: admins.map((a) => ({
+        name: a.name.trim(),
+        username: a.username.trim().toLowerCase(),
+        password: a.password,
+      })),
+    }),
+  });
+
+  const saved = normalizeCampusFromApi(created);
+  writeCampusLocal(saved, 'create');
   return saved;
 }
 
-export function updateBranch(id: string, patch: Partial<CampusBranch>): CampusBranch | null {
-  const rows = loadBranches();
-  const index = rows.findIndex((b) => b.id === id);
-  if (index < 0) return null;
-  const next = { ...rows[index], ...patch, id };
-  rows[index] = normalizeBranch(next);
-  writeBranches(rows);
-  return rows[index];
+export async function updateBranch(
+  id: string,
+  patch: Partial<CampusBranch> & { admins?: BranchAdminAccount[] },
+): Promise<CampusBranch> {
+  const existing = getBranch(id);
+  if (!existing) throw new Error('Branch not found.');
+
+  const nextName = (patch.name ?? existing.name).trim();
+  const nextCity = (patch.city ?? existing.city).trim();
+  const nextImage = patch.imageUrl !== undefined ? String(patch.imageUrl || '').trim() : (existing.imageUrl || '');
+  const admins = asAdmins({
+    admins: patch.admins ?? existing.admins,
+    admin: patch.admin ?? existing.admin,
+    adminUsername: patch.adminUsername ?? existing.adminUsername,
+    adminPassword: patch.adminPassword ?? existing.adminPassword,
+  });
+  if (!admins.length) throw new Error('At least one branch admin is required.');
+
+  const { orgFetch, getAccessToken } = await import('@/lib/auth-api');
+  if (!getAccessToken()) {
+    throw new Error('Sign in as Super Admin before updating a branch.');
+  }
+
+  const updated = await orgFetch<Record<string, unknown>>(`/org/branches/${encodeURIComponent(id)}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      name: nextName,
+      city: nextCity,
+      image_url: nextImage,
+      admins: admins.map((a) => ({
+        name: a.name.trim(),
+        username: a.username.trim().toLowerCase(),
+        // Empty password means "keep existing hash" on the backend.
+        password: a.password || '',
+      })),
+    }),
+  });
+
+  const saved = normalizeCampusFromApi(updated);
+  writeCampusLocal(saved, 'update');
+  return saved;
 }
 
 export function removeBranch(id: string) {
@@ -847,22 +933,54 @@ export function getCurrentBranchAdminUser(): BranchAdminAccount | null {
   return asAdmins(campus).find((a) => a.username.toLowerCase() === username) || asAdmins(campus)[0] || null;
 }
 
-export function updateCurrentBranchAdminAccount(patch: { name?: string; username?: string; password?: string }): BranchAdminAccount | null {
+export async function updateCurrentBranchAdminAccount(patch: {
+  name?: string;
+  username?: string;
+  password?: string;
+}): Promise<BranchAdminAccount | null> {
   const campus = getCurrentBranchAdmin();
   const current = getCurrentBranchAdminUser();
   if (!campus || !current) return null;
   const nextUsername = (patch.username ?? current.username).trim();
   if (nextUsername.length < 3) return null;
   if (isAdminUsernameTaken(nextUsername, { branchId: campus.id, username: current.username })) return null;
+
+  const { orgFetch, getAccessToken, getAuthUser } = await import('@/lib/auth-api');
+  if (!getAccessToken()) throw new Error('Session expired. Sign in again.');
+  const me = getAuthUser();
+  if (!me?.id || me.role !== 'branch_admin') {
+    throw new Error('Only a signed-in branch admin can update this account.');
+  }
+
+  const body: Record<string, string> = {
+    full_name: (patch.name ?? current.name).trim() || current.name,
+    username: nextUsername.toLowerCase(),
+  };
+  if (patch.password && patch.password.length >= 6) {
+    body.password = patch.password;
+  }
+
+  await orgFetch(`/org/users/${encodeURIComponent(me.id)}`, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  });
+
   const next: BranchAdminAccount = {
-    name: (patch.name ?? current.name).trim() || current.name,
-    username: nextUsername,
-    password: (patch.password ?? current.password) || current.password,
+    name: body.full_name,
+    username: body.username,
+    password: '',
   };
   const admins = asAdmins(campus).map((a) =>
-    a.username.toLowerCase() === current.username.toLowerCase() ? next : a
+    a.username.toLowerCase() === current.username.toLowerCase() ? next : { ...a, password: '' }
   );
-  updateBranch(campus.id, { admins, ...syncPrimary(admins) });
+  writeCampusLocal(
+    normalizeBranch({
+      ...campus,
+      admins,
+      ...syncPrimary(admins),
+    }),
+    'update',
+  );
   setCurrentBranchAdmin(campus.id, next.username);
   return next;
 }

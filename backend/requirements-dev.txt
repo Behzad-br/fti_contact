@@ -1,0 +1,4 @@
+# Dev / CI only — not required on the VPS production host.
+-r requirements.txt
+pytest==8.2.2
+pytest-asyncio==0.23.7

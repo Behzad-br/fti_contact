@@ -49,11 +49,13 @@ def create_session(
     mode: str,
     test_data: dict,
     practice_part: Optional[int] = None,
+    student_id: Optional[str] = None,
 ) -> tuple[TestSession, list[Question]]:
     """
     Create a new TestSession and Question rows from a test data dict.
 
     practice_part: 1, 2, or 3 to store only that part. None = full mock (all parts).
+    student_id: authenticated owner of the session (required in production).
     """
     if practice_part is not None and practice_part not in (1, 2, 3):
         raise ValueError("practice_part must be 1, 2, 3, or None")
@@ -67,6 +69,7 @@ def create_session(
         mode=mode,
         test_id=test_data.get("id"),
         title=title,
+        student_id=(student_id or None),
         practice_part=practice_part,
         status="in_progress",
         started_at=datetime.utcnow(),

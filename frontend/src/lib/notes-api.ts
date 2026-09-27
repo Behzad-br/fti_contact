@@ -6,10 +6,9 @@ function headers(extra?: Record<string, string>) {
   const me = getCurrentStudent();
   return {
     ...authHeaders(),
-    'X-Student-Id': me.id || 's1',
-    'X-Student-Batch': me.batch || '',
-    'X-Student-Name': me.name || '',
-    'X-Admin-Token': localStorage.getItem('writing_admin_token') || '',
+    ...(me.id ? { 'X-Student-Id': me.id } : {}),
+    ...(me.batch ? { 'X-Student-Batch': me.batch } : {}),
+    ...(me.name ? { 'X-Student-Name': me.name } : {}),
     ...extra,
   };
 }

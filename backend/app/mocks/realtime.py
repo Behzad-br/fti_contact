@@ -11,7 +11,25 @@ try:
 except Exception:  # pragma: no cover - optional add-on
     socketio = None  # type: ignore
 
-sio = socketio.AsyncServer(async_mode="asgi", cors_allowed_origins="*", logger=False, engineio_logger=False) if socketio else None
+def _cors_origins():
+    try:
+        from app.config import settings
+
+        return settings.cors_origin_list() or []
+    except Exception:
+        return []
+
+
+sio = (
+    socketio.AsyncServer(
+        async_mode="asgi",
+        cors_allowed_origins=_cors_origins() or [],
+        logger=False,
+        engineio_logger=False,
+    )
+    if socketio
+    else None
+)
 
 WARNING_EVENTS = {
     "FULLSCREEN_EXIT",

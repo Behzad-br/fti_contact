@@ -4,7 +4,7 @@ import re
 import uuid
 from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
@@ -12,6 +12,7 @@ from app.auth.deps import get_current_user, require_roles
 from app.auth.models import Batch, Branch, User
 from app.auth.security import create_access_token, hash_password, verify_password
 from app.database import get_db
+from app.security_hardening import client_ip, login_limiter, rate_limit_or_429
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 org_router = APIRouter(prefix="/org", tags=["org"])
@@ -45,11 +46,19 @@ class UserPatch(BaseModel):
     is_active: Optional[bool] = None
 
 
+class BranchAdminBody(BaseModel):
+    name: str = ""
+    username: str = Field(min_length=3)
+    password: str = Field(default="", min_length=0)
+    email: Optional[str] = None
+
+
 class BranchBody(BaseModel):
     name: str
     city: str = ""
     image_url: str = ""
     id: Optional[str] = None
+    admins: list[BranchAdminBody] = Field(default_factory=list)
 
 
 class BatchBody(BaseModel):
@@ -82,9 +91,79 @@ def _public_user(u: User) -> dict:
     }
 
 
+def _branch_admin_email(username: str, email: Optional[str], branch_id: str) -> str:
+    raw = (email or "").strip().lower()
+    if raw:
+        return raw
+    return f"{username.strip().lower()}@{_slug(branch_id) or 'branch'}.fti.local"
+
+
+def _public_branch(db: Session, b: Branch) -> dict:
+    teachers = db.query(User).filter_by(role="teacher", branch_id=b.id, is_active=True).count()
+    students = db.query(User).filter_by(role="student", branch_id=b.id, is_active=True).count()
+    admins = (
+        db.query(User)
+        .filter_by(role="branch_admin", branch_id=b.id, is_active=True)
+        .order_by(User.full_name.asc())
+        .all()
+    )
+    return {
+        "id": b.id,
+        "name": b.name,
+        "city": b.city or "",
+        "imageUrl": b.image_url or "",
+        "teachers": teachers,
+        "students": students,
+        "avg": 0,
+        "admins": [{"name": a.full_name, "username": a.username, "password": ""} for a in admins],
+        "admin": admins[0].full_name if admins else "",
+        "adminUsername": admins[0].username if admins else "",
+        "adminPassword": "",
+    }
+
+
+def _assert_unique_login(db: Session, *, email: str, username: str, exclude_user_id: Optional[str] = None) -> None:
+    q = db.query(User).filter((User.email == email) | (User.username == username))
+    if exclude_user_id:
+        q = q.filter(User.id != exclude_user_id)
+    if q.first():
+        raise HTTPException(409, "Email or username already exists.")
+
+
+def _create_branch_admin(
+    db: Session,
+    *,
+    branch_id: str,
+    admin: BranchAdminBody,
+    require_password: bool,
+) -> User:
+    username = admin.username.strip().lower()
+    if len(username) < 3:
+        raise HTTPException(400, "Admin username must be at least 3 characters.")
+    password = (admin.password or "").strip()
+    if require_password and len(password) < 6:
+        raise HTTPException(400, f"Password for @{username} must be at least 6 characters.")
+    if password and len(password) < 6:
+        raise HTTPException(400, f"Password for @{username} must be at least 6 characters.")
+    email = _branch_admin_email(username, admin.email, branch_id)
+    _assert_unique_login(db, email=email, username=username)
+    row = User(
+        id=str(uuid.uuid4()),
+        role="branch_admin",
+        email=email,
+        username=username,
+        password_hash=hash_password(password),
+        full_name=(admin.name or username).strip() or username,
+        branch_id=branch_id,
+        is_active=True,
+    )
+    db.add(row)
+    return row
+
+
 def _find_login(db: Session, key: str, role: Optional[str]) -> Optional[User]:
     key = key.strip().lower()
-    q = db.query(User).filter(User.is_active.is_(True))
+    q = db.query(User)
     if role:
         role_map = {
             "student": "student",
@@ -102,10 +181,13 @@ def _find_login(db: Session, key: str, role: Optional[str]) -> Optional[User]:
 
 
 @router.post("/login")
-def login(body: LoginBody, db: Session = Depends(get_db)):
+def login(body: LoginBody, request: Request, db: Session = Depends(get_db)):
+    rate_limit_or_429(login_limiter, f"login:{client_ip(request)}")
     user = _find_login(db, body.username, body.role)
     if not user or not verify_password(body.password, user.password_hash):
         raise HTTPException(401, "Wrong username/email or password.")
+    if not user.is_active:
+        raise HTTPException(403, "This account is disabled.")
     token = create_access_token(sub=user.id, role=user.role, extra={"branch_id": user.branch_id or ""})
     return {"access_token": token, "token_type": "bearer", "user": _public_user(user)}
 
@@ -203,9 +285,13 @@ def patch_user(
     if actor.role == "branch_admin" and row.branch_id != actor.branch_id:
         raise HTTPException(403, "Wrong branch.")
     if body.email is not None:
-        row.email = body.email.strip().lower()
+        email = body.email.strip().lower()
+        _assert_unique_login(db, email=email, username=row.username, exclude_user_id=row.id)
+        row.email = email
     if body.username is not None:
-        row.username = body.username.strip().lower()
+        username = body.username.strip().lower()
+        _assert_unique_login(db, email=row.email, username=username, exclude_user_id=row.id)
+        row.username = username
     if body.full_name is not None:
         row.full_name = body.full_name.strip()
     if body.branch_id is not None and actor.role == "super_admin":
@@ -252,27 +338,7 @@ def list_branches(
     if user.role != "super_admin" and user.branch_id:
         q = q.filter(Branch.id == user.branch_id)
     rows = q.order_by(Branch.name.asc()).all()
-    out = []
-    for b in rows:
-        teachers = db.query(User).filter_by(role="teacher", branch_id=b.id, is_active=True).count()
-        students = db.query(User).filter_by(role="student", branch_id=b.id, is_active=True).count()
-        admins = db.query(User).filter_by(role="branch_admin", branch_id=b.id, is_active=True).all()
-        out.append(
-            {
-                "id": b.id,
-                "name": b.name,
-                "city": b.city or "",
-                "imageUrl": b.image_url or "",
-                "teachers": teachers,
-                "students": students,
-                "avg": 0,
-                "admins": [{"name": a.full_name, "username": a.username, "password": ""} for a in admins],
-                "admin": admins[0].full_name if admins else "",
-                "adminUsername": admins[0].username if admins else "",
-                "adminPassword": "",
-            }
-        )
-    return {"branches": out}
+    return {"branches": [_public_branch(db, b) for b in rows]}
 
 
 @org_router.post("/branches")
@@ -281,13 +347,104 @@ def create_branch(
     _: User = Depends(require_roles("super_admin")),
     db: Session = Depends(get_db),
 ):
+    if not body.admins:
+        raise HTTPException(400, "At least one branch admin is required.")
     bid = (body.id or _slug(body.name)).strip()
     if db.query(Branch).filter_by(id=bid).first():
         raise HTTPException(409, "Branch id already exists.")
+
+    # Pre-check duplicate usernames inside the request itself.
+    seen: set[str] = set()
+    for admin in body.admins:
+        key = admin.username.strip().lower()
+        if key in seen:
+            raise HTTPException(400, f"Username @{key} is used twice on this campus.")
+        seen.add(key)
+
     row = Branch(id=bid, name=body.name.strip(), city=body.city.strip(), image_url=body.image_url or "")
     db.add(row)
-    db.commit()
-    return {"id": row.id, "name": row.name, "city": row.city, "imageUrl": row.image_url or ""}
+    try:
+        for admin in body.admins:
+            _create_branch_admin(db, branch_id=bid, admin=admin, require_password=True)
+        db.commit()
+    except HTTPException:
+        db.rollback()
+        raise
+    except Exception:
+        db.rollback()
+        raise
+    db.refresh(row)
+    return _public_branch(db, row)
+
+
+@org_router.put("/branches/{branch_id}")
+def update_branch(
+    branch_id: str,
+    body: BranchBody,
+    _: User = Depends(require_roles("super_admin")),
+    db: Session = Depends(get_db),
+):
+    row = db.query(Branch).filter_by(id=branch_id).first()
+    if not row:
+        raise HTTPException(404, "Branch not found.")
+    if not body.admins:
+        raise HTTPException(400, "At least one branch admin is required.")
+
+    seen: set[str] = set()
+    for admin in body.admins:
+        key = admin.username.strip().lower()
+        if key in seen:
+            raise HTTPException(400, f"Username @{key} is used twice on this campus.")
+        seen.add(key)
+
+    row.name = body.name.strip()
+    row.city = body.city.strip()
+    if body.image_url is not None:
+        row.image_url = body.image_url or ""
+
+    existing = (
+        db.query(User)
+        .filter_by(role="branch_admin", branch_id=branch_id)
+        .all()
+    )
+    by_username = {u.username.lower(): u for u in existing}
+    keep: set[str] = set()
+
+    try:
+        for admin in body.admins:
+            username = admin.username.strip().lower()
+            current = by_username.get(username)
+            if current:
+                keep.add(current.id)
+                current.full_name = (admin.name or current.full_name or username).strip()
+                current.is_active = True
+                if admin.email:
+                    email = admin.email.strip().lower()
+                    _assert_unique_login(db, email=email, username=username, exclude_user_id=current.id)
+                    current.email = email
+                password = (admin.password or "").strip()
+                if password:
+                    if len(password) < 6:
+                        raise HTTPException(400, f"Password for @{username} must be at least 6 characters.")
+                    current.password_hash = hash_password(password)
+            else:
+                created = _create_branch_admin(db, branch_id=branch_id, admin=admin, require_password=True)
+                keep.add(created.id)
+
+        for user in existing:
+            if user.id not in keep:
+                user.is_active = False
+
+        db.commit()
+    except HTTPException:
+        db.rollback()
+        raise
+    except Exception:
+        db.rollback()
+        raise
+
+    db.refresh(row)
+    return _public_branch(db, row)
 
 
 @org_router.get("/batches")

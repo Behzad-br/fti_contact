@@ -2,8 +2,10 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from app.auth.deps import resolve_student_id as get_student_id
 from app.database import get_db
 from app.speaking.models import Evaluation, TestSession
+from app.speaking.ownership import assert_session_owner
 from app.speaking.schemas import (
     AnswerReviewSchema,
     EvaluationSchema,
@@ -22,8 +24,13 @@ router = APIRouter()
 
 
 @router.get("/history", response_model=HistoryListSchema)
-async def list_history(db: Session = Depends(get_db)):
-    sessions = db.query(TestSession).order_by(TestSession.started_at.desc()).all()
+async def list_history(db: Session = Depends(get_db), student_id: str = Depends(get_student_id)):
+    sessions = (
+        db.query(TestSession)
+        .filter(TestSession.student_id == student_id)
+        .order_by(TestSession.started_at.desc())
+        .all()
+    )
     items = [
         HistoryItemSchema(
             session_id=s.id,
@@ -41,10 +48,15 @@ async def list_history(db: Session = Depends(get_db)):
 
 
 @router.get("/history/{session_id}", response_model=SessionResultSchema)
-async def get_session_result(session_id: str, db: Session = Depends(get_db)):
+async def get_session_result(
+    session_id: str,
+    db: Session = Depends(get_db),
+    student_id: str = Depends(get_student_id),
+):
     session = db.query(TestSession).filter_by(id=session_id).first()
     if not session:
         raise HTTPException(status_code=404, detail="Session not found.")
+    assert_session_owner(session, student_id)
 
     eval_row = db.query(Evaluation).filter_by(session_id=session_id).first()
     qa_pairs = speaking_session.build_full_transcript(db, session_id)
@@ -76,7 +88,11 @@ async def get_session_result(session_id: str, db: Session = Depends(get_db)):
             ai_status=extra["ai_status"],
         )
     elif live:
-        why = [str(item).strip() for item in (live.get("why_this_band") or live.get("weaknesses") or []) if str(item).strip()]
+        why = [
+            str(item).strip()
+            for item in (live.get("why_this_band") or live.get("weaknesses") or [])
+            if str(item).strip()
+        ]
         eval_schema = EvaluationSchema(
             fluency_coherence=live.get("fluency_coherence"),
             lexical_resource=live.get("lexical_resource"),
@@ -131,15 +147,19 @@ async def get_session_result(session_id: str, db: Session = Depends(get_db)):
 
 
 @router.get("/progress", response_model=ProgressSchema)
-async def get_progress(db: Session = Depends(get_db)):
+async def get_progress(db: Session = Depends(get_db), student_id: str = Depends(get_student_id)):
     sessions = (
         db.query(TestSession)
-        .filter(TestSession.status == "completed")
+        .filter(TestSession.status == "completed", TestSession.student_id == student_id)
         .order_by(TestSession.completed_at.desc())
         .limit(20)
         .all()
     )
-    total = db.query(TestSession).filter(TestSession.status == "completed").count()
+    total = (
+        db.query(TestSession)
+        .filter(TestSession.status == "completed", TestSession.student_id == student_id)
+        .count()
+    )
     recent_bands = [s.estimated_band for s in sessions[:10]]
     valid_bands = [b for b in recent_bands if b is not None]
     avg_band = round(sum(valid_bands) / len(valid_bands), 1) if valid_bands else None

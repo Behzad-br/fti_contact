@@ -40,6 +40,9 @@ export function getAuthUser(): AuthUser | null {
 }
 
 export function setAuthSession(token: string, user: AuthUser) {
+  if (!token || !user || typeof user !== 'object') {
+    throw new Error('Cannot save session: missing access token or user.');
+  }
   localStorage.setItem(TOKEN_KEY, token);
   localStorage.setItem(USER_KEY, JSON.stringify(user));
 }
@@ -54,6 +57,41 @@ export function authHeaders(): Record<string, string> {
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
+function formatApiDetail(detail: unknown, fallback: string): string {
+  if (typeof detail === 'string' && detail.trim()) return detail;
+  if (Array.isArray(detail)) {
+    const parts = detail.map((item) => {
+      if (typeof item === 'string') return item;
+      if (item && typeof item === 'object' && 'msg' in item) return String((item as { msg: unknown }).msg);
+      return '';
+    }).filter(Boolean);
+    if (parts.length) return parts.join('; ');
+  }
+  return fallback;
+}
+
+/** Normalize backend login JSON: { access_token, token_type, user }. */
+function parseLoginPayload(body: unknown): { access_token: string; user: AuthUser } {
+  const root = (body && typeof body === 'object' ? body : {}) as Record<string, unknown>;
+  const nested =
+    root.data && typeof root.data === 'object' ? (root.data as Record<string, unknown>) : null;
+  const source = nested && (nested.access_token || nested.user) ? nested : root;
+
+  const access_token = String(source.access_token || source.accessToken || '').trim();
+  const userRaw = source.user;
+  if (!access_token) {
+    throw new Error('Invalid authentication response: missing access_token.');
+  }
+  if (!userRaw || typeof userRaw !== 'object') {
+    throw new Error('Invalid authentication response: missing user.');
+  }
+  const user = userRaw as AuthUser;
+  if (!user.role) {
+    throw new Error('Invalid authentication response: user.role is missing.');
+  }
+  return { access_token, user };
+}
+
 export async function apiLogin(username: string, password: string, role?: string) {
   const res = await fetch(`${apiBase()}/auth/login`, {
     method: 'POST',
@@ -62,16 +100,22 @@ export async function apiLogin(username: string, password: string, role?: string
   });
   const body = await res.json().catch(() => ({}));
   if (!res.ok) {
-    throw new Error(typeof body.detail === 'string' ? body.detail : 'Login failed');
+    const detail = (body as { detail?: unknown })?.detail;
+    throw new Error(formatApiDetail(detail, 'Login failed'));
   }
-  setAuthSession(body.access_token, body.user);
-  return body as { access_token: string; user: AuthUser };
+  const parsed = parseLoginPayload(body);
+  setAuthSession(parsed.access_token, parsed.user);
+  return parsed;
 }
 
 export async function apiMe() {
   const res = await fetch(`${apiBase()}/auth/me`, { headers: { ...authHeaders() } });
   if (!res.ok) throw new Error('Session expired');
-  const user = (await res.json()) as AuthUser;
+  const user = (await res.json().catch(() => null)) as AuthUser | null;
+  if (!user || typeof user !== 'object' || !user.role) {
+    clearAuthSession();
+    throw new Error('Invalid authentication response.');
+  }
   localStorage.setItem(USER_KEY, JSON.stringify(user));
   return user;
 }

@@ -1,9 +1,12 @@
 """
 main.py — FastAPI application entry point.
 
-Run with:
+Production (Hestia / PM2):
     cd backend
-    uvicorn app.main:asgi_app --reload --port 8000
+    uvicorn app.main:asgi_app --host 127.0.0.1 --port ${PORT:-5000}
+
+Local:
+    uvicorn app.main:asgi_app --reload --host 127.0.0.1 --port 8001
 """
 import logging
 from contextlib import asynccontextmanager
@@ -14,6 +17,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
+from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 
 from app.config import settings
 from app.speaking.controllers import answers, health, history, tests
@@ -25,6 +29,7 @@ from app.notes import controllers as notes
 from app.mocks import controllers as mocks
 from app.auth import controllers as auth
 from app.database import init_db
+from app.security_hardening import SecurityHeadersMiddleware
 
 logging.basicConfig(
     level=logging.INFO,
@@ -33,22 +38,40 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+def _assert_production_security() -> None:
+    if not settings.is_production:
+        return
+    if (settings.JWT_SECRET or "").startswith("change-me"):
+        raise RuntimeError(
+            "Refusing to start: set a strong JWT_SECRET in production .env (not the default placeholder)."
+        )
+    if settings.AUTH_LEGACY_HEADERS:
+        raise RuntimeError(
+            "Refusing to start: AUTH_LEGACY_HEADERS must be false in production."
+        )
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup and shutdown logic."""
-    # Startup
     logger.info("Starting %s...", settings.APP_NAME)
+    _assert_production_security()
 
     # Ensure data directories exist
-    Path(settings.TEMP_DIR).mkdir(parents=True, exist_ok=True)
+    for d in (
+        settings.TEMP_DIR,
+        settings.WRITING_IMAGE_DIR,
+        settings.WRITING_PACKS_DIR,
+        settings.READING_DIAGRAM_DIR,
+        settings.READING_PACKS_DIR,
+        settings.LISTENING_AUDIO_DIR,
+        settings.LISTENING_MAP_DIR,
+        settings.NOTES_DIR,
+        settings.MOCK_IMAGE_DIR,
+        settings.HOMEWORK_AUDIO_DIR,
+    ):
+        Path(d).mkdir(parents=True, exist_ok=True)
     Path(settings.QUESTION_BANK_PATH).parent.mkdir(parents=True, exist_ok=True)
-    Path(settings.WRITING_IMAGE_DIR).mkdir(parents=True, exist_ok=True)
-    Path(settings.WRITING_PACKS_DIR).mkdir(parents=True, exist_ok=True)
-    Path(settings.READING_DIAGRAM_DIR).mkdir(parents=True, exist_ok=True)
-    Path(settings.READING_PACKS_DIR).mkdir(parents=True, exist_ok=True)
-    Path(settings.LISTENING_AUDIO_DIR).mkdir(parents=True, exist_ok=True)
-    Path(settings.LISTENING_MAP_DIR).mkdir(parents=True, exist_ok=True)
-    Path(settings.NOTES_DIR).mkdir(parents=True, exist_ok=True)
 
     # Initialize database tables
     init_db()
@@ -106,20 +129,20 @@ app = FastAPI(
     description="Personal IELTS Speaking, Writing, Reading and Listening practice.",
     version="1.0.0",
     lifespan=lifespan,
-    # Hide internal error details from non-debug responses
-    openapi_url="/api/openapi.json",
-    docs_url="/api/docs",
+    openapi_url=None if settings.is_production else "/api/openapi.json",
+    docs_url=None if settings.is_production else "/api/docs",
     redoc_url=None,
 )
 
-# CORS — production origins from env (comma-separated)
-_cors = [o.strip() for o in (settings.CORS_ORIGINS or "").split(",") if o.strip()]
+# Trust X-Forwarded-* from Nginx on the same host (Hestia reverse proxy).
+app.add_middleware(ProxyHeadersMiddleware, trusted_hosts=["127.0.0.1", "localhost", "::1"])
+app.add_middleware(SecurityHeadersMiddleware)
+
+# CORS — never "*" when credentials are used. Production defaults to fti4iltes.tech.
+_cors = settings.cors_origin_list()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=_cors or [
-        "http://localhost:5174",
-        "http://127.0.0.1:5174",
-    ],
+    allow_origins=_cors,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -141,15 +164,12 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 
 @app.exception_handler(Exception)
 async def generic_exception_handler(request: Request, exc: Exception):
-    """
-    Catch-all: log the real error. Return a short reason so the UI is not a dead end.
-    Stack traces are never sent to the browser.
-    """
+    """Catch-all: log fully; never send stack traces (or exception text in production)."""
     logger.error("Unhandled exception on %s: %s", request.url.path, exc, exc_info=True)
-    return JSONResponse(
-        status_code=500,
-        content={"detail": f"An internal error occurred: {exc}"},
-    )
+    detail = "An internal error occurred."
+    if not settings.is_production:
+        detail = f"An internal error occurred: {exc}"
+    return JSONResponse(status_code=500, content={"detail": detail})
 
 
 # ─────────────────────────── Routers ─────────────────────────────────────────

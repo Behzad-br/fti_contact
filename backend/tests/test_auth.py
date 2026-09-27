@@ -15,7 +15,11 @@ def test_login_requires_user(client):
 
 def test_bootstrap_and_login(client, db):
     from app.auth.bootstrap import ensure_bootstrap_admin
+    from app.auth.models import User
     from app.config import settings
+
+    db.query(User).delete()
+    db.commit()
 
     settings.AUTH_BOOTSTRAP_PASSWORD = "Admin@12345"
     settings.AUTH_BOOTSTRAP_USERNAME = "admin"

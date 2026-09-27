@@ -18,7 +18,7 @@ _SAMPLE_TEST = {
 
 
 def _make_completed_session(db):
-    session, questions = speaking_session.create_session(db, "stored", _SAMPLE_TEST)
+    session, questions = speaking_session.create_session(db, "stored", _SAMPLE_TEST, student_id="local")
     for q in questions:
         speaking_session.save_answer(db, session.id, q.id, "An answer.", 10.0, 5, 0, 30.0)
     speaking_session.complete_session(db, session.id, estimated_band=6.5)

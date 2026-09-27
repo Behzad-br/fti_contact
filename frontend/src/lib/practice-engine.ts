@@ -1,4 +1,5 @@
 import { apiBase } from "@/lib/api-base";
+import { authHeaders } from "@/lib/auth-api";
 
 export type PracticeSource = "bank" | "ai";
 
@@ -150,7 +151,7 @@ async function api<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${apiBase()}${path}`, {
     ...options,
     headers: {
-      "X-Student-Id": "local",
+      ...authHeaders(),
       ...(options?.body ? { "Content-Type": "application/json" } : {}),
       ...(options?.headers as Record<string, string> | undefined),
     },

@@ -38,7 +38,7 @@ _MOCK_IMAGE_TYPES = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"}
 
 
 def _mock_image_dir() -> Path:
-    path = Path(settings.READING_DIAGRAM_DIR).parent / "mock_images"
+    path = Path(settings.MOCK_IMAGE_DIR)
     path.mkdir(parents=True, exist_ok=True)
     return path
 
@@ -50,16 +50,27 @@ async def upload_mock_image(file: UploadFile = File(...), _: str = Depends(requi
         raise HTTPException(400, "Use PNG, JPG, WEBP, GIF, or SVG.")
     name = f"{uuid.uuid4().hex[:12]}{suffix}"
     dest = _mock_image_dir() / name
-    dest.write_bytes(await file.read())
+    data = await file.read()
+    if not data:
+        raise HTTPException(400, "Empty file.")
+    if len(data) > settings.MAX_UPLOAD_SIZE_MB * 1024 * 1024:
+        raise HTTPException(413, f"File too large. Max {settings.MAX_UPLOAD_SIZE_MB}MB.")
+    dest.write_bytes(data)
     return {"filename": name, "url": f"/api/mocks/images/{name}"}
 
 
 @router.get("/mocks/images/{filename}")
 async def mock_image(filename: str):
     safe = Path(filename).name
+    if safe != filename or ".." in filename:
+        raise HTTPException(400, "Invalid filename.")
     path = _mock_image_dir() / safe
     if not path.is_file() or path.suffix.lower() not in _MOCK_IMAGE_TYPES:
         raise HTTPException(404, "Image not found.")
+    try:
+        path.resolve().relative_to(_mock_image_dir().resolve())
+    except ValueError:
+        raise HTTPException(400, "Invalid filename.")
     media = mimetypes.guess_type(str(path))[0] or "application/octet-stream"
     return FileResponse(path, media_type=media)
 

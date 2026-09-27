@@ -1,6 +1,6 @@
 # One stack: FastAPI backend (Socket.IO) + Writewise frontend
 $ErrorActionPreference = "Stop"
-$root = Split-Path -Parent $MyInvocation.MyCommand.Path
+$root = Resolve-Path (Join-Path $PSScriptRoot "..")
 
 Write-Host "Starting FastAPI backend on http://127.0.0.1:8001"
 Start-Process powershell -ArgumentList @(

@@ -14,6 +14,7 @@ from fastapi import APIRouter, Depends, File, Header, HTTPException, UploadFile
 from sqlalchemy import or_
 from sqlalchemy.orm import Session
 
+from app.auth.deps import get_optional_user
 from app.config import settings
 from app.database import get_db
 from app.writing.models import (
@@ -34,15 +35,20 @@ from app.writing.services.writing_import import import_file, import_records, loa
 router = APIRouter()
 
 
-def require_admin(x_admin_token: Optional[str] = Header(default=None, alias="X-Admin-Token")) -> str:
+def require_admin(
+    user=Depends(get_optional_user),
+    x_admin_token: Optional[str] = Header(default=None, alias="X-Admin-Token"),
+) -> str:
+    """Prefer WRITING_ADMIN_TOKEN when set; otherwise require teacher/admin JWT."""
     expected = (settings.WRITING_ADMIN_TOKEN or "").strip()
     provided = (x_admin_token or "").strip()
     if expected:
         if provided != expected:
             raise HTTPException(403, "Admin token required.")
         return "admin"
-    # Local personal app: empty token allows admin tools.
-    return "admin"
+    if user and getattr(user, "role", None) in {"teacher", "branch_admin", "super_admin"}:
+        return user.id
+    raise HTTPException(403, "Admin authentication required.")
 
 
 def _q(db: Session, question_id: str) -> WritingQuestion:

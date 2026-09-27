@@ -1,19 +1,28 @@
-import { authHeaders } from "@/lib/auth-api";
+import { authHeaders, getAuthUser } from "@/lib/auth-api";
 import { apiBase } from "@/lib/api-base";
+import { getCurrentStudent } from "@/lib/mock-api";
 
 async function hw<T>(path: string, options?: RequestInit): Promise<T> {
+  const user = getAuthUser();
+  const student = getCurrentStudent();
+  const studentId =
+    user?.role === "student"
+      ? user.id
+      : user?.role === "teacher" || user?.role === "branch_admin" || user?.role === "super_admin"
+        ? ""
+        : student?.id || "";
+
   const res = await fetch(`${apiBase()}${path}`, {
     ...options,
     headers: {
       ...authHeaders(),
-      "X-Student-Id": "local",
-      "X-Admin-Token": localStorage.getItem("writing_admin_token") || "",
+      ...(studentId ? { "X-Student-Id": studentId } : {}),
       ...(options?.body && !(options.body instanceof FormData) ? { "Content-Type": "application/json" } : {}),
       ...(options?.headers as Record<string, string> | undefined),
     },
   });
   if (!res.ok) {
-    let detail = `HTTP ${res.status}`;
+    let detail: unknown = `HTTP ${res.status}`;
     try {
       const body = await res.json();
       detail = body.detail || detail;
